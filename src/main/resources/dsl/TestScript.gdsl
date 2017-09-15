@@ -1,0 +1,86 @@
+package dsl
+
+def ctx = context(ctype: "crafttweaker.api.recipes.IRecipeManager")
+
+// ---------- Recipe Manager ----------
+contributor (ctx) {
+
+    //region >>>> add shaped without name
+    method(name: "addShaped", type: "void",
+            params: [
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<java.util.List<crafttweaker.api.item.IIngredient>>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction",
+                    recipeAction: "crafttweaker.api.recipes.IRecipeAction"])
+    method(name: "addShaped", type: "void",
+            params: [
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<java.util.List<crafttweaker.api.item.IIngredient>>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction"])
+    method(name: "addShaped", type: "void",
+            params: [
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<java.util.List<crafttweaker.api.item.IIngredient>>"])
+    //endregion
+
+    //region >>>> add shaped with name
+    method(name: "addShaped", type: "void",
+            params: [
+                    name: "java.lang.String",
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<java.util.List<crafttweaker.api.item.IIngredient>>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction",
+                    recipeAction: "crafttweaker.api.recipes.IRecipeAction"])
+    method(name: "addShaped", type: "void",
+            params: [
+                    name: "java.lang.String",
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<java.util.List<crafttweaker.api.item.IIngredient>>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction"])
+    method(name: "addShaped", type: "void",
+            params: [
+                    name: "java.lang.String",
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<java.util.List<crafttweaker.api.item.IIngredient>>"])
+    //endregion
+
+    //region >>>> add shapeless without name
+    method(name: "addShapeless", type: "void",
+            params: [
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<crafttweaker.api.item.IIngredient>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction",
+                    recipeAction: "crafttweaker.api.recipes.IRecipeAction"])
+    method(name: "addShapeless", type: "void",
+            params: [
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<crafttweaker.api.item.IIngredient>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction"])
+    method(name: "addShapeless", type: "void",
+            params: [
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<crafttweaker.api.item.IIngredient>"])
+    //endregion
+
+    //region >>>> add shapeless with name
+    method(name: "addShapeless", type: "void",
+            params: [
+                    name: "java.lang.String",
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<crafttweaker.api.item.IIngredient>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction",
+                    recipeAction: "crafttweaker.api.recipes.IRecipeAction"])
+    method(name: "addShapeless", type: "void",
+            params: [
+                    name: "java.lang.String",
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<crafttweaker.api.item.IIngredient>",
+                    recipeFunction: "crafttweaker.api.recipes.IRecipeFunction"])
+    method(name: "addShapeless", type: "void",
+            params: [
+                    name: "java.lang.String",
+                    out: "crafttweaker.api.item.IItemStack",
+                    ingred: "java.util.List<crafttweaker.api.item.IIngredient>"])
+    //endregion
+
+}

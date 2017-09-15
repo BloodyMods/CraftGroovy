@@ -4,12 +4,19 @@ import atm.bloodworkxgaming.crtgroovyaddon.commands.CGChatCommand;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.ConsoleLogger;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.FileLogger;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.ILogger;
+import atm.bloodworkxgaming.crtgroovyaddon.mixins.MixinClasses;
+import com.teamacronymcoders.contenttweaker.modules.materials.MaterialPartBracketHandler;
+import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.BlockBracketHandler;
+import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler;
+import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundEventBracketHandler;
+import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundTypeBracketHandler;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.recipes.IRecipeManager;
-import crafttweaker.mc1120.brackets.BracketHandlerItem;
-import crafttweaker.mc1120.brackets.BracketHandlerOre;
+import crafttweaker.mc1120.brackets.*;
 import crafttweaker.mc1120.item.MCItemStack;
+import crafttweaker.zenscript.GlobalRegistry;
+import crafttweaker.zenscript.IBracketHandler;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.AnnotationManager;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
@@ -19,6 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -33,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Mod(modid = CrTGroovyAddon.MODID, name = "CrTGroovyAddon", version = CrTGroovyAddon.VERSION, dependencies = "after:crafttweaker")
+@Mod(modid = CrTGroovyAddon.MODID, name = "CrTGroovyAddon", version = CrTGroovyAddon.VERSION, dependencies = "after:crafttweaker; after:contenttweaker")
 public class CrTGroovyAddon {
     public static final String MODID = "crtgroovyaddon";
     public static final String VERSION = "0.1";
@@ -106,8 +114,19 @@ public class CrTGroovyAddon {
 
         AnnotationManager.registerOptionalParameterAnnotation(Optional.class);
 
+        sandboxedLauncher.launchWrapper.registerMixinProvider(new MixinClasses());
+
         sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerItem.class, "getItem");
         sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerOre.class, "getOre");
+        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerPotion.class, "getPotion");
+        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerLiquid.class, "getLiquid");
+        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerEntity.class, "getEntity");
+
+
+        sandboxedLauncher.whitelistRegistry.registerMethod(BlockBracketHandler.class, "getBlock");
+        sandboxedLauncher.whitelistRegistry.registerMethod(MaterialBracketHandler.class, "getBlockMaterial");
+        sandboxedLauncher.whitelistRegistry.registerMethod(SoundEventBracketHandler.class, "getSoundEvent");
+        sandboxedLauncher.whitelistRegistry.registerMethod(SoundTypeBracketHandler.class, "getSoundType");
 
 
         sandboxedLauncher.whitelistRegistry.registerMethod(CraftTweakerAPI.class, "getLogger");
@@ -119,6 +138,11 @@ public class CrTGroovyAddon {
 
         sandboxedLauncher.initSandbox();
         sandboxedLauncher.loadScripts();
+    }
+
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event){
+        sandboxedLauncher.runFunctionAll("preinit", event);
     }
 
     @EventHandler
