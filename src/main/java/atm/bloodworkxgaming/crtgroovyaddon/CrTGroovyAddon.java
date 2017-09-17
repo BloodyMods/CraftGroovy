@@ -1,6 +1,7 @@
 package atm.bloodworkxgaming.crtgroovyaddon;
 
 import atm.bloodworkxgaming.crtgroovyaddon.commands.CGChatCommand;
+import atm.bloodworkxgaming.crtgroovyaddon.events.CGEventHandler;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.ConsoleLogger;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.FileLogger;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.ILogger;
@@ -22,18 +23,22 @@ import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.AnnotationManager;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.FMLEventChannel;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import stanhebben.zenscript.annotations.*;
 
+import java.awt.*;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +60,7 @@ public class CrTGroovyAddon {
         loggers.add(new ConsoleLogger());
     }
 
-    public GroovySandboxedLauncher sandboxedLauncher;
+    public static GroovySandboxedLauncher sandboxedLauncher;
 
     /**
      * Error handling
@@ -100,6 +105,8 @@ public class CrTGroovyAddon {
 
     @EventHandler
     public void construction(FMLConstructionEvent event) {
+        MinecraftForge.EVENT_BUS.register(new CGEventHandler());
+
         sandboxedLauncher = new GroovySandboxedLauncher();
 
         sandboxedLauncher.scriptPathConfig.registerScriptPathRoots("D:\\Users\\jonas\\Documents\\GitHub\\CrTGroovyAddon\\src\\test\\java\\groovyScripts");

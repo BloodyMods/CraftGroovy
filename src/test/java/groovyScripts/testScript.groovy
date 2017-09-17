@@ -1,9 +1,10 @@
 package groovyScripts
 
-import com.teamacronymcoders.contenttweaker.api.ContentTweakerAPI
+import atm.bloodworkxgaming.crtgroovyaddon.events.EventManager
+import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
+import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
+import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
-import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler
-import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundTypeBracketHandler
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler.getBlockMaterial
@@ -34,16 +35,27 @@ void preinit(FMLPreInitializationEvent event){
     println " This should be in preinit"
 
 
-    def antiIceBlock = VanillaFactory.createBlock("anti_ice", getBlockMaterial("ice"))
-    antiIceBlock.with {
-        setLightOpacity(3)
-        setLightValue(0)
+    VanillaFactory.createBlock("anti_ice", getBlockMaterial("ice")).with {
+        lightOpacity = 3
+        lightValue = 10
         setBlockHardness(5.0f)
         setBlockResistance(5.0f)
         setToolClass("pickaxe")
         setToolLevel(0)
         setBlockSoundType(getSoundType("snow"))
         setSlipperiness(0.3f)
+        onBlockBreak = { IWorld world, IBlockPos pos, ICTBlockState var3 ->
+            println "breaking a block at pos ${pos.getX()}, ${pos.getY()}, ${pos.getZ()}"
+        }
         register()
     }
+}
+
+
+EventManager.init {
+    println magic
+}
+
+EventManager.blockBreak {
+    println "Player ${breakEvent.player.displayName} is breaking ${breakEvent.state.block} block at ${breakEvent.pos}"
 }

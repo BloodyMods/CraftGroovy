@@ -59,7 +59,7 @@ public abstract class CraftTweakerCommand {
     /**
      * Has to be overwritten by the commands
      *
-     * @param args: Has only the args after this original event
+     * @param args: Has only the args after this original breakEvent
      */
     public abstract void executeCommand(MinecraftServer server, ICommandSender sender, String[] args);
     
