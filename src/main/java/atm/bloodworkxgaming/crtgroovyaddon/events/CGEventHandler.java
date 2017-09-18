@@ -1,7 +1,6 @@
 package atm.bloodworkxgaming.crtgroovyaddon.events;
 
 import atm.bloodworkxgaming.crtgroovyaddon.CrTGroovyAddon;
-import atm.bloodworkxgaming.crtgroovyaddon.delegate.BreakEventDelegate;
 import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PBreakEvent;
 import groovy.lang.Closure;
 import net.minecraft.block.Block;
@@ -28,14 +27,10 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void breakEvent(BlockEvent.BreakEvent e) {
-        System.out.println(" break event called");
         for (Closure closure : EventManager.getBlockBreakClosures()) {
-            BreakEventDelegate delegate = new BreakEventDelegate(new PBreakEvent(e));
+            PBreakEvent delegate = new PBreakEvent(e);
             Closure code = closure.rehydrate(delegate, this, this);
             code.setResolveStrategy(Closure.DELEGATE_ONLY);
-            System.out.println("code = " + code);
-
-            System.out.println("Thread.currentThread() = " + Thread.currentThread());
 
             CrTGroovyAddon.sandboxedLauncher.runClosure(code);
         }

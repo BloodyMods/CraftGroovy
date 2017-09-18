@@ -3,17 +3,39 @@ package atm.bloodworkxgaming.crtgroovyaddon.wrappers;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraftforge.event.world.BlockEvent;
 
-public class PBreakEvent {
-
-    @GSLWhitelistMember public PWorld world;
-    @GSLWhitelistMember public PBlockPos pos;
-    @GSLWhitelistMember public PBlockState state;
-    @GSLWhitelistMember public PPlayer player;
+public class PBreakEvent extends ICGWrapper<BlockEvent.BreakEvent>{
 
     public PBreakEvent(BlockEvent.BreakEvent e) {
-        this.world = new PWorld(e.getWorld());
-        this.pos = new PBlockPos(e.getPos());
-        this.state = new PBlockState(e.getState());
-        this.player = new PPlayer(e.getPlayer());
+        super(e);
+    }
+
+    @GSLWhitelistMember
+    public PPlayer getPlayer() {
+        return new PPlayer(internal.getPlayer());
+    }
+
+    @GSLWhitelistMember
+    public int getExpToDrop() {
+        return internal.getExpToDrop();
+    }
+
+    @GSLWhitelistMember
+    public void setExpToDrop(int exp) {
+        internal.setExpToDrop(exp);
+    }
+
+    @GSLWhitelistMember
+    public PWorld getWorld() {
+        return new PWorld(internal.getWorld());
+    }
+
+    @GSLWhitelistMember
+    public PBlockPos getPos() {
+        return new PBlockPos(internal.getPos());
+    }
+
+    @GSLWhitelistMember
+    public PBlockState getState() {
+        return new PBlockState(internal.getState());
     }
 }

@@ -1,7 +1,7 @@
 package atm.bloodworkxgaming.crtgroovyaddon.events
 
-import atm.bloodworkxgaming.crtgroovyaddon.delegate.BreakEventDelegate
 import atm.bloodworkxgaming.crtgroovyaddon.delegate.InitDelegate
+import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PBreakEvent
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 
 class EventManager {
@@ -21,8 +21,7 @@ class EventManager {
     }
 
     @GSLWhitelistMember
-    static def blockBreak(@DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = BreakEventDelegate) Closure cl){
-        println "called stuff in blockBreak delegate thingy "
+    static def blockBreak(@DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = PBreakEvent) Closure cl){
         blockBreakClosures.add(cl)
     }
 }

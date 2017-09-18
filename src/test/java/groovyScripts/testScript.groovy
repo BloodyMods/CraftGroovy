@@ -57,5 +57,14 @@ EventManager.init {
 }
 
 EventManager.blockBreak {
-    println "Player ${breakEvent.player.displayName} is breaking ${breakEvent.state.block} block at ${breakEvent.pos}"
+    println "Player ${player.displayName} is breaking ${state.block} block at ${pos}"
+    expToDrop = 100   // either this syntax
+    setExpToDrop(300) // or this syntax
+
+    if (state.block.registryName.toString() == "minecraft:stone"){
+        player.setFire(20) // same here
+        player.fire = 20   // <-|
+
+        player.addExperienceLevel(3)
+    }
 }

@@ -13,12 +13,12 @@ public class PWorld {
 
     @GSLWhitelistMember
     public PBiome getBiome(PBlockPos pos) {
-        return new PBiome(world.getBiome(pos.pos));
+        return new PBiome(world.getBiome(pos.getInternal()));
     }
 
     @GSLWhitelistMember
     public boolean setBlockState(PBlockPos pos, PBlockState state) {
-        return world.setBlockState(pos.pos, state.state);
+        return world.setBlockState(pos.getInternal(), state.getInternal());
     }
 
     @GSLWhitelistMember
@@ -33,12 +33,12 @@ public class PWorld {
 
     @GSLWhitelistMember
     public PBlockState getBlockState(PBlockPos pos) {
-        return new PBlockState(world.getBlockState(pos.pos));
+        return new PBlockState(world.getBlockState(pos.getInternal()));
     }
 
     @GSLWhitelistMember
     public boolean canSeeSky(PBlockPos pos) {
-        return world.canSeeSky(pos.pos);
+        return world.canSeeSky(pos.getInternal());
     }
 
     @GSLWhitelistMember
@@ -48,11 +48,11 @@ public class PWorld {
 
     @GSLWhitelistMember
     public void setSpawnPoint(PBlockPos pos) {
-        world.setSpawnPoint(pos.pos);
+        world.setSpawnPoint(pos.getInternal());
     }
 
     @GSLWhitelistMember
     public void setToAir(PBlockPos pos){
-        world.setBlockToAir(pos.pos);
+        world.setBlockToAir(pos.getInternal());
     }
 }

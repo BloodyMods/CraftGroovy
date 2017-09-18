@@ -4,16 +4,14 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMembe
 import net.minecraft.block.state.IBlockState;
 
 
-public class PBlockState {
-
-    protected IBlockState state;
+public class PBlockState extends ICGWrapper<IBlockState>{
 
     protected PBlockState(IBlockState state){
-        this.state = state;
+        super(state);
     }
 
     @GSLWhitelistMember
     public PBlock getBlock(){
-        return new PBlock(state.getBlock());
+        return new PBlock(internal.getBlock());
     }
 }

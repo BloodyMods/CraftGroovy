@@ -6,6 +6,7 @@ import atm.bloodworkxgaming.crtgroovyaddon.logger.ConsoleLogger;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.FileLogger;
 import atm.bloodworkxgaming.crtgroovyaddon.logger.ILogger;
 import atm.bloodworkxgaming.crtgroovyaddon.mixins.MixinClasses;
+import atm.bloodworkxgaming.crtgroovyaddon.wrappers.WrapperWhitelister;
 import com.teamacronymcoders.contenttweaker.modules.materials.MaterialPartBracketHandler;
 import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.BlockBracketHandler;
 import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler;
@@ -138,6 +139,8 @@ public class CrTGroovyAddon {
 
         sandboxedLauncher.whitelistRegistry.registerMethod(CraftTweakerAPI.class, "getLogger");
         sandboxedLauncher.whitelistRegistry.registerField(CraftTweakerAPI.class, "recipes");
+
+        WrapperWhitelister.registerWrappers(sandboxedLauncher.whitelistRegistry);
 
         sandboxedLauncher.whitelistRegistry.invertObjectWhitelist();
         sandboxedLauncher.importModifier.addStaticStars("java.lang.Math");
