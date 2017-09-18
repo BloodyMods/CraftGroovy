@@ -1,10 +1,11 @@
 package groovyScripts
 
-import atm.bloodworkxgaming.crtgroovyaddon.events.EventManager
+import atm.bloodworkxgaming.crtgroovyaddon.events.CGEventManager
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
+import crafttweaker.mc1120.brackets.BracketHandlerItem
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler.getBlockMaterial
@@ -52,19 +53,40 @@ void preinit(FMLPreInitializationEvent event){
 }
 
 
-EventManager.init {
-    println magic
-}
-
-EventManager.blockBreak {
+CGEventManager.blockBreak {
     println "Player ${player.displayName} is breaking ${state.block} block at ${pos}"
-    expToDrop = 100   // either this syntax
-    setExpToDrop(300) // or this syntax
+    expToDrop = 100
 
-    if (state.block.registryName.toString() == "minecraft:stone"){
-        player.setFire(20) // same here
-        player.fire = 20   // <-|
+    if (state.block.registryName.toString() == "minecraft:dirt"){
+        println "Item: " + player.heldMain.displayName
+
+        if (player.heldMain.definition.id.contains("pickaxe")){
+            player.fire = 20
+        }
 
         player.addExperienceLevel(3)
+    }
+}
+
+CGEventManager.blockPlace {
+    println "Block $state being placed by $player"
+}
+
+CGEventManager.rightClickBlock {
+    println "ItemStack: $itemStack"
+    println "Block at $pos clicked with ${itemStack?.displayName}"
+
+    if (itemStack?.definition?.id == "minecraft:diamond"){
+        if (world.getBlockState(pos).block.registryName == "minecraft:stone"
+                && world.getBlockState(pos.add(1,0,0)).block.registryName == "minecraft:dirt"
+                && world.getBlockState(pos.add(-1,0,0)).block.registryName == "minecraft:dirt"
+                && world.getBlockState(pos.add(0,0,1)).block.registryName == "minecraft:dirt"
+                && world.getBlockState(pos.add(0,0,-1)).block.registryName == "minecraft:dirt") {
+
+            world.setToAir(pos)
+            player.heldMain.amount(player.heldMain.amount - 1)
+
+            player.addItemStackToInventory(getItem("minecraft:redstone", 0).amount(20))
+        }
     }
 }

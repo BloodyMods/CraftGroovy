@@ -24,18 +24,18 @@ public class PBlock extends ICGWrapper<Block> {
     }
 
     @GSLWhitelistMember
-    public static int getIdFromBlock(Block blockIn) {
-        return Block.getIdFromBlock(blockIn);
+    public static int getIdFromBlock(PBlock blockIn) {
+        return Block.getIdFromBlock(blockIn.getInternal());
     }
 
     @GSLWhitelistMember
-    public static int getStateId(IBlockState state) {
-        return Block.getStateId(state);
+    public static int getStateId(PBlockState state) {
+        return Block.getStateId(state.getInternal());
     }
 
     @GSLWhitelistMember
-    public static Block getBlockById(int id) {
-        return Block.getBlockById(id);
+    public static PBlock getBlockById(int id) {
+        return new PBlock(Block.getBlockById(id));
     }
 
     @GSLWhitelistMember
@@ -44,14 +44,14 @@ public class PBlock extends ICGWrapper<Block> {
     }
 
     @GSLWhitelistMember
-    public static Block getBlockFromItem(@Nullable Item itemIn) {
-        return Block.getBlockFromItem(itemIn);
+    public static PBlock getBlockFromItem(@Nullable Item itemIn) {
+        return new PBlock(Block.getBlockFromItem(itemIn));
     }
 
     @Nullable
     @GSLWhitelistMember
-    public static Block getBlockFromName(String name) {
-        return Block.getBlockFromName(name);
+    public static PBlock getBlockFromName(String name) {
+        return new PBlock(Block.getBlockFromName(name));
     }
 
     @GSLWhitelistMember
@@ -90,9 +90,8 @@ public class PBlock extends ICGWrapper<Block> {
     }
 
     @GSLWhitelistMember
-    @Nullable
-    public ResourceLocation getRegistryName() {
-        return internal.getRegistryName();
+    public String getRegistryName() {
+        return String.valueOf(internal.getRegistryName());
     }
 
     @GSLWhitelistMember
@@ -100,9 +99,8 @@ public class PBlock extends ICGWrapper<Block> {
         internal.breakBlock(worldIn, pos, state);
     }
 
-    @GSLWhitelistMember
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-        internal.harvestBlock(worldIn, player, pos, state, te, stack);
+    public void harvestBlock(World worldIn, PPlayer player, PBlockPos pos, PBlockState state, @Nullable TileEntity te, ItemStack stack) {
+        internal.harvestBlock(worldIn, player.getInternal(), pos.getInternal(), state.getInternal(), te, stack);
     }
 
     @GSLWhitelistMember

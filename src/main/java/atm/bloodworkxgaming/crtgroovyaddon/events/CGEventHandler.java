@@ -2,13 +2,17 @@ package atm.bloodworkxgaming.crtgroovyaddon.events;
 
 import atm.bloodworkxgaming.crtgroovyaddon.CrTGroovyAddon;
 import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PBreakEvent;
+import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PPlaceEvent;
+import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PRightClickBlock;
 import groovy.lang.Closure;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,12 +31,38 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void breakEvent(BlockEvent.BreakEvent e) {
-        for (Closure closure : EventManager.getBlockBreakClosures()) {
+        for (Closure closure : CGEventManager.getBlockBreakClosures()) {
             PBreakEvent delegate = new PBreakEvent(e);
             Closure code = closure.rehydrate(delegate, this, this);
-            code.setResolveStrategy(Closure.DELEGATE_ONLY);
+            code.setResolveStrategy(Closure.DELEGATE_FIRST);
 
             CrTGroovyAddon.sandboxedLauncher.runClosure(code);
+        }
+    }
+
+    @SubscribeEvent
+    public void placeEvent(BlockEvent.PlaceEvent e){
+        for (Closure closure : CGEventManager.getBlockPlaceClosures()) {
+            PPlaceEvent delegate = new PPlaceEvent(e);
+            Closure code = closure.rehydrate(delegate, this, this);
+            code.setResolveStrategy(Closure.DELEGATE_FIRST);
+
+            CrTGroovyAddon.sandboxedLauncher.runClosure(code);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerInteractEvent(RightClickBlock event){
+        if (!event.getWorld().isRemote){
+            if (event.getHand() == EnumHand.MAIN_HAND){ //TODO: let user select hand to make the actions
+                for (Closure closure : CGEventManager.getRightClickBlockClosures()) {
+                    PRightClickBlock delegate = new PRightClickBlock(event);
+                    Closure code = closure.rehydrate(delegate, this, this);
+                    code.setResolveStrategy(Closure.DELEGATE_FIRST);
+
+                    CrTGroovyAddon.sandboxedLauncher.runClosure(code);
+                }
+            }
         }
     }
 

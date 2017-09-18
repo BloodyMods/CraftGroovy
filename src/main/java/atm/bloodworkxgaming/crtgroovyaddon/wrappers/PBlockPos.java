@@ -1,8 +1,10 @@
 package atm.bloodworkxgaming.crtgroovyaddon.wrappers;
 
+import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistConstructor;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraft.util.math.BlockPos;
 
+@GSLWhitelistConstructor
 public class PBlockPos extends ICGWrapper<BlockPos>{
 
     public PBlockPos(BlockPos pos){
@@ -28,8 +30,8 @@ public class PBlockPos extends ICGWrapper<BlockPos>{
         return internal.getZ();
     }
 
-    @Override
-    public String toString() {
-        return internal.toString();
+    @GSLWhitelistMember
+    public PBlockPos add(int x, int y, int z) {
+        return new PBlockPos(internal.add(x, y, z));
     }
 }

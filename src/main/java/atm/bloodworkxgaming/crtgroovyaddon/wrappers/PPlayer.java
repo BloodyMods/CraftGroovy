@@ -21,58 +21,56 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class PPlayer {
-
-    private EntityPlayer player;
+public class PPlayer extends ICGWrapper<EntityPlayer>{
 
     public PPlayer(EntityPlayer player) {
-        this.player = player;
+        super(player);
     }
 
     @GSLWhitelistMember
     public IItemStack getHeldMain() {
-        return new MCItemStack(player.getHeldItem(EnumHand.MAIN_HAND));
+        return new MCItemStack(internal.getHeldItem(EnumHand.MAIN_HAND));
     }
 
     @GSLWhitelistMember
     public IItemStack getHeldOffHand() {
-        return new MCItemStack(player.getHeldItem(EnumHand.OFF_HAND));
+        return new MCItemStack(internal.getHeldItem(EnumHand.OFF_HAND));
     }
 
     @GSLWhitelistMember
     public double getMotionX() {
-        return player.motionX;
+        return internal.motionX;
     }
 
     @GSLWhitelistMember
     public double getMotionY() {
-        return player.motionY;
+        return internal.motionY;
     }
 
     @GSLWhitelistMember
     public double getMotionZ() {
-        return player.motionZ;
+        return internal.motionZ;
     }
 
     @GSLWhitelistMember
     public String getDisplayName() {
-        return player.getDisplayNameString();
+        return internal.getDisplayNameString();
     }
 
     @GSLWhitelistMember
     public void setGameType(String type) {
         switch (type.toLowerCase()) {
             case "survival":
-                player.setGameType(GameType.SURVIVAL);
+                internal.setGameType(GameType.SURVIVAL);
                 break;
             case "creative":
-                player.setGameType(GameType.CREATIVE);
+                internal.setGameType(GameType.CREATIVE);
                 break;
             case "adventure":
-                player.setGameType(GameType.ADVENTURE);
+                internal.setGameType(GameType.ADVENTURE);
                 break;
             case "spectator":
-                player.setGameType(GameType.SPECTATOR);
+                internal.setGameType(GameType.SPECTATOR);
                 break;
             default:
                 break;
@@ -81,143 +79,170 @@ public class PPlayer {
 
     @GSLWhitelistMember
     public boolean isSneaking(){
-        return player.isSneaking();
+        return internal.isSneaking();
     }
 
+    @GSLWhitelistMember
     public void setSneaking(boolean sneaking) {
-        player.setSneaking(sneaking);
+        internal.setSneaking(sneaking);
     }
 
+    @GSLWhitelistMember
     public boolean isSprinting() {
-        return player.isSprinting();
+        return internal.isSprinting();
     }
 
+    @GSLWhitelistMember
     public boolean isGlowing() {
-        return player.isGlowing();
+        return internal.isGlowing();
     }
 
+    @GSLWhitelistMember
     public void setGlowing(boolean glowingIn) {
-        player.setGlowing(glowingIn);
+        internal.setGlowing(glowingIn);
     }
 
+    @GSLWhitelistMember
     public boolean isInvisible() {
-        return player.isInvisible();
+        return internal.isInvisible();
     }
 
     @Nullable
     public EntityItem dropItem(boolean dropAll) {
-        return player.dropItem(dropAll);
+        return internal.dropItem(dropAll);
     }
 
     @Nullable
     public EntityItem dropItem(ItemStack itemStackIn, boolean unused) {
-        return player.dropItem(itemStackIn, unused);
+        return internal.dropItem(itemStackIn, unused);
     }
 
     @Nullable
     public EntityItem dropItem(ItemStack droppedItem, boolean dropAround, boolean traceItem) {
-        return player.dropItem(droppedItem, dropAround, traceItem);
+        return internal.dropItem(droppedItem, dropAround, traceItem);
     }
 
     public ItemStack dropItemAndGetStack(EntityItem p_184816_1_) {
-        return player.dropItemAndGetStack(p_184816_1_);
+        return internal.dropItemAndGetStack(p_184816_1_);
     }
 
+    @GSLWhitelistMember
     public void setDead() {
-        player.setDead();
+        internal.setDead();
     }
 
+    @GSLWhitelistMember
     public boolean isUser() {
-        return player.isUser();
+        return internal.isUser();
     }
 
+    @GSLWhitelistMember
     public boolean isPlayerSleeping() {
-        return player.isPlayerSleeping();
+        return internal.isPlayerSleeping();
     }
 
+    @GSLWhitelistMember
     public boolean isPlayerFullyAsleep() {
-        return player.isPlayerFullyAsleep();
+        return internal.isPlayerFullyAsleep();
     }
 
     @SideOnly(Side.CLIENT)
+    @GSLWhitelistMember
     public int getSleepTimer() {
-        return player.getSleepTimer();
+        return internal.getSleepTimer();
     }
 
-    public BlockPos getBedLocation() {
-        return player.getBedLocation();
+    @GSLWhitelistMember
+    public PBlockPos getBedLocation() {
+        return new PBlockPos(internal.getBedLocation());
     }
 
-    public void setSpawnPoint(BlockPos pos, boolean forced) {
-        player.setSpawnPoint(pos, forced);
+    @GSLWhitelistMember
+    public void setSpawnPoint(PBlockPos pos, boolean forced) {
+        internal.setSpawnPoint(pos.getInternal(), forced);
     }
 
+    @GSLWhitelistMember
     public void jump() {
-        player.jump();
+        internal.jump();
     }
 
+    @GSLWhitelistMember
     public void fall(float distance, float damageMultiplier) {
-        player.fall(distance, damageMultiplier);
+        internal.fall(distance, damageMultiplier);
     }
 
+    @GSLWhitelistMember
     public void addExperience(int amount) {
-        player.addExperience(amount);
+        internal.addExperience(amount);
     }
 
+    @GSLWhitelistMember
     public int getXPSeed() {
-        return player.getXPSeed();
+        return internal.getXPSeed();
     }
 
+    @GSLWhitelistMember
     public void addExperienceLevel(int levels) {
-        player.addExperienceLevel(levels);
+        internal.addExperienceLevel(levels);
     }
 
+    @GSLWhitelistMember
     public int xpBarCap() {
-        return player.xpBarCap();
+        return internal.xpBarCap();
     }
 
+    @GSLWhitelistMember
     public void addExhaustion(float exhaustion) {
-        player.addExhaustion(exhaustion);
+        internal.addExhaustion(exhaustion);
     }
 
     public FoodStats getFoodStats() {
-        return player.getFoodStats();
+        return internal.getFoodStats();
     }
 
+    @GSLWhitelistMember
     public boolean canEat(boolean ignoreHunger) {
-        return player.canEat(ignoreHunger);
+        return internal.canEat(ignoreHunger);
     }
 
+    @GSLWhitelistMember
     public boolean shouldHeal() {
-        return player.shouldHeal();
+        return internal.shouldHeal();
     }
 
+    @GSLWhitelistMember
     public String getName() {
-        return player.getName();
+        return internal.getName();
     }
 
     public InventoryEnderChest getInventoryEnderChest() {
-        return player.getInventoryEnderChest();
+        return internal.getInventoryEnderChest();
     }
 
-    public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
-        return player.getItemStackFromSlot(slotIn);
+    @GSLWhitelistMember
+    public IItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
+        return new MCItemStack(internal.getItemStackFromSlot(slotIn));
     }
 
-    public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
-        player.setItemStackToSlot(slotIn, stack);
+    @GSLWhitelistMember //TODO: either with string param or make enum public
+    public void setItemStackToSlot(EntityEquipmentSlot slotIn, IItemStack stack) {
+        internal.setItemStackToSlot(slotIn, (ItemStack) stack.getInternal());
     }
 
+    @GSLWhitelistMember
     public boolean isSpectator() {
-        return player.isSpectator();
+        return internal.isSpectator();
     }
 
+    @GSLWhitelistMember
     public boolean isCreative() {
-        return player.isCreative();
+        return internal.isCreative();
     }
 
+    @GSLWhitelistMember
     public boolean isPushedByWater() {
-        return player.isPushedByWater();
+        return internal.isPushedByWater();
     }
 
     public static UUID getUUID(GameProfile profile) {
@@ -228,94 +253,119 @@ public class PPlayer {
         return EntityPlayer.getOfflineUUID(username);
     }
 
-    public boolean replaceItemInInventory(int inventorySlot, ItemStack itemStackIn) {
-        return player.replaceItemInInventory(inventorySlot, itemStackIn);
+    @GSLWhitelistMember
+    public boolean replaceItemInInventory(int inventorySlot, IItemStack itemStackIn) {
+        return internal.replaceItemInInventory(inventorySlot, (ItemStack) itemStackIn.getInternal());
     }
 
     public EnumHandSide getPrimaryHand() {
-        return player.getPrimaryHand();
+        return internal.getPrimaryHand();
     }
 
+    @GSLWhitelistMember
     public float getLuck() {
-        return player.getLuck();
+        return internal.getLuck();
     }
 
-    public void setHeldItem(EnumHand hand, ItemStack stack) {
-        player.setHeldItem(hand, stack);
+    @GSLWhitelistMember
+    public void setHeldItem(EnumHand hand, IItemStack stack) {
+        internal.setHeldItem(hand, (ItemStack) stack.getInternal());
     }
 
     @SideOnly(Side.CLIENT)
+    @GSLWhitelistMember
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-        player.setPositionAndRotationDirect(x, y, z, yaw, pitch, posRotationIncrements, teleport);
+        internal.setPositionAndRotationDirect(x, y, z, yaw, pitch, posRotationIncrements, teleport);
     }
 
+    @GSLWhitelistMember
     public boolean attackable() {
-        return player.attackable();
+        return internal.attackable();
     }
 
+    @GSLWhitelistMember
     public int getEntityId() {
-        return player.getEntityId();
+        return internal.getEntityId();
     }
 
+    @GSLWhitelistMember
     public void setDropItemsWhenDead(boolean dropWhenDead) {
-        player.setDropItemsWhenDead(dropWhenDead);
+        internal.setDropItemsWhenDead(dropWhenDead);
     }
 
     @SideOnly(Side.CLIENT)
+    @GSLWhitelistMember
     public void turn(float yaw, float pitch) {
-        player.turn(yaw, pitch);
+        internal.turn(yaw, pitch);
     }
 
+    @GSLWhitelistMember
     public void setFire(int seconds) {
-        player.setFire(seconds);
+        internal.setFire(seconds);
     }
 
+    @GSLWhitelistMember
     public void extinguish() {
-        player.extinguish();
+        internal.extinguish();
     }
 
+    @GSLWhitelistMember
     public boolean hasNoGravity() {
-        return player.hasNoGravity();
+        return internal.hasNoGravity();
     }
 
+    @GSLWhitelistMember
     public void setNoGravity(boolean noGravity) {
-        player.setNoGravity(noGravity);
+        internal.setNoGravity(noGravity);
     }
 
+    @GSLWhitelistMember
     public boolean isWet() {
-        return player.isWet();
+        return internal.isWet();
     }
 
+    @GSLWhitelistMember
     public boolean isInWater() {
-        return player.isInWater();
+        return internal.isInWater();
     }
 
+    @GSLWhitelistMember
     public boolean isOverWater() {
-        return player.isOverWater();
+        return internal.isOverWater();
     }
 
+    @GSLWhitelistMember
     public void setPositionAndRotation(double x, double y, double z, float yaw, float pitch) {
-        player.setPositionAndRotation(x, y, z, yaw, pitch);
+        internal.setPositionAndRotation(x, y, z, yaw, pitch);
     }
 
     public Vec3d getLookVec() {
-        return player.getLookVec();
+        return internal.getLookVec();
     }
 
     @SideOnly(Side.CLIENT)
     public Vec3d getForward() {
-        return player.getForward();
+        return internal.getForward();
     }
 
+    @GSLWhitelistMember
     public boolean isBurning() {
-        return player.isBurning();
+        return internal.isBurning();
     }
 
+    @GSLWhitelistMember
     public boolean isRiding() {
-        return player.isRiding();
+        return internal.isRiding();
     }
 
+    @GSLWhitelistMember
     public boolean isBeingRidden() {
-        return player.isBeingRidden();
+        return internal.isBeingRidden();
+    }
+
+    @GSLWhitelistMember
+    public boolean addItemStackToInventory(IItemStack itemStackIn)
+    {
+        return internal.inventory.add(-1, (ItemStack) itemStackIn.getInternal());
     }
 }

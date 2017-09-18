@@ -12,7 +12,7 @@ public class PNeighborNotifyEvent {
         world = new PWorld(e.getWorld());
         state = new PBlockState(e.getState());
         forceRedstoneUpdate = e.getForceRedstoneUpdate();
-        // (World world, BlockPos pos, IBlockState state, EnumSet<EnumFacing> notifiedSides, boolean forceRedstoneUpdate)
+        // (World internal, BlockPos pos, IBlockState state, EnumSet<EnumFacing> notifiedSides, boolean forceRedstoneUpdate)
 
     }
 }
