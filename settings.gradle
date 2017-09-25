@@ -1,0 +1,4 @@
+rootProject.name = 'CraftGroovy'
+
+include ":groovysandboxedlauncher"
+project(":groovysandboxedlauncher").projectDir = file("../GroovySandboxedLauncher")

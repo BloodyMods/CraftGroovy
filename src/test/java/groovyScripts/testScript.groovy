@@ -88,20 +88,14 @@ CGEventManager.rightClickBlock {
                 && world.getBlockAt(pos, 0,0,1).registryName == "minecraft:dirt"
                 && world.getBlockAt(pos, 0,0,-1).registryName == "minecraft:dirt") {
 
-            if (world.isRemote){
-                println "spawning particle"
-                world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x, pos.y, pos.z, 0, 0, 0)
-                world.playRecord(pos, VanillaSounds.ENTITY_GENERIC_EXPLODE.getSoundEvent())
-                a = new ItemStack(Items.ACACIA_BOAT)
-            }
 
-            if (!world.isRemote){
-                world.setToAir(pos)
+            world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x, pos.y, pos.z, 0, 0, 0)
+            world.playRecord(pos, VanillaSounds.ENTITY_GENERIC_EXPLODE.getSoundEvent())
+            world.setToAir(pos)
 
-                player.heldMain.count--
-                // player.addItemStackToInventory(new PItemStack("minecraft:redstone") * 20)
-                world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2, 0)
-            }
+            player.heldMain.count--
+            world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2, 0)
+
         }
     }
 }

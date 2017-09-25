@@ -115,8 +115,10 @@ class PWorld extends ICGWrapper<World> {
 
     @GSLWhitelistMember
     void spawnItemInWorld(PItemStack itemStack, double x, double y, double z, double velX = 0, double velY = 0, double velZ = 0){
-        def item = new EntityItem(internal, x, y, z, itemStack.internal)
-        item.setVelocity(velX, velY, velZ)
-        internal.spawnEntity(item)
+        if (!internal.isRemote){
+            def item = new EntityItem(internal, x, y, z, itemStack.internal)
+            item.setVelocity(velX, velY, velZ)
+            internal.spawnEntity(item)
+        }
     }
 }

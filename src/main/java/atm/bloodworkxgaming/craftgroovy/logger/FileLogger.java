@@ -1,6 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.logger;
 
 import atm.bloodworkxgaming.craftgroovy.commands.ChatHelper;
+import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -80,15 +81,15 @@ public class FileLogger implements ILogger {
         if (logsFolder.isDirectory()){
             File[] fileList = logsFolder.listFiles();
             if (fileList != null){
-                File oldLogsFolder = new File("logs/blooddebug_old/");
+                File oldLogsFolder = new File("logs/craftgroovy_old/");
                 oldLogsFolder.mkdir();
 
                 for (File file : fileList) {
-                    if (file.getName().equals("blooddebug.log")){
+                    if (file.getName().equals("craftgroovy.log")){
                         try {
                             Date date = new Date(file.lastModified());
                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-                            File to = new File(oldLogsFolder.getPath()  + "/blooddebug" + simpleDateFormat.format(date) + ".log");
+                            File to = new File(oldLogsFolder.getPath()  + "/craftgroovy" + simpleDateFormat.format(date) + ".log");
                             Files.move(file.toPath(), to.toPath());
                         } catch (IOException e) {
                             e.printStackTrace();

@@ -1,9 +1,11 @@
 package atm.bloodworkxgaming.craftgroovy.util;
 
 import atm.bloodworkxgaming.craftgroovy.wrappers.PSoundEvent;
+import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundEvent;
 
+@SuppressWarnings("unused")
 public enum VanillaSounds {
     AMBIENT_CAVE(SoundEvents.AMBIENT_CAVE),
     BLOCK_ANVIL_BREAK(SoundEvents.BLOCK_ANVIL_BREAK),
@@ -563,6 +565,7 @@ public enum VanillaSounds {
         this.soundEvent = soundEvent;
     }
 
+    @GSLWhitelistMember
     public PSoundEvent getSoundEvent() {
         return new PSoundEvent(soundEvent);
     }

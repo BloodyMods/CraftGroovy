@@ -3,6 +3,7 @@ package atm.bloodworkxgaming.craftgroovy.wrappers
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistClass
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistConstructor
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
+import groovy.transform.CompileStatic
 import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 @GSLWhitelistConstructor
 @GSLWhitelistClass
+@CompileStatic
 class PItemStack extends ICGWrapper<ItemStack> {
     PItemStack(ItemStack internal) {
         super(internal)

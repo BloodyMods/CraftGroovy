@@ -2,6 +2,7 @@ package atm.bloodworkxgaming.craftgroovy.logger;
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
 import atm.bloodworkxgaming.craftgroovy.commands.ChatHelper;
+import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
