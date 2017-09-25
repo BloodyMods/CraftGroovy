@@ -2,7 +2,12 @@ package atm.bloodworkxgaming.craftgroovy.wrappers
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 import groovy.transform.CompileStatic
+import net.minecraft.entity.item.EntityItem
+import net.minecraft.util.EnumParticleTypes
+import net.minecraft.util.SoundCategory
 import net.minecraft.world.World
+
+import javax.annotation.Nullable
 
 @CompileStatic
 class PWorld extends ICGWrapper<World> {
@@ -69,5 +74,49 @@ class PWorld extends ICGWrapper<World> {
     @GSLWhitelistMember
     void setToAir(PBlockPos pos) {
         internal.setBlockToAir(pos.getInternal())
+    }
+
+    @GSLWhitelistMember
+    boolean getIsRemote(){
+        return internal.isRemote
+    }
+
+    @GSLWhitelistMember
+    void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
+        if (isRemote){
+            internal.spawnParticle(particleType, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters)
+        }
+    }
+
+    @GSLWhitelistMember
+    void playSound(PPlayer player = null, PBlockPos pos, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+        internal.playSound(player.internal, pos.internal, soundIn.internal, category, volume, pitch)
+    }
+
+    @GSLWhitelistMember
+    void playSound(PPlayer player = null, double x, double y, double z, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+        internal.playSound(player.internal, x, y, z, soundIn.internal, category, volume, pitch)
+    }
+
+    @GSLWhitelistMember
+    void playSound(double x, double y, double z, PSoundEvent soundIn, SoundCategory category, float volume, float pitch, boolean distanceDelay) {
+        internal.playSound(x, y, z, soundIn.internal, category, volume, pitch, distanceDelay)
+    }
+
+    @GSLWhitelistMember
+    void playRecord(PBlockPos blockPositionIn, @Nullable PSoundEvent soundEventIn) {
+        internal.playRecord(blockPositionIn.internal, soundEventIn.internal)
+    }
+
+    @GSLWhitelistMember
+    void spawnItemInWorld(PItemStack itemStack, PBlockPos pos, double velX = 0, double velY = 0, double velZ = 0){
+        spawnItemInWorld(itemStack, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, velX, velY, velZ)
+    }
+
+    @GSLWhitelistMember
+    void spawnItemInWorld(PItemStack itemStack, double x, double y, double z, double velX = 0, double velY = 0, double velZ = 0){
+        def item = new EntityItem(internal, x, y, z, itemStack.internal)
+        item.setVelocity(velX, velY, velZ)
+        internal.spawnEntity(item)
     }
 }

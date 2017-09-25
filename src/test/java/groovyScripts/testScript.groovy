@@ -1,11 +1,17 @@
 package groovyScripts
 
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
+import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
+import atm.bloodworkxgaming.craftgroovy.wrappers.PSoundEvent
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
+import net.minecraft.init.Items
+import net.minecraft.init.SoundEvents
+import net.minecraft.item.ItemStack
+import net.minecraft.util.EnumParticleTypes
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler.getBlockMaterial
@@ -25,7 +31,6 @@ recipes.addShapeless(coal.amount(10), [coal, coal, iron, iron])
 
 
 recipes.addShaped(coal, [[coal], [coal]])
-
 
 recipes.addShaped("bla", coal, [[coal, coal], [coal]])
 
@@ -78,14 +83,25 @@ CGEventManager.rightClickBlock {
 
     if (itemStack?.identifier == "minecraft:diamond:0"){
         if (world.getBlockAt(pos).registryName == "minecraft:stone"
-                && world.getBlockAt(1,0,0).registryName == "minecraft:dirt"
-                && world.getBlockAt(-1,0,0).registryName == "minecraft:dirt"
-                && world.getBlockAt(0,0,1).registryName == "minecraft:dirt"
-                && world.getBlockAt(0,0,-1).registryName == "minecraft:dirt") {
+                && world.getBlockAt(pos, 1,0,0).registryName == "minecraft:dirt"
+                && world.getBlockAt(pos, -1,0,0).registryName == "minecraft:dirt"
+                && world.getBlockAt(pos, 0,0,1).registryName == "minecraft:dirt"
+                && world.getBlockAt(pos, 0,0,-1).registryName == "minecraft:dirt") {
 
-            world.setToAir(pos)
-            player.heldMain.count--
-            player.addItemStackToInventory(new PItemStack("minecraft:redstone") * 20)
+            if (world.isRemote){
+                println "spawning particle"
+                world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x, pos.y, pos.z, 0, 0, 0)
+                world.playRecord(pos, VanillaSounds.ENTITY_GENERIC_EXPLODE.getSoundEvent())
+                a = new ItemStack(Items.ACACIA_BOAT)
+            }
+
+            if (!world.isRemote){
+                world.setToAir(pos)
+
+                player.heldMain.count--
+                // player.addItemStackToInventory(new PItemStack("minecraft:redstone") * 20)
+                world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2, 0)
+            }
         }
     }
 }

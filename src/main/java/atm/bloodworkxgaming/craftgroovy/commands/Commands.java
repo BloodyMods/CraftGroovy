@@ -1,5 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.commands;
 
+import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 
@@ -31,6 +32,19 @@ public class Commands {
             @Override
             protected void init() {
                 setDescription(getClickableCommandMessage("\u00A72/ct help", "/ct help", true), getNormalMessage(" \u00A73Prints out the this help page"));
+            }
+        });
+
+        CGChatCommand.registerCommand(new CraftTweakerCommand("run") {
+            @Override
+            public void executeCommand(MinecraftServer server, ICommandSender sender, String[] args) {
+                CraftGroovy.sandboxedLauncher.loadScripts();
+                CraftGroovy.sandboxedLauncher.runAllScripts();
+            }
+
+            @Override
+            protected void init() {
+                setDescription(getClickableCommandMessage("\u00A72/ct run", "/ct run", true), getNormalMessage(" \u00A73Reruns the scripts"));
             }
         });
 

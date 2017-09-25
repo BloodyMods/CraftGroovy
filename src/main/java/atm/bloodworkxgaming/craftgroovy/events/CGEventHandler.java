@@ -17,8 +17,22 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mod.EventBusSubscriber
 public class CGEventHandler {
+    public static List<Closure> blockBreakClosures = new ArrayList<>();
+    public static List<Closure> blockPlaceClosures = new ArrayList<>();
+    public static List<Closure> rightClickBlockClosures = new ArrayList<>();
+    public static List<Closure> rightClickBlockOffhandClosures = new ArrayList<>();
+
+    public static void clearAllClosureLists(){
+        blockBreakClosures.clear();
+        blockPlaceClosures.clear();
+        rightClickBlockOffhandClosures.clear();
+        rightClickBlockClosures.clear();
+    }
 
 
 
@@ -31,7 +45,7 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void breakEvent(BlockEvent.BreakEvent e) {
-        for (Closure closure : CGEventManager.getBlockBreakClosures()) {
+        for (Closure closure : blockBreakClosures) {
             PBreakEvent delegate = new PBreakEvent(e);
             Closure code = closure.rehydrate(delegate, this, this);
             code.setResolveStrategy(Closure.DELEGATE_FIRST);
@@ -42,7 +56,7 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void placeEvent(BlockEvent.PlaceEvent e){
-        for (Closure closure : CGEventManager.getBlockPlaceClosures()) {
+        for (Closure closure : blockPlaceClosures) {
             PPlaceEvent delegate = new PPlaceEvent(e);
             Closure code = closure.rehydrate(delegate, this, this);
             code.setResolveStrategy(Closure.DELEGATE_FIRST);
@@ -53,9 +67,9 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void onPlayerInteractEvent(RightClickBlock event){
-        if (!event.getWorld().isRemote){
-            if (event.getHand() == EnumHand.MAIN_HAND){ //TODO: let user select hand to make the actions
-                for (Closure closure : CGEventManager.getRightClickBlockClosures()) {
+        //if (!event.getWorld().isRemote){
+            if (event.getHand() == EnumHand.MAIN_HAND){
+                for (Closure closure : rightClickBlockClosures) {
                     PRightClickBlock delegate = new PRightClickBlock(event);
                     Closure code = closure.rehydrate(delegate, this, this);
                     code.setResolveStrategy(Closure.DELEGATE_FIRST);
@@ -63,7 +77,17 @@ public class CGEventHandler {
                     CraftGroovy.sandboxedLauncher.runClosure(code);
                 }
             }
-        }
+
+            if (event.getHand() == EnumHand.OFF_HAND){
+                for (Closure closure : rightClickBlockOffhandClosures) {
+                    PRightClickBlock delegate = new PRightClickBlock(event);
+                    Closure code = closure.rehydrate(delegate, this, this);
+                    code.setResolveStrategy(Closure.DELEGATE_FIRST);
+
+                    CraftGroovy.sandboxedLauncher.runClosure(code);
+                }
+            }
+        // }
     }
 
     /*

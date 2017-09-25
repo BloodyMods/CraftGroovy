@@ -94,4 +94,6 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
     public Entity getEntity() {
         return internal.getEntity();
     }
+
+
 }

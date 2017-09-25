@@ -48,7 +48,7 @@ public class CGChatCommand extends CommandBase {
     
     @Override
     public String getName() {
-        return "crtgroovy";
+        return "craftgroovy";
     }
     
     @Override

@@ -2,6 +2,8 @@ package atm.bloodworkxgaming.craftgroovy;
 
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
+import atm.bloodworkxgaming.craftgroovy.events.CGEventManager;
+import atm.bloodworkxgaming.craftgroovy.integration.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.ILogger;
@@ -15,9 +17,12 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.mc1120.brackets.*;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
+import de.bloodworkxgaming.groovysandboxedlauncher.events.GSLResetEvent;
+import de.bloodworkxgaming.groovysandboxedlauncher.events.IGSLEvent;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.AnnotationManager;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -101,38 +106,19 @@ public class CraftGroovy {
         MinecraftForge.EVENT_BUS.register(new CGEventHandler());
 
         sandboxedLauncher = new GroovySandboxedLauncher();
+        sandboxedLauncher.registerResetEvent(eventObject -> {
+            CGEventHandler.clearAllClosureLists();
+        });
 
-        sandboxedLauncher.scriptPathConfig.registerScriptPathRoots("D:\\Users\\jonas\\Documents\\GitHub\\CraftGroovy\\src\\test\\java\\groovyScripts");
+        sandboxedLauncher.scriptPathConfig.registerScriptPathRoots("D:\\Users\\jonas\\Documents\\GitHub\\CrTGroovyAddon\\src\\test\\java\\groovyScripts");
 
         WhitelistDefaults.registerWhitelistMethodDefaults(sandboxedLauncher.whitelistRegistry);
-        sandboxedLauncher.whitelistRegistry.registerObjectExistence(IItemStack.class);
+        CrTIntegration.registerCraftTweakerClasses(sandboxedLauncher);
+        WrapperWhitelister.registerWrappers(sandboxedLauncher.whitelistRegistry);
 
-        AnnotationManager.registerMemberWhitelistingAnnotation(ZenSetter.class);
-        AnnotationManager.registerMemberWhitelistingAnnotation(ZenGetter.class);
-        AnnotationManager.registerMemberWhitelistingAnnotation(ZenMethod.class);
-        AnnotationManager.registerMemberWhitelistingAnnotation(ZenMethodStatic.class);
-
-        AnnotationManager.registerOptionalParameterAnnotation(Optional.class);
+        sandboxedLauncher.whitelistRegistry.registerField(EnumParticleTypes.class, "*");
 
         sandboxedLauncher.launchWrapper.registerMixinProvider(new MixinClasses());
-
-        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerItem.class, "getItem");
-        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerOre.class, "getOre");
-        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerPotion.class, "getPotion");
-        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerLiquid.class, "getLiquid");
-        sandboxedLauncher.whitelistRegistry.registerMethod(BracketHandlerEntity.class, "getEntity");
-
-
-        sandboxedLauncher.whitelistRegistry.registerMethod(BlockBracketHandler.class, "getBlock");
-        sandboxedLauncher.whitelistRegistry.registerMethod(MaterialBracketHandler.class, "getBlockMaterial");
-        sandboxedLauncher.whitelistRegistry.registerMethod(SoundEventBracketHandler.class, "getSoundEvent");
-        sandboxedLauncher.whitelistRegistry.registerMethod(SoundTypeBracketHandler.class, "getSoundType");
-
-
-        sandboxedLauncher.whitelistRegistry.registerMethod(CraftTweakerAPI.class, "getLogger");
-        sandboxedLauncher.whitelistRegistry.registerField(CraftTweakerAPI.class, "recipes");
-
-        WrapperWhitelister.registerWrappers(sandboxedLauncher.whitelistRegistry);
 
         sandboxedLauncher.whitelistRegistry.invertObjectWhitelist();
         sandboxedLauncher.importModifier.addStaticStars("java.lang.Math");
@@ -161,7 +147,7 @@ public class CraftGroovy {
     }
 
 
-    @NetworkCheckHandler
+    @NetworkCheckHandler //TODO: change before shipping
     public boolean matchModVersion(Map<String, String> remoteVersions, Side side) {
         return true;
     }
