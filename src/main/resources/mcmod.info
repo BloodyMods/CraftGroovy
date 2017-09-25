@@ -1,7 +1,7 @@
 [
 {
-  "modid": "blooddebug",
-  "name": "Blood Debug",
+  "modid": "craftgroovy",
+  "name": "Craft Groovy",
   "description": "Mod for various debugging.",
   "version": "${version}",
   "mcversion": "${mcversion}",
