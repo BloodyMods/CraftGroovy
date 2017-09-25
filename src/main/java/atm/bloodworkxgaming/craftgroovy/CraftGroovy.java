@@ -38,9 +38,15 @@ public class CraftGroovy {
     public static List<ILogger> loggers = new ArrayList<>();
 
     static {
-        loggers.add(new FileLogger("craftgroovy.log"));
-        loggers.add(new ConsoleLogger());
-        GroovySandboxedLauncher.LOG_MANAGER.registerLogger(new FileLogger("craftgroovy.log"));
+        ConsoleLogger consoleLogger = new ConsoleLogger();
+        FileLogger fileLogger = new FileLogger("craftgroovy.log");
+
+        loggers.add(fileLogger);
+        loggers.add(consoleLogger);
+
+        GroovySandboxedLauncher.LOG_MANAGER.clearLoggers();
+        GroovySandboxedLauncher.LOG_MANAGER.registerLogger(fileLogger);
+        GroovySandboxedLauncher.LOG_MANAGER.registerLogger(consoleLogger);
     }
 
     public static GroovySandboxedLauncher sandboxedLauncher;

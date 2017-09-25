@@ -1,5 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.logger;
 
+import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
 import atm.bloodworkxgaming.craftgroovy.commands.ChatHelper;
 import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 
@@ -41,17 +42,27 @@ public class FileLogger implements ILogger {
     @Override
     public void logInfo(String message) {
         try {
-            writer.write("INFO: " + cleanMessage(message) + "\n");
+            writer.write("[INFO] " + cleanMessage(message) + "\n");
             writer.flush();
         } catch(IOException ex) {
             throw new RuntimeException(ex);
         }
     }
-    
+
+    @Override
+    public void logScript(String className, String message) {
+        try {
+            writer.write("[SCRIPT][" + className + "] " + cleanMessage(message) + "\n");
+            writer.flush();
+        } catch(IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     @Override
     public void logWarning(String message) {
         try {
-            writer.write("WARNING: " + cleanMessage(message) + "\n");
+            writer.write("[WARNING] " + cleanMessage(message) + "\n");
             writer.flush();
         } catch(IOException ex) {
             throw new RuntimeException(ex);
@@ -66,7 +77,7 @@ public class FileLogger implements ILogger {
     @Override
     public void logError(String message, Throwable exception) {
         try {
-            writer.write("ERROR: " + cleanMessage(message) + "\n");
+            writer.write("[ERROR] " + cleanMessage(message) + "\n");
             if(exception != null) {
                 exception.printStackTrace(printWriter);
             }
@@ -89,10 +100,10 @@ public class FileLogger implements ILogger {
                         try {
                             Date date = new Date(file.lastModified());
                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-                            File to = new File(oldLogsFolder.getPath()  + "/craftgroovy" + simpleDateFormat.format(date) + ".log");
+                            File to = new File(oldLogsFolder.getPath()  + "/craftgroovy_" + simpleDateFormat.format(date) + ".log");
                             Files.move(file.toPath(), to.toPath());
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            CraftGroovy.error("Could not move old log file.", e);
                         }
                     }
                 }

@@ -20,6 +20,11 @@ public class ConsoleLogger implements ILogger{
     }
 
     @Override
+    public void logScript(String className, String message) {
+        logger.info("[" + className + "] " + ChatHelper.removeFormattingCodes(message));
+    }
+
+    @Override
     public void logWarning(String message) {
         logger.warn(ChatHelper.removeFormattingCodes(message));
     }
