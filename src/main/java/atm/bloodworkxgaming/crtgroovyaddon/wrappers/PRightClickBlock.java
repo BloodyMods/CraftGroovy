@@ -1,7 +1,5 @@
 package atm.bloodworkxgaming.crtgroovyaddon.wrappers;
 
-import crafttweaker.api.item.IItemStack;
-import crafttweaker.mc1120.item.MCItemStack;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,7 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickBlock>{
+public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickBlock> {
 
     public PRightClickBlock(PlayerInteractEvent.RightClickBlock internal) {
         super(internal);
@@ -30,12 +28,12 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
         return internal.getUseBlock();
     }
 
-    public Event.Result getUseItem() {
-        return internal.getUseItem();
-    }
-
     public void setUseBlock(Event.Result triggerBlock) {
         internal.setUseBlock(triggerBlock);
+    }
+
+    public Event.Result getUseItem() {
+        return internal.getUseItem();
     }
 
     public void setUseItem(Event.Result triggerItem) {
@@ -52,8 +50,8 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
     }
 
     @GSLWhitelistMember
-    public IItemStack getItemStack() {
-        return internal.getItemStack().isEmpty() ? null : new MCItemStack(internal.getItemStack());
+    public PItemStack getItemStack() {
+        return new PItemStack(internal.getItemStack());
     }
 
     @Nonnull

@@ -6,11 +6,11 @@ public class PTileEntity {
 
     private TileEntity tile;
 
-    public PTileEntity(TileEntity tile){
+    public PTileEntity(TileEntity tile) {
         this.tile = tile;
     }
 
-    public PBlockPos getPos(){
+    public PBlockPos getPos() {
         return new PBlockPos(tile.getPos());
     }
 }

@@ -7,9 +7,9 @@ import java.util.List;
 
 public class PMultiPlaceEvent {
 
-    private List<BlockSnapshot> blockSnapshots;
     public PBlockState placedAgainst;
     public PPlayer player;
+    private List<BlockSnapshot> blockSnapshots;
 
     public PMultiPlaceEvent(BlockEvent.MultiPlaceEvent e) {
         this.blockSnapshots = e.getReplacedBlockSnapshots();

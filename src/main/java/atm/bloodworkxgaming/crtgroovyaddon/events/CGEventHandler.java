@@ -1,6 +1,7 @@
 package atm.bloodworkxgaming.crtgroovyaddon.events;
 
 import atm.bloodworkxgaming.crtgroovyaddon.CrTGroovyAddon;
+import atm.bloodworkxgaming.crtgroovyaddon.delegate.InitDelegate;
 import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PBreakEvent;
 import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PPlaceEvent;
 import atm.bloodworkxgaming.crtgroovyaddon.wrappers.PRightClickBlock;

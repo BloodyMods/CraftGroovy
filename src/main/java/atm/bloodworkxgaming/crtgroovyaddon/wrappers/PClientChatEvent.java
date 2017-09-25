@@ -6,7 +6,7 @@ public class PClientChatEvent {
 
     public String message;
 
-    public PClientChatEvent(ClientChatEvent e){
+    public PClientChatEvent(ClientChatEvent e) {
         this.message = e.getMessage();
     }
 }

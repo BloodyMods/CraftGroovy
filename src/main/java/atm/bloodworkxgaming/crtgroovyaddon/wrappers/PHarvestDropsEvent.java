@@ -1,6 +1,5 @@
 package atm.bloodworkxgaming.crtgroovyaddon.wrappers;
 
-import crafttweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -13,9 +12,9 @@ public class PHarvestDropsEvent {
     public PBlockState state;
     public int fortuneLevel;
     public float dropChance;
-    private List<ItemStack> drops;
     public PPlayer harvester;
     public boolean isSilkTouching;
+    private List<ItemStack> drops;
 
     public PHarvestDropsEvent(BlockEvent.HarvestDropsEvent e) {
         this.world = new PWorld(e.getWorld());
@@ -28,12 +27,12 @@ public class PHarvestDropsEvent {
         isSilkTouching = e.isSilkTouching();
     }
 
-    public boolean removeDrop(IItemStack ingredient) {
-        return drops.removeIf(temp -> ItemStack.areItemsEqual((ItemStack) ingredient.getInternal(), temp));
+    public boolean removeDrop(PItemStack ingredient) {
+        return drops.removeIf(temp -> ItemStack.areItemsEqual(ingredient.getInternal(), temp));
     }
 
-    public void addDrop(IItemStack ingredient) {
-        drops.add((ItemStack) ingredient.getInternal());
+    public void addDrop(PItemStack ingredient) {
+        drops.add(ingredient.getInternal());
     }
 
 }

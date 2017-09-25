@@ -24,10 +24,10 @@ class WrapperWhitelister {
     ]
 
 
-    static void registerWrappers(WhitelistRegistry registry){
+    static void registerWrappers(WhitelistRegistry registry) {
         registry.with {
             for (c in classes)
-            registerWildCardMethod(c)
+                registerWildCardMethod(c)
         }
     }
 }

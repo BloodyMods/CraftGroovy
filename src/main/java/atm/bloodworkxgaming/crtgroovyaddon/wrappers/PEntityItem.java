@@ -6,7 +6,7 @@ public class PEntityItem {
 
     private EntityItem internalItem;
 
-    public PEntityItem(EntityItem item){
+    public PEntityItem(EntityItem item) {
         this.internalItem = item;
     }
 }

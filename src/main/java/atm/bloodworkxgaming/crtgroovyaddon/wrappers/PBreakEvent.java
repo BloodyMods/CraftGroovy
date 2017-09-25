@@ -3,7 +3,7 @@ package atm.bloodworkxgaming.crtgroovyaddon.wrappers;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraftforge.event.world.BlockEvent;
 
-public class PBreakEvent extends ICGWrapper<BlockEvent.BreakEvent>{
+public class PBreakEvent extends ICGWrapper<BlockEvent.BreakEvent> {
 
     public PBreakEvent(BlockEvent.BreakEvent e) {
         super(e);

@@ -5,28 +5,28 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMembe
 import net.minecraft.util.math.BlockPos;
 
 @GSLWhitelistConstructor
-public class PBlockPos extends ICGWrapper<BlockPos>{
+public class PBlockPos extends ICGWrapper<BlockPos> {
 
-    public PBlockPos(BlockPos pos){
+    public PBlockPos(BlockPos pos) {
         super(pos);
     }
 
-    public PBlockPos(int x, int y, int z){
-        super(new BlockPos(x,y,z));
+    public PBlockPos(int x, int y, int z) {
+        super(new BlockPos(x, y, z));
     }
 
     @GSLWhitelistMember
-    public int getX(){
+    public int getX() {
         return internal.getX();
     }
 
     @GSLWhitelistMember
-    public int getY(){
+    public int getY() {
         return internal.getY();
     }
 
     @GSLWhitelistMember
-    public int getZ(){
+    public int getZ() {
         return internal.getZ();
     }
 

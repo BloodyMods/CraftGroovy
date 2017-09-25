@@ -1,8 +1,6 @@
 package atm.bloodworkxgaming.crtgroovyaddon.wrappers;
 
 import com.mojang.authlib.GameProfile;
-import crafttweaker.api.item.IItemStack;
-import crafttweaker.mc1120.item.MCItemStack;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.FoodStats;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameType;
 import net.minecraftforge.fml.relauncher.Side;
@@ -21,20 +18,28 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class PPlayer extends ICGWrapper<EntityPlayer>{
+public class PPlayer extends ICGWrapper<EntityPlayer> {
 
     public PPlayer(EntityPlayer player) {
         super(player);
     }
 
-    @GSLWhitelistMember
-    public IItemStack getHeldMain() {
-        return new MCItemStack(internal.getHeldItem(EnumHand.MAIN_HAND));
+    public static UUID getUUID(GameProfile profile) {
+        return EntityPlayer.getUUID(profile);
+    }
+
+    public static UUID getOfflineUUID(String username) {
+        return EntityPlayer.getOfflineUUID(username);
     }
 
     @GSLWhitelistMember
-    public IItemStack getHeldOffHand() {
-        return new MCItemStack(internal.getHeldItem(EnumHand.OFF_HAND));
+    public PItemStack getHeldMain() {
+        return new PItemStack(internal.getHeldItem(EnumHand.MAIN_HAND));
+    }
+
+    @GSLWhitelistMember
+    public PItemStack getHeldOffHand() {
+        return new PItemStack(internal.getHeldItem(EnumHand.OFF_HAND));
     }
 
     @GSLWhitelistMember
@@ -78,7 +83,7 @@ public class PPlayer extends ICGWrapper<EntityPlayer>{
     }
 
     @GSLWhitelistMember
-    public boolean isSneaking(){
+    public boolean isSneaking() {
         return internal.isSneaking();
     }
 
@@ -221,13 +226,13 @@ public class PPlayer extends ICGWrapper<EntityPlayer>{
     }
 
     @GSLWhitelistMember
-    public IItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
-        return new MCItemStack(internal.getItemStackFromSlot(slotIn));
+    public PItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
+        return new PItemStack(internal.getItemStackFromSlot(slotIn));
     }
 
     @GSLWhitelistMember //TODO: either with string param or make enum public
-    public void setItemStackToSlot(EntityEquipmentSlot slotIn, IItemStack stack) {
-        internal.setItemStackToSlot(slotIn, (ItemStack) stack.getInternal());
+    public void setItemStackToSlot(EntityEquipmentSlot slotIn, PItemStack stack) {
+        internal.setItemStackToSlot(slotIn, stack.getInternal());
     }
 
     @GSLWhitelistMember
@@ -245,17 +250,9 @@ public class PPlayer extends ICGWrapper<EntityPlayer>{
         return internal.isPushedByWater();
     }
 
-    public static UUID getUUID(GameProfile profile) {
-        return EntityPlayer.getUUID(profile);
-    }
-
-    public static UUID getOfflineUUID(String username) {
-        return EntityPlayer.getOfflineUUID(username);
-    }
-
     @GSLWhitelistMember
-    public boolean replaceItemInInventory(int inventorySlot, IItemStack itemStackIn) {
-        return internal.replaceItemInInventory(inventorySlot, (ItemStack) itemStackIn.getInternal());
+    public boolean replaceItemInInventory(int inventorySlot, PItemStack itemStackIn) {
+        return internal.replaceItemInInventory(inventorySlot, itemStackIn.getInternal());
     }
 
     public EnumHandSide getPrimaryHand() {
@@ -268,8 +265,8 @@ public class PPlayer extends ICGWrapper<EntityPlayer>{
     }
 
     @GSLWhitelistMember
-    public void setHeldItem(EnumHand hand, IItemStack stack) {
-        internal.setHeldItem(hand, (ItemStack) stack.getInternal());
+    public void setHeldItem(EnumHand hand, PItemStack stack) {
+        internal.setHeldItem(hand, stack.getInternal());
     }
 
     @SideOnly(Side.CLIENT)
@@ -364,8 +361,7 @@ public class PPlayer extends ICGWrapper<EntityPlayer>{
     }
 
     @GSLWhitelistMember
-    public boolean addItemStackToInventory(IItemStack itemStackIn)
-    {
-        return internal.inventory.add(-1, (ItemStack) itemStackIn.getInternal());
+    public boolean addItemStackToInventory(PItemStack itemStackIn) {
+        return internal.inventory.add(-1, itemStackIn.getInternal());
     }
 }

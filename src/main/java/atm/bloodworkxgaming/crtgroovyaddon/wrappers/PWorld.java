@@ -3,7 +3,7 @@ package atm.bloodworkxgaming.crtgroovyaddon.wrappers;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraft.world.World;
 
-public class PWorld extends ICGWrapper<World>{
+public class PWorld extends ICGWrapper<World> {
 
     public PWorld(World world) {
         super(world);
@@ -50,7 +50,7 @@ public class PWorld extends ICGWrapper<World>{
     }
 
     @GSLWhitelistMember
-    public void setToAir(PBlockPos pos){
+    public void setToAir(PBlockPos pos) {
         internal.setBlockToAir(pos.getInternal());
     }
 }

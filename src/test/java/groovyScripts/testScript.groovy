@@ -85,7 +85,6 @@ CGEventManager.rightClickBlock {
 
             world.setToAir(pos)
             player.heldMain.amount(player.heldMain.amount - 1)
-
             player.addItemStackToInventory(getItem("minecraft:redstone", 0).amount(20))
         }
     }

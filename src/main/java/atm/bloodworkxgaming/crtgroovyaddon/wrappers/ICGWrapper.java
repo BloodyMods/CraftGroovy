@@ -7,7 +7,7 @@ public abstract class ICGWrapper<R> {
         this.internal = internal;
     }
 
-    public R getInternal(){
+    public R getInternal() {
         return internal;
     }
 

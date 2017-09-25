@@ -8,7 +8,7 @@ public class PNeighborNotifyEvent {
     public PBlockState state;
     public boolean forceRedstoneUpdate;
 
-    public PNeighborNotifyEvent(BlockEvent.NeighborNotifyEvent e){
+    public PNeighborNotifyEvent(BlockEvent.NeighborNotifyEvent e) {
         world = new PWorld(e.getWorld());
         state = new PBlockState(e.getState());
         forceRedstoneUpdate = e.getForceRedstoneUpdate();
