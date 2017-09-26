@@ -3,14 +3,10 @@ package groovyScripts
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
-import atm.bloodworkxgaming.craftgroovy.wrappers.PSoundEvent
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
-import net.minecraft.init.Items
-import net.minecraft.init.SoundEvents
-import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumParticleTypes
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
@@ -99,3 +95,17 @@ CGEventManager.rightClickBlock {
         }
     }
 }
+
+
+CGEventManager.craftTweaker {
+    int hi = 20
+    println hi
+    println item("coal")
+    println "iron ${Defaults.iron}"
+}.setPriority(10)
+
+CGEventManager.craftTweaker ("craftteaker", "bla") {
+    int hi = 20
+    println hi
+}
+

@@ -29,28 +29,34 @@ class PItemStack extends ICGWrapper<ItemStack> {
         super(new ItemStack(item, meta))
     }
 
-    static boolean areItemStackTagsEqual(ItemStack stackA, ItemStack stackB) {
-        return ItemStack.areItemStackTagsEqual(stackA, stackB)
+    @GSLWhitelistMember
+    static boolean areItemStackTagsEqual(PItemStack stackA, PItemStack stackB) {
+        return ItemStack.areItemStackTagsEqual(stackA.internal, stackB.internal)
     }
 
-    static boolean areItemStacksEqual(ItemStack stackA, ItemStack stackB) {
-        return ItemStack.areItemStacksEqual(stackA, stackB)
+    @GSLWhitelistMember
+    static boolean areItemStacksEqual(PItemStack stackA, PItemStack stackB) {
+        return ItemStack.areItemStacksEqual(stackA.internal, stackB.internal)
     }
 
-    static boolean areItemsEqual(ItemStack stackA, ItemStack stackB) {
-        return ItemStack.areItemsEqual(stackA, stackB)
+    @GSLWhitelistMember
+    static boolean areItemsEqual(PItemStack stackA, PItemStack stackB) {
+        return ItemStack.areItemsEqual(stackA.internal, stackB.internal)
     }
 
-    static boolean areItemsEqualIgnoreDurability(ItemStack stackA, ItemStack stackB) {
-        return ItemStack.areItemsEqualIgnoreDurability(stackA, stackB)
+    @GSLWhitelistMember
+    static boolean areItemsEqualIgnoreDurability(PItemStack stackA, PItemStack stackB) {
+        return ItemStack.areItemsEqualIgnoreDurability(stackA.internal, stackB.internal)
     }
 
-    static boolean areItemStacksEqualUsingNBTShareTag(ItemStack stackA, ItemStack stackB) {
-        return ItemStack.areItemStacksEqualUsingNBTShareTag(stackA, stackB)
+    @GSLWhitelistMember
+    static boolean areItemStacksEqualUsingNBTShareTag(PItemStack stackA, PItemStack stackB) {
+        return ItemStack.areItemStacksEqualUsingNBTShareTag(stackA.internal, stackB.internal)
     }
 
-    static boolean areItemStackShareTagsEqual(ItemStack stackA, ItemStack stackB) {
-        return ItemStack.areItemStackShareTagsEqual(stackA, stackB)
+    @GSLWhitelistMember
+    static boolean areItemStackShareTagsEqual(PItemStack stackA, PItemStack stackB) {
+        return ItemStack.areItemStackShareTagsEqual(stackA.internal, stackB.internal)
     }
 
     @GSLWhitelistMember
@@ -153,6 +159,7 @@ class PItemStack extends ICGWrapper<ItemStack> {
         return internal.hasEffect()
     }
 
+    @GSLWhitelistMember
     EnumRarity getRarity() {
         return internal.getRarity()
     }

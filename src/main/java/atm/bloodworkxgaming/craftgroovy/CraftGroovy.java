@@ -2,6 +2,7 @@ package atm.bloodworkxgaming.craftgroovy;
 
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
+import atm.bloodworkxgaming.craftgroovy.events.CGEventManager;
 import atm.bloodworkxgaming.craftgroovy.integration.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
@@ -20,14 +21,11 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Mod(modid = CraftGroovy.MODID, name = "Craft Groovy", version = CraftGroovy.VERSION, dependencies = "after:crafttweaker; after:contenttweaker", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class CraftGroovy {
@@ -36,6 +34,7 @@ public class CraftGroovy {
 
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
     public static List<ILogger> loggers = new ArrayList<>();
+    public static CGEventHandler cgEventHandler = new CGEventHandler();
 
     static {
         ConsoleLogger consoleLogger = new ConsoleLogger();
@@ -72,7 +71,6 @@ public class CraftGroovy {
         }
     }
 
-
     public static void error(String s, Exception e) {
         for (ILogger logger : loggers) {
             logger.logError(s, e);
@@ -94,7 +92,7 @@ public class CraftGroovy {
 
     @EventHandler
     public void construction(FMLConstructionEvent event) {
-        MinecraftForge.EVENT_BUS.register(new CGEventHandler());
+        MinecraftForge.EVENT_BUS.register(cgEventHandler);
 
         sandboxedLauncher = new GroovySandboxedLauncher();
         sandboxedLauncher.registerResetEvent(eventObject -> CGEventHandler.clearAllClosureLists());
@@ -126,6 +124,8 @@ public class CraftGroovy {
     public void init(FMLInitializationEvent event) {
         System.out.println("Loading init of crt groovy");
         sandboxedLauncher.runAllScripts();
+
+        cgEventHandler.runCraftTweakerClosure();
     }
 
     @EventHandler
@@ -136,8 +136,6 @@ public class CraftGroovy {
     }
 
 
-    @NetworkCheckHandler //TODO: change before shipping
-    public boolean matchModVersion(Map<String, String> remoteVersions, Side side) {
-        return true;
-    }
+    /*@NetworkCheckHandler
+    public boolean matchModVersion(Map<String, String> remoteVersions, Side side) {return true;}*/
 }
