@@ -2,7 +2,7 @@ package atm.bloodworkxgaming.craftgroovy.events;
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
 import atm.bloodworkxgaming.craftgroovy.delegate.CGClosure;
-import atm.bloodworkxgaming.craftgroovy.delegate.CraftTweakerDelegate;
+import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PPlaceEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PRightClickBlock;
@@ -30,13 +30,12 @@ public class CGEventHandler {
     public static List<CGClosure> rightClickBlockOffhandClosures = new ArrayList<>();
     public static List<CGClosure> craftTweakerDelegates = new ArrayList<>();
 
-    public static void clearAllClosureLists(){
+    public static void clearAllClosureLists() {
         blockBreakClosures.clear();
         blockPlaceClosures.clear();
         rightClickBlockOffhandClosures.clear();
         rightClickBlockClosures.clear();
     }
-
 
 
     public static void printDebugToAll(World world, String message) {
@@ -47,39 +46,38 @@ public class CGEventHandler {
     }
 
     @SubscribeEvent
+    public static void registerCrafting(RegistryEvent.Register<IRecipe> e) {
+        CraftGroovy.sandboxedLauncher.runFunctionAll("registerCrafting", e);
+
+        System.out.println("register Crafting got reached " + e);
+
+    }
+
+    @SubscribeEvent
+    public static void registerBlocks(RegistryEvent.Register<Block> event) {
+        // breakEvent.getRegistry().register(new FirstBlock());
+        System.out.println("Test Block thingy " + event);
+
+    }
+
+    @SubscribeEvent
     public void breakEvent(BlockEvent.BreakEvent e) {
         runClosuresWithDelegate(new PBreakEvent(e), blockBreakClosures);
     }
 
     @SubscribeEvent
-    public void placeEvent(BlockEvent.PlaceEvent e){
+    public void placeEvent(BlockEvent.PlaceEvent e) {
         runClosuresWithDelegate(new PPlaceEvent(e), blockPlaceClosures);
     }
 
     @SubscribeEvent
-    public void onPlayerInteractEvent(RightClickBlock event){
-            if (event.getHand() == EnumHand.MAIN_HAND){
-                runClosuresWithDelegate(new PRightClickBlock(event), rightClickBlockClosures);
-            }
+    public void onPlayerInteractEvent(RightClickBlock event) {
+        if (event.getHand() == EnumHand.MAIN_HAND) {
+            runClosuresWithDelegate(new PRightClickBlock(event), rightClickBlockClosures);
+        }
 
-            if (event.getHand() == EnumHand.OFF_HAND){
-                runClosuresWithDelegate(new PRightClickBlock(event), rightClickBlockOffhandClosures);
-            }
-    }
-
-    public void runCraftTweakerClosure(){
-        runClosuresWithDelegate(new CraftTweakerDelegate(), craftTweakerDelegates);
-    }
-
-    private void runClosuresWithDelegate(Object delegate, List<CGClosure> closures){
-        closures.sort(CGClosure.CG_CLOSURE_COMPARATOR);
-
-        for (CGClosure cgClosure : closures) {
-            Closure closure = cgClosure.getClosure();
-            Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
-            code.setResolveStrategy(Closure.DELEGATE_FIRST);
-
-            CraftGroovy.sandboxedLauncher.runClosure(code);
+        if (event.getHand() == EnumHand.OFF_HAND) {
+            runClosuresWithDelegate(new PRightClickBlock(event), rightClickBlockOffhandClosures);
         }
     }
 
@@ -114,20 +112,20 @@ public class CGEventHandler {
         Sandbox.runFunctionAll("clientChatEvent",new PClientChatEvent(e));
     }*/
 
-
-    @SubscribeEvent
-    public static void registerCrafting(RegistryEvent.Register<IRecipe> e ){
-        CraftGroovy.sandboxedLauncher.runFunctionAll("registerCrafting", e);
-
-        System.out.println("register Crafting got reached " + e);
-
+    public void runCraftTweakerClosure() {
+        runClosuresWithDelegate(new CraftTweakerDelegate(), craftTweakerDelegates);
     }
 
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        // breakEvent.getRegistry().register(new FirstBlock());
-        System.out.println("Test Block thingy " + event);
+    private void runClosuresWithDelegate(Object delegate, List<CGClosure> closures) {
+        closures.sort(CGClosure.CG_CLOSURE_COMPARATOR);
 
+        for (CGClosure cgClosure : closures) {
+            Closure closure = cgClosure.getClosure();
+            Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
+            code.setResolveStrategy(Closure.DELEGATE_FIRST);
+
+            CraftGroovy.sandboxedLauncher.runClosure(code);
+        }
     }
 
 

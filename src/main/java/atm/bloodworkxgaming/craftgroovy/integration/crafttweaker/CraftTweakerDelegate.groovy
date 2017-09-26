@@ -1,4 +1,4 @@
-package atm.bloodworkxgaming.craftgroovy.delegate
+package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
 import crafttweaker.CraftTweakerAPI
 import crafttweaker.api.client.IClient
@@ -18,7 +18,9 @@ import crafttweaker.api.vanilla.IVanilla
 import crafttweaker.mc1120.brackets.*
 import crafttweaker.runtime.ILogger
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class CraftTweakerDelegate {
     @GSLWhitelistMember
     public static IRecipeManager recipes = CraftTweakerAPI.recipes

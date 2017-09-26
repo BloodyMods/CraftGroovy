@@ -213,24 +213,24 @@ class PItemStack extends ICGWrapper<ItemStack> {
      * eg: minecraft:wool:3
      */
     @GSLWhitelistMember
-    String getIdentifier(){
+    String getIdentifier() {
         ResourceLocation reg = internal.getItem().getRegistryName()
         return (reg == null ? "INVALID_NAME" : reg.toString()) + ":" + getMetadata()
     }
 
     @GSLWhitelistMember
-    PItemStack multiply(int amount){
+    PItemStack multiply(int amount) {
         internal.setCount(amount)
         return this
     }
 
     @GSLWhitelistMember
-    void next(){
+    void next() {
         internal.grow(1)
     }
 
     @GSLWhitelistMember
-    void previous(){
+    void previous() {
         internal.shrink(1)
     }
 }

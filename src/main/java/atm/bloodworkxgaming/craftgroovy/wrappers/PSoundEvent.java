@@ -20,22 +20,22 @@ public class PSoundEvent extends ICGWrapper<SoundEvent> {
     }
 
     @GSLWhitelistMember
-    public String getSoundName() {
-        if (FMLCommonHandler.instance().getSide() == Side.CLIENT){
-            return internal.getSoundName().toString();
-        }else {
-            return "INVALID_SIDE";
+    public static PSoundEvent getSoundByName(String id) {
+        SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(id));
+
+        if (sound == null) {
+            return null;
+        } else {
+            return new PSoundEvent(sound);
         }
     }
 
     @GSLWhitelistMember
-    public static PSoundEvent getSoundByName(String id) {
-        SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(id));
-
-        if (sound == null){
-            return null;
-        }else {
-            return new PSoundEvent(sound);
+    public String getSoundName() {
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+            return internal.getSoundName().toString();
+        } else {
+            return "INVALID_SIDE";
         }
     }
 

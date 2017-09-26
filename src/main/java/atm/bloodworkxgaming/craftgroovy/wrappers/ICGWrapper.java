@@ -37,7 +37,7 @@ public abstract class ICGWrapper<R> {
     }
 
     @GSLWhitelistMember
-    public boolean isNull(){
+    public boolean isNull() {
         return internal == null;
     }
 }

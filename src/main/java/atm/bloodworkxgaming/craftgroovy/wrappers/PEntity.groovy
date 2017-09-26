@@ -4,7 +4,7 @@ import groovy.transform.CompileStatic
 import net.minecraft.entity.Entity
 
 @CompileStatic
-class PEntity extends ICGWrapper<Entity>{
+class PEntity extends ICGWrapper<Entity> {
     PEntity(Entity internal) {
         super(internal)
     }

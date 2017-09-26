@@ -46,7 +46,7 @@ class PItem extends ICGWrapper<Item> {
     @SideOnly(Side.CLIENT)
     @GSLWhitelistMember
     void addInformation(PItemStack stack, PWorld worldIn = null, List<String> tooltip, ITooltipFlag flagIn) {
-        internal.addInformation(stack.getInternal(), worldIn?.internal , tooltip, flagIn)
+        internal.addInformation(stack.getInternal(), worldIn?.internal, tooltip, flagIn)
     }
 
     @GSLWhitelistMember

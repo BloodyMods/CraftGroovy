@@ -37,7 +37,7 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    PBlock getBlockAt(PBlockPos pos = new PBlockPos(0,0,0), int x, int y, int z) {
+    PBlock getBlockAt(PBlockPos pos = new PBlockPos(0, 0, 0), int x, int y, int z) {
         return new PBlock(internal.getBlockState(pos.internal.add(x, y, z)).block)
     }
 
@@ -47,7 +47,7 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    PBlockState getBlockStateAt(PBlockPos pos = new PBlockPos(0,0,0), int x, int y, int z) {
+    PBlockState getBlockStateAt(PBlockPos pos = new PBlockPos(0, 0, 0), int x, int y, int z) {
         return new PBlockState(internal.getBlockState(pos.internal.add(x, y, z)))
     }
 
@@ -77,13 +77,13 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    boolean getIsRemote(){
+    boolean getIsRemote() {
         return internal.isRemote
     }
 
     @GSLWhitelistMember
-    void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int... parameters) {
-        if (isRemote){
+    void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int ... parameters) {
+        if (isRemote) {
             internal.spawnParticle(particleType, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters)
         }
     }
@@ -109,13 +109,13 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    void spawnItemInWorld(PItemStack itemStack, PBlockPos pos, double velX = 0, double velY = 0, double velZ = 0){
+    void spawnItemInWorld(PItemStack itemStack, PBlockPos pos, double velX = 0, double velY = 0, double velZ = 0) {
         spawnItemInWorld(itemStack, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, velX, velY, velZ)
     }
 
     @GSLWhitelistMember
-    void spawnItemInWorld(PItemStack itemStack, double x, double y, double z, double velX = 0, double velY = 0, double velZ = 0){
-        if (!internal.isRemote){
+    void spawnItemInWorld(PItemStack itemStack, double x, double y, double z, double velX = 0, double velY = 0, double velZ = 0) {
+        if (!internal.isRemote) {
             def item = new EntityItem(internal, x, y, z, itemStack.internal)
             item.setVelocity(velX, velY, velZ)
             internal.spawnEntity(item)

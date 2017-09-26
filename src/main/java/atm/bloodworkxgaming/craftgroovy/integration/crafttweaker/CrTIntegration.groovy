@@ -1,4 +1,4 @@
-package atm.bloodworkxgaming.craftgroovy.integration
+package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
 import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.BlockBracketHandler
 import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler
@@ -12,7 +12,13 @@ import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLaunch
 import stanhebben.zenscript.annotations.*
 
 class CrTIntegration {
-    static void registerCraftTweakerClasses(GroovySandboxedLauncher sandboxedLauncher){
+    static void registerCrTCompat(GroovySandboxedLauncher sandboxedLauncher) {
+        registerCraftTweakerClasses(sandboxedLauncher)
+        registerMixins(sandboxedLauncher)
+
+    }
+
+    private static void registerCraftTweakerClasses(GroovySandboxedLauncher sandboxedLauncher) {
         AnnotationManager.registerMemberWhitelistingAnnotation(ZenSetter.class)
         AnnotationManager.registerMemberWhitelistingAnnotation(ZenGetter.class)
         AnnotationManager.registerMemberWhitelistingAnnotation(ZenMethod.class)
@@ -33,5 +39,9 @@ class CrTIntegration {
             whitelistRegistry.registerMethod(CraftTweakerAPI.class, "getLogger")
             whitelistRegistry.registerField(CraftTweakerAPI.class, "recipes")
         }
+    }
+
+    private static void registerMixins(GroovySandboxedLauncher sandboxedLauncher) {
+        sandboxedLauncher.launchWrapper.registerMixinProvider(new CrTMixinClasses());
     }
 }

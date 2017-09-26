@@ -1,6 +1,5 @@
 package groovyScripts
 
-import atm.bloodworkxgaming.craftgroovy.delegate.CraftTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack

@@ -2,11 +2,9 @@ package atm.bloodworkxgaming.craftgroovy;
 
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
-import atm.bloodworkxgaming.craftgroovy.events.CGEventManager;
-import atm.bloodworkxgaming.craftgroovy.integration.CrTIntegration;
+import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
-import atm.bloodworkxgaming.craftgroovy.mixins.MixinClasses;
 import atm.bloodworkxgaming.craftgroovy.wrappers.WrapperWhitelister;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
 import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
@@ -15,6 +13,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
@@ -35,7 +34,9 @@ public class CraftGroovy {
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
     public static List<ILogger> loggers = new ArrayList<>();
     public static CGEventHandler cgEventHandler = new CGEventHandler();
+    public static GroovySandboxedLauncher sandboxedLauncher;
 
+    // Setting up the logging for GSL and for this mod
     static {
         ConsoleLogger consoleLogger = new ConsoleLogger();
         FileLogger fileLogger = new FileLogger("craftgroovy.log");
@@ -47,8 +48,6 @@ public class CraftGroovy {
         GroovySandboxedLauncher.LOG_MANAGER.registerLogger(fileLogger);
         GroovySandboxedLauncher.LOG_MANAGER.registerLogger(consoleLogger);
     }
-
-    public static GroovySandboxedLauncher sandboxedLauncher;
 
     /**
      * Error handling
@@ -100,23 +99,24 @@ public class CraftGroovy {
         sandboxedLauncher.scriptPathConfig.registerScriptPathRoots("D:\\Users\\jonas\\Documents\\GitHub\\CrTGroovyAddon\\src\\test\\java\\groovyScripts");
 
         WhitelistDefaults.registerWhitelistMethodDefaults(sandboxedLauncher.whitelistRegistry);
-        CrTIntegration.registerCraftTweakerClasses(sandboxedLauncher);
         WrapperWhitelister.registerWrappers(sandboxedLauncher.whitelistRegistry);
 
         sandboxedLauncher.whitelistRegistry.registerField(EnumParticleTypes.class, "*");
 
-        sandboxedLauncher.launchWrapper.registerMixinProvider(new MixinClasses());
-
         sandboxedLauncher.whitelistRegistry.invertObjectWhitelist();
         sandboxedLauncher.importModifier.addStaticStars("java.lang.Math");
 
+        // Different Mod Integrations
+        if (Loader.isModLoaded("crafttweaker")) {
+            CrTIntegration.registerCrTCompat(sandboxedLauncher);
+        }
 
         sandboxedLauncher.initSandbox();
         sandboxedLauncher.loadScripts();
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event){
+    public void preInit(FMLPreInitializationEvent event) {
         sandboxedLauncher.runFunctionAll("preinit", event);
     }
 
@@ -134,8 +134,4 @@ public class CraftGroovy {
         // registering the command
         CGChatCommand.register(ev);
     }
-
-
-    /*@NetworkCheckHandler
-    public boolean matchModVersion(Map<String, String> remoteVersions, Side side) {return true;}*/
 }

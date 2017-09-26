@@ -6,7 +6,7 @@ import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ConsoleLogger implements ILogger{
+public class ConsoleLogger implements ILogger {
     public static final Logger logger = LogManager.getLogger(CraftGroovy.MODID);
 
     @Override
@@ -36,9 +36,9 @@ public class ConsoleLogger implements ILogger{
 
     @Override
     public void logError(String message, Throwable exception) {
-        if (exception == null){
+        if (exception == null) {
             logger.error(ChatHelper.removeFormattingCodes(message));
-        }else {
+        } else {
             logger.error(ChatHelper.removeFormattingCodes(message), exception);
         }
     }
