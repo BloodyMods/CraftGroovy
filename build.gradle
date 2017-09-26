@@ -27,7 +27,7 @@ sourceSets.main.java.srcDirs = []
 sourceSets.main.groovy.srcDirs += ["src/main/java"]
 
 minecraft {
-    version = "1.12.2-14.23.0.2491"
+    version = "1.12.2-14.23.0.2493"
     runDir = "run"
 
     mappings = "snapshot_20170823"

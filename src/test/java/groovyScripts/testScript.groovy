@@ -1,5 +1,6 @@
 package groovyScripts
 
+import atm.bloodworkxgaming.craftgroovy.delegate.CraftTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
@@ -102,6 +103,13 @@ CGEventManager.craftTweaker {
     println hi
     println item("coal")
     println "iron ${Defaults.iron}"
+
+    def closure = { int a, int b ->
+        println a + " -> " + b
+    }
+
+    closure(20, 30)
+
 }.setPriority(10)
 
 CGEventManager.craftTweaker ("craftteaker", "bla") {

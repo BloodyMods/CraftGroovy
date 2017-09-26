@@ -8,6 +8,6 @@ class Defaults {
     Defaults() {
         CGEventManager.craftTweaker{
             iron = ore("ingotIron")
-        }
+        }.setPriority(100)
     }
 }
