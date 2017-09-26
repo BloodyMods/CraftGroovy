@@ -24,27 +24,28 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
         return internal.getHitVec();
     }
 
+    @GSLWhitelistMember
     public Event.Result getUseBlock() {
         return internal.getUseBlock();
     }
 
+    @GSLWhitelistMember
     public void setUseBlock(Event.Result triggerBlock) {
         internal.setUseBlock(triggerBlock);
     }
 
+    @GSLWhitelistMember
     public Event.Result getUseItem() {
         return internal.getUseItem();
     }
 
+    @GSLWhitelistMember
     public void setUseItem(Event.Result triggerItem) {
         internal.setUseItem(triggerItem);
     }
 
-    public void setCanceled(boolean canceled) {
-        internal.setCanceled(canceled);
-    }
-
     @Nonnull
+    @GSLWhitelistMember
     public EnumHand getHand() {
         return internal.getHand();
     }
@@ -61,6 +62,7 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
     }
 
     @Nullable
+    @GSLWhitelistMember
     public EnumFacing getFace() {
         return internal.getFace();
     }
@@ -70,14 +72,12 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
         return new PWorld(internal.getWorld());
     }
 
-    public Side getSide() {
-        return internal.getSide();
-    }
-
+    @GSLWhitelistMember
     public EnumActionResult getCancellationResult() {
         return internal.getCancellationResult();
     }
 
+    @GSLWhitelistMember
     public void setCancellationResult(EnumActionResult result) {
         internal.setCancellationResult(result);
     }
@@ -91,9 +91,13 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
         return internal.getEntityLiving();
     }
 
-    public Entity getEntity() {
-        return internal.getEntity();
+    @GSLWhitelistMember
+    public PEntity getEntity() {
+        return new PEntity(internal.getEntity());
     }
 
-
+    @GSLWhitelistMember
+    public void cancelEvent() {
+        internal.setCanceled(true);
+    }
 }

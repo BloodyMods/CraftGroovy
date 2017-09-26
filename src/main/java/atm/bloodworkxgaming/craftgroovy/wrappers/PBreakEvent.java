@@ -38,4 +38,9 @@ public class PBreakEvent extends ICGWrapper<BlockEvent.BreakEvent> {
     public PBlockState getState() {
         return new PBlockState(internal.getState());
     }
+
+    @GSLWhitelistMember
+    public void cancelEvent() {
+        internal.setCanceled(true);
+    }
 }

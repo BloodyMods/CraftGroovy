@@ -53,7 +53,6 @@ void preinit(FMLPreInitializationEvent event){
     }
 }
 
-
 CGEventManager.blockBreak {
     println "Player ${player.displayName} is breaking ${state.block} block at ${pos}"
     expToDrop = 100

@@ -116,7 +116,6 @@ public class CGChatCommand extends CommandBase {
         // each has to implement on it's own for special requirements
         CraftGroovyCommand subCommand = craftGroovyCommands.get(args[0]);
         if (subCommand != null) {
-            System.out.println(Arrays.toString(ArrayUtils.subarray(args, 1, args.length)));
             return subCommand.getSubSubCommand(server, sender, ArrayUtils.subarray(args, 1, args.length), targetPos);
 
         }

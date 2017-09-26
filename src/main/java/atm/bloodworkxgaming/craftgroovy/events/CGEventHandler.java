@@ -46,21 +46,6 @@ public class CGEventHandler {
     }
 
     @SubscribeEvent
-    public static void registerCrafting(RegistryEvent.Register<IRecipe> e) {
-        CraftGroovy.sandboxedLauncher.runFunctionAll("registerCrafting", e);
-
-        System.out.println("register Crafting got reached " + e);
-
-    }
-
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        // breakEvent.getRegistry().register(new FirstBlock());
-        System.out.println("Test Block thingy " + event);
-
-    }
-
-    @SubscribeEvent
     public void breakEvent(BlockEvent.BreakEvent e) {
         runClosuresWithDelegate(new PBreakEvent(e), blockBreakClosures);
     }
@@ -128,14 +113,4 @@ public class CGEventHandler {
         }
     }
 
-
-
-    /*
-    @SubscribeEvent
-    public void cropGrowEvent(BlockEvent.CropGrowEvent e) {
-        for (Map.Entry<String, Object[]> entry : Pony.cropGrowEvent.entrySet()) {
-            String result = Pony.nashorn.executeFunction(entry.getKey(), e);
-            printDebugToAll(e.getWorld(),result);
-        }
-    }*/
 }
