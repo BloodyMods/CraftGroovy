@@ -1,19 +1,14 @@
 package atm.bloodworkxgaming.craftgroovy.events;
 
-import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
-import atm.bloodworkxgaming.craftgroovy.delegate.CGClosure;
+import atm.bloodworkxgaming.craftgroovy.delegate.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PPlaceEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PRightClickBlock;
-import groovy.lang.Closure;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,17 +19,10 @@ import java.util.List;
 
 @Mod.EventBusSubscriber
 public class CGEventHandler {
-    public static final List<CGClosure> blockBreakClosures = new ArrayList<>();
-    public static final List<CGClosure> blockPlaceClosures = new ArrayList<>();
-    public static final List<CGClosure> rightClickBlockClosures = new ArrayList<>();
-    public static final List<CGClosure> rightClickBlockOffhandClosures = new ArrayList<>();
-    public static final List<CGClosure> craftTweakerDelegates = new ArrayList<>();
+    public static final List<CGCraftTweakerClosure> craftTweakerDelegates = new ArrayList<>();
 
     public void clearAllClosureLists() {
-        blockBreakClosures.clear();
-        blockPlaceClosures.clear();
-        rightClickBlockOffhandClosures.clear();
-        rightClickBlockClosures.clear();
+        ClosureManager.clearMap();
     }
 
 
@@ -47,22 +35,22 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void breakEvent(BlockEvent.BreakEvent e) {
-        runClosuresWithDelegate(new PBreakEvent(e), blockBreakClosures);
+        ClosureManager.runClosuresWithDelegate(new PBreakEvent(e), CGEventNames.CG_BLOCK_BREAK.name());
     }
 
     @SubscribeEvent
     public void placeEvent(BlockEvent.PlaceEvent e) {
-        runClosuresWithDelegate(new PPlaceEvent(e), blockPlaceClosures);
+        ClosureManager.runClosuresWithDelegate(new PPlaceEvent(e), CGEventNames.CG_BLOCK_PLACE.name());
     }
 
     @SubscribeEvent
     public void onPlayerInteractEvent(RightClickBlock event) {
         if (event.getHand() == EnumHand.MAIN_HAND) {
-            runClosuresWithDelegate(new PRightClickBlock(event), rightClickBlockClosures);
+            ClosureManager.runClosuresWithDelegate(new PRightClickBlock(event), CGEventNames.CG_RIGHTCLICK_BLOCK_MAINHAND.name());
         }
 
         if (event.getHand() == EnumHand.OFF_HAND) {
-            runClosuresWithDelegate(new PRightClickBlock(event), rightClickBlockOffhandClosures);
+            ClosureManager.runClosuresWithDelegate(new PRightClickBlock(event), CGEventNames.CG_RIGHTCLICK_BLOCK_OFFHAND.name());
         }
     }
 
@@ -98,19 +86,6 @@ public class CGEventHandler {
     }*/
 
     public void runCraftTweakerClosure() {
-        runClosuresWithDelegate(new CraftTweakerDelegate(), craftTweakerDelegates);
+        ClosureManager.runClosuresWithDelegate(new CraftTweakerDelegate(), craftTweakerDelegates);
     }
-
-    private void runClosuresWithDelegate(Object delegate, List<CGClosure> closures) {
-        closures.sort(CGClosure.CG_CLOSURE_COMPARATOR);
-
-        for (CGClosure cgClosure : closures) {
-            Closure closure = cgClosure.getClosure();
-            Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
-            code.setResolveStrategy(Closure.DELEGATE_FIRST);
-
-            CraftGroovy.sandboxedLauncher.runClosure(code);
-        }
-    }
-
 }

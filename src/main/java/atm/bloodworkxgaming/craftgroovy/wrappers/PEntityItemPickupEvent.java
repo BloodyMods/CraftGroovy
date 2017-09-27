@@ -1,14 +1,28 @@
 package atm.bloodworkxgaming.craftgroovy.wrappers;
 
+import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistClass;
+import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
-public class PEntityItemPickupEvent {
-
-    public PPlayer player;
-    public PEntityItem item;
-
+@GSLWhitelistClass
+public class PEntityItemPickupEvent extends ICGWrapper<EntityItemPickupEvent>{
     public PEntityItemPickupEvent(EntityItemPickupEvent e) {
-        this.item = new PEntityItem(e.getItem());
-        this.player = new PPlayer(e.getEntityPlayer());
+        super(e);
+    }
+
+    /**
+     * @return The {@link PEntityItem} that has been picked up
+     */
+    @GSLWhitelistMember
+    public PEntityItem getItem() {
+        return new PEntityItem(internal.getItem());
+    }
+
+    /**
+     * @return The {@link PPlayer} that picked up the item
+     */
+    @GSLWhitelistMember
+    public PPlayer getEntityPlayer() {
+        return new PPlayer(internal.getEntityPlayer());
     }
 }

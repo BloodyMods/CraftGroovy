@@ -15,21 +15,33 @@ public class PBlockPos extends ICGWrapper<BlockPos> {
         super(new BlockPos(x, y, z));
     }
 
+    /**
+     * Gets the X coordinate.
+     */
     @GSLWhitelistMember
     public int getX() {
         return internal.getX();
     }
 
+    /**
+     * Gets the Y coordinate.
+     */
     @GSLWhitelistMember
     public int getY() {
         return internal.getY();
     }
 
+    /**
+     * Gets the Z coordinate.
+     */
     @GSLWhitelistMember
     public int getZ() {
         return internal.getZ();
     }
 
+    /**
+     * Add the given coordinates to the coordinates of this BlockPos
+     */
     @GSLWhitelistMember
     public PBlockPos add(int x, int y, int z) {
         return new PBlockPos(internal.add(x, y, z));

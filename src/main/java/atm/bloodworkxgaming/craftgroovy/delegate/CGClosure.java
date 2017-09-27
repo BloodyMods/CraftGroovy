@@ -8,8 +8,6 @@ import java.util.Comparator;
 
 @CompileStatic
 public class CGClosure {
-    public static final Comparator<CGClosure> CG_CLOSURE_COMPARATOR = (o1, o2) -> Integer.compare(o2.priority, o1.priority);
-
     @GSLWhitelistMember
     private int priority = 0;
     private Closure closure;
