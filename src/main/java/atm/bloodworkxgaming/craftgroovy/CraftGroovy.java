@@ -112,6 +112,7 @@ public class CraftGroovy {
 
         sandboxedLauncher.initSandbox();
         sandboxedLauncher.loadScripts();
+        sandboxedLauncher.runAllScripts();
     }
 
     @EventHandler
@@ -121,15 +122,12 @@ public class CraftGroovy {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        System.out.println("Loading init of crt groovy");
-        sandboxedLauncher.runAllScripts();
-
+        info("--- Running CraftTweaker Closures --- ");
         cgEventHandler.runCraftTweakerClosure();
     }
 
     @EventHandler
     public void onServerStarting(FMLServerStartingEvent ev) {
-
         // registering the command
         CGChatCommand.register(ev);
     }

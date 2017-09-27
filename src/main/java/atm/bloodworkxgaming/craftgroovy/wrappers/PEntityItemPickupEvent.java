@@ -25,4 +25,12 @@ public class PEntityItemPickupEvent extends ICGWrapper<EntityItemPickupEvent>{
     public PPlayer getEntityPlayer() {
         return new PPlayer(internal.getEntityPlayer());
     }
+
+    /**
+     * This cancels the event preventing the Block from being broken
+     */
+    @GSLWhitelistMember
+    public void cancelEvent() {
+        internal.setCanceled(true);
+    }
 }

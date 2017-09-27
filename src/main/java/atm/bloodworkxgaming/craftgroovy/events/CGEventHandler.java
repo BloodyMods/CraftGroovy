@@ -3,12 +3,15 @@ package atm.bloodworkxgaming.craftgroovy.events;
 import atm.bloodworkxgaming.craftgroovy.delegate.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent;
+import atm.bloodworkxgaming.craftgroovy.wrappers.PEntityItemPickupEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PPlaceEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PRightClickBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -41,6 +44,11 @@ public class CGEventHandler {
     @SubscribeEvent
     public void placeEvent(BlockEvent.PlaceEvent e) {
         ClosureManager.runClosuresWithDelegate(new PPlaceEvent(e), CGEventNames.CG_BLOCK_PLACE.name());
+    }
+
+    @SubscribeEvent
+    public void itemPickUp(EntityItemPickupEvent e) {
+        ClosureManager.runClosuresWithDelegate(new PEntityItemPickupEvent(e), CGEventNames.CG_ITEM_PICKUP.name());
     }
 
     @SubscribeEvent
