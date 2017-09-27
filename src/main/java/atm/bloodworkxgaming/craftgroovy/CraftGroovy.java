@@ -6,6 +6,7 @@ import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
 import atm.bloodworkxgaming.craftgroovy.wrappers.WrapperWhitelister;
+import crafttweaker.mc1120.network.MessageCopyClipboard;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
 import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +38,10 @@ public class CraftGroovy {
     public static final CGEventHandler cgEventHandler = new CGEventHandler();
     public static final GroovySandboxedLauncher sandboxedLauncher = new GroovySandboxedLauncher();;
 
-    // Setting up the logging for GSL and for this mod
+    private static int ID = -1;
+
     static {
+        // Setting up the logging for GSL and for this mod
         ConsoleLogger consoleLogger = new ConsoleLogger();
         FileLogger fileLogger = new FileLogger("craftgroovy.log");
 
@@ -47,6 +51,9 @@ public class CraftGroovy {
         GroovySandboxedLauncher.LOG_MANAGER.clearLoggers();
         GroovySandboxedLauncher.LOG_MANAGER.registerLogger(fileLogger);
         GroovySandboxedLauncher.LOG_MANAGER.registerLogger(consoleLogger);
+
+        // Registering hte CopyMessage to the Network
+        NETWORK.registerMessage(MessageCopyClipboard.class, MessageCopyClipboard.class, ++ID, Side.CLIENT);
     }
 
     /**

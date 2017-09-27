@@ -1,5 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.delegate;
 
+import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import groovy.lang.Closure;
 
 public class CGCraftTweakerClosure extends CGClosure {
@@ -21,13 +22,21 @@ public class CGCraftTweakerClosure extends CGClosure {
         return packMode;
     }
 
+    @GSLWhitelistMember
     public CGCraftTweakerClosure setLoaderName(String loaderName) {
         this.loaderName = loaderName;
         return this;
     }
 
+    @GSLWhitelistMember
     public CGCraftTweakerClosure setPackMode(String packMode) {
         this.packMode = packMode;
         return this;
+    }
+
+    @Override
+    @GSLWhitelistMember
+    public CGCraftTweakerClosure setPriority(int priority) {
+        return (CGCraftTweakerClosure) super.setPriority(priority);
     }
 }
