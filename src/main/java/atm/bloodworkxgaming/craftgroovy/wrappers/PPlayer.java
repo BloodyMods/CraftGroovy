@@ -32,47 +32,70 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
         return EntityPlayer.getOfflineUUID(username);
     }
 
+    /**
+     * Gets the {@link PItemStack} held in the main Hand
+     */
     @GSLWhitelistMember
     public PItemStack getHeldMain() {
         return new PItemStack(internal.getHeldItem(EnumHand.MAIN_HAND));
     }
 
+    /**
+     * Sets the {@link PItemStack} held in the main Hand
+     */
     @GSLWhitelistMember
     public void setHeldMain(PItemStack heldMain) {
         internal.setHeldItem(EnumHand.MAIN_HAND, heldMain.getInternal());
     }
 
+    /**
+     * Gets the {@link PItemStack} held in the Offhand
+     */
     @GSLWhitelistMember
     public PItemStack getHeldOffHand() {
         return new PItemStack(internal.getHeldItem(EnumHand.OFF_HAND));
     }
 
+    /**
+     * Sets the {@link PItemStack} held in the Offhand
+     */
     @GSLWhitelistMember
     public void setHeldOffHand(PItemStack heldOff) {
         internal.setHeldItem(EnumHand.OFF_HAND, heldOff.getInternal());
     }
 
-
+    /** Entity motion X */
     @GSLWhitelistMember
     public double getMotionX() {
         return internal.motionX;
     }
 
+    /** Entity motion Y */
     @GSLWhitelistMember
     public double getMotionY() {
         return internal.motionY;
     }
 
+    /** Entity motion Z */
     @GSLWhitelistMember
     public double getMotionZ() {
         return internal.motionZ;
     }
 
+    /**
+     * Get the currently computed display name, cached for efficiency.
+     * @return the current display name
+     */
     @GSLWhitelistMember
     public String getDisplayName() {
         return internal.getDisplayNameString();
     }
 
+    /**
+     * Sets the player's game mode and sends it to them.
+     * @param type String of the gametype Name
+     *             [survival, creative, adventure, spectator]
+     */
     @GSLWhitelistMember
     public void setGameType(String type) {
         switch (type.toLowerCase()) {
@@ -93,31 +116,58 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
         }
     }
 
+    /**
+     * Sets the player's game mode and sends it to them.
+     * @param type EnumValue of the GameType
+     */
+    @GSLWhitelistMember
+    public void setGameType(GameType type) {
+        internal.setGameType(type);
+    }
+
+    /**
+     * Returns if this Player is sneaking.
+     */
     @GSLWhitelistMember
     public boolean isSneaking() {
         return internal.isSneaking();
     }
 
+    /**
+     * Sets the sneaking flag.
+     */
     @GSLWhitelistMember
     public void setSneaking(boolean sneaking) {
         internal.setSneaking(sneaking);
     }
 
+    /**
+     * Get if the Player is sprinting.
+     */
     @GSLWhitelistMember
     public boolean isSprinting() {
         return internal.isSprinting();
     }
 
+    /**
+     * Get if the Player is glowing.
+     */
     @GSLWhitelistMember
     public boolean isGlowing() {
         return internal.isGlowing();
     }
 
+    /**
+     * Set if the Player is glowing.
+     */
     @GSLWhitelistMember
     public void setGlowing(boolean glowingIn) {
         internal.setGlowing(glowingIn);
     }
 
+    /**
+     * Get if the Player is invisible.
+     */
     @GSLWhitelistMember
     public boolean isInvisible() {
         return internal.isInvisible();
@@ -142,42 +192,64 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
         return internal.dropItemAndGetStack(p_184816_1_);
     }
 
+    /**
+     * Will get destroyed next tick.
+     */
     @GSLWhitelistMember
     public void setDead() {
         internal.setDead();
     }
 
+    /**
+     * returns true if this is an EntityPlayerSP, or the logged in player.
+     */
     @GSLWhitelistMember
     public boolean isUser() {
         return internal.isUser();
     }
 
+    /**
+     * Returns whether player is sleeping or not
+     */
     @GSLWhitelistMember
     public boolean isPlayerSleeping() {
         return internal.isPlayerSleeping();
     }
 
+    /**
+     * Returns whether or not the player is asleep and the screen has fully faded.
+     */
     @GSLWhitelistMember
     public boolean isPlayerFullyAsleep() {
         return internal.isPlayerFullyAsleep();
     }
 
-    @SideOnly(Side.CLIENT)
-    @GSLWhitelistMember
+    /*@SideOnly(Side.CLIENT)
     public int getSleepTimer() {
         return internal.getSleepTimer();
-    }
+    }*/
 
+    /**
+     * Gets the Location of the Bed
+     */
     @GSLWhitelistMember
     public PBlockPos getBedLocation() {
         return new PBlockPos(internal.getBedLocation());
     }
 
+    /**
+     * Sets the Spawn Point of the Player
+     * @param pos position of the Spawnpoint
+     * @param forced whether to force or not spawning exactly there (I think)
+     */
     @GSLWhitelistMember
     public void setSpawnPoint(PBlockPos pos, boolean forced) {
         internal.setSpawnPoint(pos.getInternal(), forced);
     }
 
+    /**
+     * Causes this entity to do an upwards motion (jumping).
+     */
     @GSLWhitelistMember
     public void jump() {
         internal.jump();
@@ -188,26 +260,34 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
         internal.fall(distance, damageMultiplier);
     }
 
+    /**
+     * Add experience points to player.
+     */
     @GSLWhitelistMember
     public void addExperience(int amount) {
         internal.addExperience(amount);
     }
 
-    @GSLWhitelistMember
-    public int getXPSeed() {
-        return internal.getXPSeed();
-    }
-
+    /**
+     * Add experience levels to this player.
+     */
     @GSLWhitelistMember
     public void addExperienceLevel(int levels) {
         internal.addExperienceLevel(levels);
     }
 
+    /**
+     * This method returns the cap amount of experience that the experience bar can hold. With each level, the
+     * experience cap on the player's experience bar is raised by 10.
+     */
     @GSLWhitelistMember
     public int xpBarCap() {
         return internal.xpBarCap();
     }
 
+    /**
+     * increases exhaustion level by supplied amount
+     */
     @GSLWhitelistMember
     public void addExhaustion(float exhaustion) {
         internal.addExhaustion(exhaustion);
@@ -222,11 +302,17 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
         return internal.canEat(ignoreHunger);
     }
 
+    /**
+     * Checks if the player's health is not full and not zero.
+     */
     @GSLWhitelistMember
     public boolean shouldHeal() {
         return internal.shouldHeal();
     }
 
+    /**
+     * Get the name of this object. For players this returns their username
+     */
     @GSLWhitelistMember
     public String getName() {
         return internal.getName();
@@ -236,21 +322,35 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
         return internal.getInventoryEnderChest();
     }
 
+    /**
+     * Gets the {@link PItemStack} from the given Armor or equipment slot
+     * @param slotIn Slot to get Item from
+     */
     @GSLWhitelistMember
     public PItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn) {
         return new PItemStack(internal.getItemStackFromSlot(slotIn));
     }
 
-    @GSLWhitelistMember //TODO: either with string param or make enum public
+    /**
+     * Sets the {@link PItemStack} for the given Armor or equipment slot
+     * @param slotIn Slot to set Item
+     */
+    @GSLWhitelistMember
     public void setItemStackToSlot(EntityEquipmentSlot slotIn, PItemStack stack) {
         internal.setItemStackToSlot(slotIn, stack.getInternal());
     }
 
+    /**
+     * Returns true if the player is in spectator mode.
+     */
     @GSLWhitelistMember
     public boolean isSpectator() {
         return internal.isSpectator();
     }
 
+    /**
+     * Returns true if the player is in creative mode.
+     */
     @GSLWhitelistMember
     public boolean isCreative() {
         return internal.isCreative();
@@ -264,10 +364,6 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
     @GSLWhitelistMember
     public boolean replaceItemInInventory(int inventorySlot, PItemStack itemStackIn) {
         return internal.replaceItemInInventory(inventorySlot, itemStackIn.getInternal());
-    }
-
-    public EnumHandSide getPrimaryHand() {
-        return internal.getPrimaryHand();
     }
 
     @GSLWhitelistMember
