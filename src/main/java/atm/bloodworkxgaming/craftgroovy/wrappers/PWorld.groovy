@@ -89,13 +89,13 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    void playSound(PPlayer player = null, PBlockPos pos, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
-        internal.playSound(player.internal, pos.internal, soundIn.internal, category, volume, pitch)
+    void playSound(@Nullable PPlayer player = null, PBlockPos pos, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+        internal.playSound(player?.internal, pos.internal, soundIn.internal, category, volume, pitch)
     }
 
     @GSLWhitelistMember
-    void playSound(PPlayer player = null, double x, double y, double z, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
-        internal.playSound(player.internal, x, y, z, soundIn.internal, category, volume, pitch)
+    void playSound(@Nullable PPlayer player = null, double x, double y, double z, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+        internal.playSound(player?.internal, x, y, z, soundIn.internal, category, volume, pitch)
     }
 
     @GSLWhitelistMember
@@ -104,7 +104,7 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    void playRecord(PBlockPos blockPositionIn, @Nullable PSoundEvent soundEventIn) {
+    void playRecord(PBlockPos blockPositionIn, PSoundEvent soundEventIn) {
         internal.playRecord(blockPositionIn.internal, soundEventIn.internal)
     }
 

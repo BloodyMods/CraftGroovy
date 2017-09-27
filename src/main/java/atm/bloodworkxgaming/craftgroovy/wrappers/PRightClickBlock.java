@@ -44,7 +44,6 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
         internal.setUseItem(triggerItem);
     }
 
-    @Nonnull
     @GSLWhitelistMember
     public EnumHand getHand() {
         return internal.getHand();
@@ -55,7 +54,6 @@ public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickB
         return new PItemStack(internal.getItemStack());
     }
 
-    @Nonnull
     @GSLWhitelistMember
     public PBlockPos getPos() {
         return new PBlockPos(internal.getPos());

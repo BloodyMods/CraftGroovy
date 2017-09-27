@@ -32,9 +32,9 @@ public class CraftGroovy {
     public static final String VERSION = "0.1";
 
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
-    public static List<ILogger> loggers = new ArrayList<>();
-    public static CGEventHandler cgEventHandler = new CGEventHandler();
-    public static GroovySandboxedLauncher sandboxedLauncher;
+    public static final List<ILogger> loggers = new ArrayList<>();
+    public static final CGEventHandler cgEventHandler = new CGEventHandler();
+    public static final GroovySandboxedLauncher sandboxedLauncher = new GroovySandboxedLauncher();;
 
     // Setting up the logging for GSL and for this mod
     static {
@@ -93,8 +93,7 @@ public class CraftGroovy {
     public void construction(FMLConstructionEvent event) {
         MinecraftForge.EVENT_BUS.register(cgEventHandler);
 
-        sandboxedLauncher = new GroovySandboxedLauncher();
-        sandboxedLauncher.registerResetEvent(eventObject -> CGEventHandler.clearAllClosureLists());
+        sandboxedLauncher.registerResetEvent(eventObject -> cgEventHandler.clearAllClosureLists());
 
         sandboxedLauncher.scriptPathConfig.registerScriptPathRoots("D:\\Users\\jonas\\Documents\\GitHub\\CrTGroovyAddon\\src\\test\\java\\groovyScripts");
 

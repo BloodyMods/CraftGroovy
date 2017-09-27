@@ -24,13 +24,13 @@ import java.util.List;
 
 @Mod.EventBusSubscriber
 public class CGEventHandler {
-    public static List<CGClosure> blockBreakClosures = new ArrayList<>();
-    public static List<CGClosure> blockPlaceClosures = new ArrayList<>();
-    public static List<CGClosure> rightClickBlockClosures = new ArrayList<>();
-    public static List<CGClosure> rightClickBlockOffhandClosures = new ArrayList<>();
-    public static List<CGClosure> craftTweakerDelegates = new ArrayList<>();
+    public static final List<CGClosure> blockBreakClosures = new ArrayList<>();
+    public static final List<CGClosure> blockPlaceClosures = new ArrayList<>();
+    public static final List<CGClosure> rightClickBlockClosures = new ArrayList<>();
+    public static final List<CGClosure> rightClickBlockOffhandClosures = new ArrayList<>();
+    public static final List<CGClosure> craftTweakerDelegates = new ArrayList<>();
 
-    public static void clearAllClosureLists() {
+    public void clearAllClosureLists() {
         blockBreakClosures.clear();
         blockPlaceClosures.clear();
         rightClickBlockOffhandClosures.clear();
