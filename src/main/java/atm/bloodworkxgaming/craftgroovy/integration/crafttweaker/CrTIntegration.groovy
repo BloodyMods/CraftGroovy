@@ -18,7 +18,7 @@ class CrTIntegration {
     static void registerCrTCompat(GroovySandboxedLauncher sandboxedLauncher) {
         registerCraftTweakerClasses(sandboxedLauncher)
         registerMixins(sandboxedLauncher)
-
+        CraftTweakerLauncher.registerToEvent()
     }
 
     private static void registerCraftTweakerClasses(GroovySandboxedLauncher sandboxedLauncher) {

@@ -128,17 +128,10 @@ public class CraftGroovy {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         // sandboxedLauncher.runFunctionAll("preinit", event);
-        if (Loader.isModLoaded("crafttweaker")){
-            CraftTweakerLauncher.registerToEvent();
-        }
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        info("--- Running CraftTweaker Closures --- ");
-        for (CGCraftTweakerClosure craftTweakerDelegate : CGEventHandler.craftTweakerDelegates) {
-            sandboxedLauncher.runClosure(craftTweakerDelegate.getClosure());
-        }
     }
 
     @EventHandler

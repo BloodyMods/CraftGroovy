@@ -37,6 +37,7 @@ public class ClosureManager {
                 Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
                 code.setResolveStrategy(Closure.DELEGATE_FIRST);
 
+                CraftGroovy.info("Running closure [" + closure.getClass() + " > " + delegate.getClass().getSimpleName() + "]");
                 CraftGroovy.sandboxedLauncher.runClosure(code);
             }
         }

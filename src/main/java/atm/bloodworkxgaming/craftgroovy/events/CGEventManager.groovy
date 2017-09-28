@@ -39,7 +39,7 @@ class CGEventManager {
     }
 
     @GSLWhitelistMember
-    static CGCraftTweakerClosure craftTweaker(List<String> packMode = null, String loderName = "crafttweaker",
+    static CGCraftTweakerClosure craftTweaker(List<String> packMode = [], String loderName = "crafttweaker",
                                               @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = CraftTweakerDelegate) Closure cl) {
         CGCraftTweakerClosure closure = new CGCraftTweakerClosure(cl, loderName, packMode)
         CGEventHandler.craftTweakerDelegates.add(closure)
