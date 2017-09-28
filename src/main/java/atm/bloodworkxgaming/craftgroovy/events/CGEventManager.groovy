@@ -8,7 +8,9 @@ import atm.bloodworkxgaming.craftgroovy.wrappers.PEntityItemPickupEvent
 import atm.bloodworkxgaming.craftgroovy.wrappers.PPlaceEvent
 import atm.bloodworkxgaming.craftgroovy.wrappers.PRightClickBlock
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
+import groovy.transform.CompileStatic
 
+@CompileStatic
 class CGEventManager {
 
     @GSLWhitelistMember
@@ -37,7 +39,7 @@ class CGEventManager {
     }
 
     @GSLWhitelistMember
-    static CGCraftTweakerClosure craftTweaker(String packMode = "", String loderName = "crafttweaker",
+    static CGCraftTweakerClosure craftTweaker(List<String> packMode = null, String loderName = "crafttweaker",
                                               @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = CraftTweakerDelegate) Closure cl) {
         CGCraftTweakerClosure closure = new CGCraftTweakerClosure(cl, loderName, packMode)
         CGEventHandler.craftTweakerDelegates.add(closure)

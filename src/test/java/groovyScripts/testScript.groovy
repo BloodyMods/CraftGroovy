@@ -111,9 +111,9 @@ CGEventManager.craftTweaker {
 
 
 
-} setPriority(20) setLoaderName( "bla") setPackMode("bla")
+} setPriority(20) setLoaderName( "bla") addPackMode("normal") addPackMode("potato")
 
-CGEventManager.craftTweaker ("bla") {
+CGEventManager.craftTweaker (["bla", "boob", "normal"]) {
     int hi = 20
     println hi
 }

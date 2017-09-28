@@ -3,14 +3,18 @@ package atm.bloodworkxgaming.craftgroovy.delegate;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import groovy.lang.Closure;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class CGCraftTweakerClosure extends CGClosure {
     private String loaderName;
-    private String packMode;
+    private List<String> packModes;
 
-    public CGCraftTweakerClosure(Closure closure, String loaderName, String packMode) {
+    public CGCraftTweakerClosure(Closure closure, String loaderName, List<String> packModes) {
         super(closure);
         this.loaderName = loaderName;
-        this.packMode = packMode;
+        this.packModes = packModes;
     }
 
 
@@ -18,8 +22,8 @@ public class CGCraftTweakerClosure extends CGClosure {
         return loaderName;
     }
 
-    public String getPackMode() {
-        return packMode;
+    public List<String> getPackModes() {
+        return packModes;
     }
 
     @GSLWhitelistMember
@@ -29,8 +33,9 @@ public class CGCraftTweakerClosure extends CGClosure {
     }
 
     @GSLWhitelistMember
-    public CGCraftTweakerClosure setPackMode(String packMode) {
-        this.packMode = packMode;
+    public CGCraftTweakerClosure addPackMode(String... packMode) {
+        if (packModes == null) packModes = new ArrayList<>();
+        Collections.addAll(packModes, packMode);
         return this;
     }
 

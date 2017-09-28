@@ -3,9 +3,11 @@ package atm.bloodworkxgaming.craftgroovy;
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
+import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerLauncher;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
 import atm.bloodworkxgaming.craftgroovy.wrappers.WrapperWhitelister;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.mc1120.network.MessageCopyClipboard;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
 import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
@@ -124,13 +126,15 @@ public class CraftGroovy {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        sandboxedLauncher.runFunctionAll("preinit", event);
+        // sandboxedLauncher.runFunctionAll("preinit", event);
+        if (Loader.isModLoaded("crafttweaker")){
+            CraftTweakerLauncher.registerToEvent();
+        }
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
         info("--- Running CraftTweaker Closures --- ");
-        cgEventHandler.runCraftTweakerClosure();
     }
 
     @EventHandler

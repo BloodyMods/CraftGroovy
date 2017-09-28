@@ -7,7 +7,7 @@ class Defaults {
     static def coal
 
     Defaults() {
-        CGEventManager.craftTweaker{
+        CGEventManager.craftTweaker {
             iron = ore("ingotIron")
             coal = item("minecraft:coal")
         }.setPriority(100)

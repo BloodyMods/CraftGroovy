@@ -9,8 +9,11 @@ import crafttweaker.api.item.IItemStack
 import crafttweaker.mc1120.brackets.*
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.AnnotationManager
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher
+import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 import stanhebben.zenscript.annotations.*
 
+@TypeChecked
 class CrTIntegration {
     static void registerCrTCompat(GroovySandboxedLauncher sandboxedLauncher) {
         registerCraftTweakerClasses(sandboxedLauncher)
@@ -42,6 +45,6 @@ class CrTIntegration {
     }
 
     private static void registerMixins(GroovySandboxedLauncher sandboxedLauncher) {
-        sandboxedLauncher.launchWrapper.registerMixinProvider(new CrTMixinClasses());
+        sandboxedLauncher.launchWrapper.registerMixinProvider(new CrTMixinClasses())
     }
 }
