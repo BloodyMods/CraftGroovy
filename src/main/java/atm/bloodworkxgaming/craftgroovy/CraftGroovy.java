@@ -1,6 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy;
 
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
+import atm.bloodworkxgaming.craftgroovy.delegate.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerLauncher;
@@ -135,6 +136,9 @@ public class CraftGroovy {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         info("--- Running CraftTweaker Closures --- ");
+        for (CGCraftTweakerClosure craftTweakerDelegate : CGEventHandler.craftTweakerDelegates) {
+            sandboxedLauncher.runClosure(craftTweakerDelegate.getClosure());
+        }
     }
 
     @EventHandler

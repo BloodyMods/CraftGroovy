@@ -23,7 +23,7 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMembe
 import groovy.transform.CompileStatic
 import net.minecraft.nbt.JsonToNBT
 
-// @CompileStatic
+@CompileStatic
 class CraftTweakerDelegate {
     @GSLWhitelistMember
     public static IRecipeManager recipes = CraftTweakerAPI.recipes

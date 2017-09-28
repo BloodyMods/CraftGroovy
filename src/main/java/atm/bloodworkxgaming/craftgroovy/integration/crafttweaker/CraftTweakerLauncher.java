@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class CraftTweakerLauncher  {
     public static void registerToEvent(){
-        CraftTweakerAPI.tweaker.registerLoadStartedEvent(crTLoadingStartedEvent -> handleLoading(crTLoadingStartedEvent.getLoaderName(), crTLoadingStartedEvent.getNetworkSide(), crTLoadingStartedEvent.isSyntaxCommand()));
+        // CraftTweakerAPI.tweaker.registerLoadStartedEvent(crTLoadingStartedEvent -> handleLoading(crTLoadingStartedEvent.getLoaderName(), crTLoadingStartedEvent.getNetworkSide(), crTLoadingStartedEvent.isSyntaxCommand()));
     }
 
     private static void handleLoading(String loaderName, NetworkSide networkSide, boolean isSyntaxCommand){
