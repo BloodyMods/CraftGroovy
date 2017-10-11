@@ -1,10 +1,14 @@
 package dsl
 
 def ctx = context(ctype: "crafttweaker.api.recipes.IRecipeManager")
+def ctxIIngredient = context(ctype: "crafttweaker.api.item.IIngredient")
+def ctxIItemStack = context(ctype: "crafttweaker.api.item.IItemStack")
+def ctxILiquidStack = context(ctype: "crafttweaker.api.liquid.ILiquidStack")
+def ctxIOreDictEntry = context(ctype: "crafttweaker.api.oredict.IOreDictEntry")
 
 // ---------- Recipe Manager ----------
 contributor (ctx) {
-
+/*
     //region >>>> add shaped without name
     method(name: "addShaped", type: "void",
             params: [
@@ -82,5 +86,25 @@ contributor (ctx) {
                     out: "crafttweaker.api.item.IItemStack",
                     ingred: "java.util.List<crafttweaker.api.item.IIngredient>"])
     //endregion
+    */
+}
 
+contributor(ctxIIngredient) {
+    method(name: "multiply", type: "crafttweaker.api.item.IIngredient",
+            params: [amount: "int"])
+}
+
+contributor(ctxIItemStack) {
+    method(name: "multiply", type: "crafttweaker.api.item.IItemStack",
+            params: [amount: "int"])
+}
+
+contributor(ctxILiquidStack) {
+    method(name: "multiply", type: "crafttweaker.api.item.ILiquidStack",
+            params: [amount: "int"])
+}
+
+contributor(ctxIOreDictEntry) {
+    method(name: "multiply", type: "crafttweaker.api.item.IOreDictEntry",
+            params: [amount: "int"])
 }

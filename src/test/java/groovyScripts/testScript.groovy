@@ -1,5 +1,6 @@
 package groovyScripts
 
+import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
@@ -116,4 +117,9 @@ CGEventManager.craftTweaker {
 CGEventManager.craftTweaker (["bla", "boob", "normal"]) {
     int hi = 20
     println hi
+}
+
+CGEventManager.craftTweaker {
+    recipes.addShapedMirrored(item("coal", 2), [[item("coal", 2), item("coal", 2)]])
+    recipes.addShapedMirrored(item("coal", 2) * 20, [[item("coal"), item("coal")], [ore("dustRedstone")]])
 }

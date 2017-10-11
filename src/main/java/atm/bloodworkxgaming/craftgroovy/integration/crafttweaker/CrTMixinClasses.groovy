@@ -31,5 +31,10 @@ class CrTMixinClasses implements IMixinProvider {
             def recipeManager = delegate as IRecipeManager
             recipeManager.addShapeless(out, ingred as IIngredient[], recipeFunction, recipeAction)
         }
+
+        IIngredient.metaClass.multiply { int amount ->
+            def iIngredient = delegate as IIngredient
+            return iIngredient.amount(amount)
+        }
     }
 }

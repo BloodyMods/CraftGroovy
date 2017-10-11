@@ -1,5 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
+import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.wrapper.RecipeManagerWrapper
 import crafttweaker.CraftTweakerAPI
 import crafttweaker.api.client.IClient
 import crafttweaker.api.data.IData
@@ -26,7 +27,7 @@ import net.minecraft.nbt.JsonToNBT
 @CompileStatic
 class CraftTweakerDelegate {
     @GSLWhitelistMember
-    public static IRecipeManager recipes = CraftTweakerAPI.recipes
+    public static RecipeManagerWrapper recipes = new RecipeManagerWrapper(CraftTweakerAPI.recipes)
     @GSLWhitelistMember
     public static IFurnaceManager furnace = CraftTweakerAPI.furnace
     @GSLWhitelistMember
