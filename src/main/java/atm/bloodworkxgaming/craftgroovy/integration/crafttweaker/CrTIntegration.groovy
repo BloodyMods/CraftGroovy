@@ -5,6 +5,7 @@ import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.
 import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundEventBracketHandler
 import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundTypeBracketHandler
 import crafttweaker.CraftTweakerAPI
+import crafttweaker.api.item.IIngredient
 import crafttweaker.api.item.IItemStack
 import crafttweaker.mc1120.brackets.*
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.AnnotationManager
@@ -41,6 +42,9 @@ class CrTIntegration {
             whitelistRegistry.registerMethod(SoundTypeBracketHandler.class, "getSoundType")
             whitelistRegistry.registerMethod(CraftTweakerAPI.class, "getLogger")
             whitelistRegistry.registerField(CraftTweakerAPI.class, "recipes")
+
+            // mixins
+            whitelistRegistry.registerMethod(IIngredient.class, "multiply")
         }
     }
 

@@ -179,4 +179,12 @@ public class PBlock extends ICGWrapper<Block> {
     public BlockStateContainer getBlockState() {
         return internal.getBlockState();
     }
+
+    /**
+     * Sets how many hits it takes to break a block.
+     */
+    @GSLWhitelistMember
+    public Block setHardness(float hardness) {
+        return internal.setHardness(hardness);
+    }
 }

@@ -1,5 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.events;
 
+import atm.bloodworkxgaming.craftgroovy.delegate.CGContentTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.delegate.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent;
@@ -23,10 +24,12 @@ import java.util.List;
 @Mod.EventBusSubscriber
 public class CGEventHandler {
     public static final List<CGCraftTweakerClosure> craftTweakerDelegates = new ArrayList<>();
+    public static final List<CGContentTweakerClosure> contentTweakerDelegates = new ArrayList<>();
 
     public void clearAllClosureLists() {
         ClosureManager.clearMap();
         craftTweakerDelegates.clear();
+        contentTweakerDelegates.clear();
     }
 
 
@@ -93,8 +96,4 @@ public class CGEventHandler {
     public void clientChatEvent(ClientChatEvent e){
         Sandbox.runFunctionAll("clientChatEvent",new PClientChatEvent(e));
     }*/
-
-    public void runCraftTweakerClosure() {
-        ClosureManager.runClosuresWithDelegate(new CraftTweakerDelegate(), craftTweakerDelegates);
-    }
 }

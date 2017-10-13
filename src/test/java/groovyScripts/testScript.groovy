@@ -1,8 +1,8 @@
 package groovyScripts
 
-import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
+import atm.bloodworkxgaming.craftgroovy.wrappers.PBlock
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
@@ -19,22 +19,6 @@ println "Hi I am a test script"
 
 void preinit(FMLPreInitializationEvent event){
     println " This should be in preinit"
-
-
-    VanillaFactory.createBlock("anti_ice", getBlockMaterial("ice")).with {
-        lightOpacity = 3
-        lightValue = 10
-        setBlockHardness(5.0f)
-        setBlockResistance(5.0f)
-        setToolClass("pickaxe")
-        setToolLevel(0)
-        setBlockSoundType(getSoundType("snow"))
-        setSlipperiness(0.3f)
-        onBlockBreak = { IWorld world, IBlockPos pos, ICTBlockState var3 ->
-            println "breaking a block at pos ${pos.getX()}, ${pos.getY()}, ${pos.getZ()}"
-        }
-        register()
-    }
 }
 
 CGEventManager.blockBreak {
@@ -120,6 +104,59 @@ CGEventManager.craftTweaker (["bla", "boob", "normal"]) {
 }
 
 CGEventManager.craftTweaker {
-    recipes.addShapedMirrored(item("coal", 2), [[item("coal", 2), item("coal", 2)]])
-    recipes.addShapedMirrored(item("coal", 2) * 20, [[item("coal"), item("coal")], [ore("dustRedstone")]])
+    PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
+
+
+    recipes.addShapedMirrored(item("minecraft:coal", 2), [[item("minecraft:coal", 2), item("minecraft:coal")]])
+    recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone")]])
+}
+
+CGEventManager.contentTweaker {
+    println "Hi I am in the contenttweaker thingy"
+
+
+
+    VanillaFactory.createBlock("anti_ice", getBlockMaterial("ice")).with {
+        lightOpacity = 3
+        lightValue = 10
+        setBlockHardness(5.0f)
+        setBlockResistance(5.0f)
+        setToolClass("pickaxe")
+        setToolLevel(0)
+        setBlockSoundType(getSoundType("snow"))
+        setSlipperiness(0.3f)
+
+        onBlockBreak = { IWorld world, IBlockPos pos, ICTBlockState var3 ->
+            println "breaking a block at pos ${pos.getX()}, ${pos.getY()}, ${pos.getZ()}"
+        }
+
+        register()
+    }
+
+    def cobalt5 = MaterialBuilder {
+        name = "Cobalt5"
+        color = 18300
+        hasEffect = true
+    }
+
+    def cobalt4 = getMaterialBuilder().setName("Cobalt4").setColor(18347).setHasEffect(true).build()
+
+    def cobalt3 = MaterialBuilder { name = "Cobalt3"; color = 0x0033cc; hasEffect = false}
+
+    def cobalt2 = MaterialBuilder { setName("Cobalt2"); setColor(0x0033cc); setHasEffect(false)}
+
+    def cobalt1 = MaterialBuilder (name: "Cobalt1", color: 0x0033cc, hasEffect: false)
+
+    def ingots = [
+            MaterialBuilder { name = "Cobalt"; color = 0x0033cc; hasEffect = false},
+            MaterialBuilder { name = "Gold"; color = 0xffff00; hasEffect = true},
+            MaterialBuilder { name = "Iron"; color = 0x999966; hasEffect = false},
+            cobalt1, cobalt2, cobalt3, cobalt4, cobalt5
+    ]
+
+
+
+    for (i in ingots){
+        i.registerParts("gear", "ingot")
+    }
 }
