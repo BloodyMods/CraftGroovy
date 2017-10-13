@@ -107,7 +107,7 @@ CGEventManager.craftTweaker {
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
 
 
-    recipes.addShapedMirrored(item("minecraft:coal", 2), [[item("minecraft:coal", 2), item("minecraft:coal")]])
+    recipes.addShapedMirrored(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
     recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone")]])
 }
 
@@ -153,8 +153,6 @@ CGEventManager.contentTweaker {
             MaterialBuilder { name = "Iron"; color = 0x999966; hasEffect = false},
             cobalt1, cobalt2, cobalt3, cobalt4, cobalt5
     ]
-
-
 
     for (i in ingots){
         i.registerParts("gear", "ingot")

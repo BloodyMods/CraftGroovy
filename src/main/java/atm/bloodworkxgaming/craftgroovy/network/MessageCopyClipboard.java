@@ -20,6 +20,9 @@ public class MessageCopyClipboard implements IMessage, IMessageHandler<MessageCo
 
     private String data;
 
+    public MessageCopyClipboard() {
+    }
+
     public MessageCopyClipboard(String data) {
         this.data = data;
     }

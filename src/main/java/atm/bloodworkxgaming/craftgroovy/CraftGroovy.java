@@ -1,18 +1,16 @@
 package atm.bloodworkxgaming.craftgroovy;
 
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
-import atm.bloodworkxgaming.craftgroovy.delegate.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
-import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerLauncher;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
+import atm.bloodworkxgaming.craftgroovy.network.MessageCopyClipboard;
 import atm.bloodworkxgaming.craftgroovy.wrappers.WrapperWhitelister;
-import crafttweaker.CraftTweakerAPI;
-import crafttweaker.mc1120.network.MessageCopyClipboard;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
 import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
+import io.sommers.packmode.PMConfig;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.ITextComponent;
@@ -28,6 +26,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class CraftGroovy {
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
     public static final List<ILogger> loggers = new ArrayList<>();
     public static final CGEventHandler cgEventHandler = new CGEventHandler();
-    public static final GroovySandboxedLauncher sandboxedLauncher = new GroovySandboxedLauncher();;
+    public static final GroovySandboxedLauncher sandboxedLauncher = new GroovySandboxedLauncher();
 
     private static int ID = -1;
 
@@ -56,6 +55,7 @@ public class CraftGroovy {
         GroovySandboxedLauncher.LOG_MANAGER.registerLogger(consoleLogger);
 
         // Registering hte CopyMessage to the Network
+
         NETWORK.registerMessage(MessageCopyClipboard.class, MessageCopyClipboard.class, ++ID, Side.CLIENT);
     }
 
@@ -105,7 +105,10 @@ public class CraftGroovy {
 
         sandboxedLauncher.registerResetEvent(eventObject -> cgEventHandler.clearAllClosureLists());
 
-        sandboxedLauncher.scriptPathConfig.registerScriptPathRoots("D:\\Users\\jonas\\Documents\\GitHub\\CrTGroovyAddon\\src\\test\\java\\groovyScripts");
+        CGConfig.init(new File("config/craftgroovy/craftgroovy.cfg"));
+        for (String s : CGConfig.getCustomScriptPaths()) {
+            sandboxedLauncher.scriptPathConfig.registerScriptPathRoots(s);
+        }
 
         WhitelistDefaults.registerWhitelistMethodDefaults(sandboxedLauncher.whitelistRegistry);
         WrapperWhitelister.registerWrappers(sandboxedLauncher.whitelistRegistry);

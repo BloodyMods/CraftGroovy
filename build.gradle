@@ -7,6 +7,8 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
+plugins { id "com.github.johnrengelman.shadow" version "2.0.1" }
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'groovy'
 
@@ -17,14 +19,19 @@ version = "0.1"
 group = "atm.bloodworkxgaming.craftgroovy" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "craftgroovy"
 
+
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
-sourceSets.main.java.srcDirs = []
-sourceSets.main.groovy.srcDirs += ["src/main/java"]
+sourceSets {
+    main {
+        java { srcDirs = [] }    // no source dirs for the java compiler
+        groovy { srcDirs = ["src/main/java"] }  // compile   everything in src/ with groovy
+    }
+}
 
 minecraft {
     version = "1.12.2-14.23.0.2512"
@@ -49,10 +56,9 @@ dependencies {
         exclude group: 'org.ow2.asm'
     }
     deobfCompile 'com.teamacronymcoders:ContentTweaker:1.12-4.1.0-Snapshot.+'
-    deobfCompile 'com.teamacronymcoders.base:base:1.12-3.4.0-SNAPSHOT.+'
+    deobfCompile 'com.teamacronymcoders.base:base:1.12-3.4.0-SNAPSHOT.78'
     deobfCompile "mezz.jei:jei_1.12.1:4.7.+"
     deobfCompile ('io.sommers:packmode:1.12.1-1.+')
-
 
     compile (project(":groovysandboxedlauncher"))/* {
         exclude group: 'org.codehaus.groovy'
@@ -61,8 +67,8 @@ dependencies {
 
 processResources {
     // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    // inputs.property "version", project.version
+    // inputs.property "mcversion", project.minecraft.version
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
@@ -77,3 +83,17 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+
+shadowJar {
+    // classifier = ""
+
+    dependencies {
+        include(project(':groovysandboxedlauncher'))
+        include(dependency('org.kohsuke:groovy-sandbox:1.15'))
+    }
+}
+
+reobf { shadowJar { mappingType = "SEARGE" } }
+tasks.reobfShadowJar.mustRunAfter shadowJar
+tasks.reobfShadowJar.group = 'shadow'
