@@ -1,7 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.events;
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
-import atm.bloodworkxgaming.craftgroovy.delegate.CGClosure;
+import atm.bloodworkxgaming.craftgroovy.closures.CGClosure;
 import groovy.lang.Closure;
 
 import java.util.*;
@@ -9,9 +9,9 @@ import java.util.*;
 public class ClosureManager {
     public static final Comparator<CGClosure> CG_CLOSURE_COMPARATOR = (o1, o2) -> Integer.compare(o2.getPriority(), o1.getPriority());
 
-     private static Map<String, List<CGClosure>> closuresMap = new HashMap<>();
+    private static Map<String, List<CGClosure>> closuresMap = new HashMap<>();
 
-    public static void addClosureToMap(String eventName, CGClosure closure){
+    public static void addClosureToMap(String eventName, CGClosure closure) {
         List<CGClosure> list = closuresMap.getOrDefault(eventName, new ArrayList<>());
         list.add(closure);
         list.sort(CG_CLOSURE_COMPARATOR);
@@ -19,7 +19,7 @@ public class ClosureManager {
         closuresMap.put(eventName, list);
     }
 
-    public static CGClosure addClosureToMap(String eventName, Closure closure){
+    public static CGClosure addClosureToMap(String eventName, Closure closure) {
         CGClosure cgClosure = new CGClosure(closure);
         addClosureToMap(eventName, cgClosure);
         return cgClosure;
@@ -31,7 +31,7 @@ public class ClosureManager {
     }
 
     public static void runClosuresWithDelegate(Object delegate, List<? extends CGClosure> cgClosures) {
-        if (cgClosures != null){
+        if (cgClosures != null) {
             for (CGClosure cgClosure : cgClosures) {
                 Closure closure = cgClosure.getClosure();
                 Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
@@ -51,7 +51,7 @@ public class ClosureManager {
         return closuresMap.getOrDefault(name, Collections.emptyList());
     }
 
-    public static void clearMap(){
+    public static void clearMap() {
         closuresMap.clear();
     }
 }

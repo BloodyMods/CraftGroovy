@@ -1,8 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.events;
 
-import atm.bloodworkxgaming.craftgroovy.delegate.CGContentTweakerClosure;
-import atm.bloodworkxgaming.craftgroovy.delegate.CGCraftTweakerClosure;
-import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate;
+import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure;
+import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PEntityItemPickupEvent;
 import atm.bloodworkxgaming.craftgroovy.wrappers.PPlaceEvent;
@@ -12,7 +11,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,18 +24,17 @@ public class CGEventHandler {
     public static final List<CGCraftTweakerClosure> craftTweakerDelegates = new ArrayList<>();
     public static final List<CGContentTweakerClosure> contentTweakerDelegates = new ArrayList<>();
 
-    public void clearAllClosureLists() {
-        ClosureManager.clearMap();
-        craftTweakerDelegates.clear();
-        contentTweakerDelegates.clear();
-    }
-
-
     public static void printDebugToAll(World world, String message) {
         if (message.length() > 0) {
             world.getPlayers(EntityPlayer.class, entityPlayer -> true).forEach(player ->
                     player.sendMessage(new TextComponentString(message)));
         }
+    }
+
+    public void clearAllClosureLists() {
+        ClosureManager.clearMap();
+        craftTweakerDelegates.clear();
+        contentTweakerDelegates.clear();
     }
 
     @SubscribeEvent

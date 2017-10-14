@@ -55,23 +55,23 @@ public class Commands {
         CGChatCommand.registerCommand(new CraftGroovyCommand("hand") {
             @Override
             public void executeCommand(MinecraftServer server, ICommandSender sender, String[] args) {
-                if (sender.getCommandSenderEntity() instanceof EntityPlayer){
+                if (sender.getCommandSenderEntity() instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
 
                     ItemStack item = player.getHeldItemMainhand();
 
                     ResourceLocation reg = item.getItem().getRegistryName();
                     int meta = item.getMetadata();
-                    String colorfulName = "item(\"" + ChatFormatting.DARK_GREEN + reg + ChatFormatting.RESET  + "\"" + (meta != 0 ? "," + ChatFormatting.AQUA + meta : "") + ChatFormatting.RESET + ")";
+                    String colorfulName = "item(\"" + ChatFormatting.DARK_GREEN + reg + ChatFormatting.RESET + "\"" + (meta != 0 ? "," + ChatFormatting.AQUA + meta : "") + ChatFormatting.RESET + ")";
 
                     String name = "item(\"" + reg + "\"" + (meta != 0 ? "," + meta : "") + ")";
 
-                    if (item.hasTagCompound()){
+                    if (item.hasTagCompound()) {
                         String nbt = String.valueOf(item.getTagCompound());
                         nbt = nbt.replace("'", "\\'");
 
                         name += ".withTag(nbt('" + nbt + "'))";
-                        colorfulName += ".withTag(nbt('" + ChatFormatting.GOLD +  nbt + ChatFormatting.RESET + "'))";
+                        colorfulName += ".withTag(nbt('" + ChatFormatting.GOLD + nbt + ChatFormatting.RESET + "'))";
                     }
 
                     ClipboardHelper.copyStringPlayer(player, name);

@@ -4,7 +4,6 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMembe
 import groovy.transform.CompileStatic
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.entity.Entity
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.relauncher.Side

@@ -1,7 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.events
 
-import atm.bloodworkxgaming.craftgroovy.delegate.CGContentTweakerClosure
-import atm.bloodworkxgaming.craftgroovy.delegate.CGCraftTweakerClosure
+import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure
+import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent
@@ -10,7 +10,6 @@ import atm.bloodworkxgaming.craftgroovy.wrappers.PPlaceEvent
 import atm.bloodworkxgaming.craftgroovy.wrappers.PRightClickBlock
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 import groovy.transform.CompileStatic
-import groovy.transform.TypeChecked
 
 class CGEventManager {
 
@@ -34,7 +33,8 @@ class CGEventManager {
 
     @CompileStatic
     @GSLWhitelistMember
-    static def rightClickBlockOffHand(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = PRightClickBlock) Closure cl) {
+    static def rightClickBlockOffHand(
+            @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = PRightClickBlock) Closure cl) {
         return ClosureManager.addClosureToMap(CGEventNames.CG_RIGHTCLICK_BLOCK_OFFHAND.name(), cl)
     }
 
@@ -55,7 +55,8 @@ class CGEventManager {
     }
 
     @GSLWhitelistMember
-    static CGContentTweakerClosure contentTweaker(List<String> packMode = [], @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = ContentTweakerDelegate) Closure cl) {
+    static CGContentTweakerClosure contentTweaker(List<String> packMode = [],
+                                                  @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = ContentTweakerDelegate) Closure cl) {
         CGContentTweakerClosure closure = new CGContentTweakerClosure(cl, packMode)
         CGEventHandler.contentTweakerDelegates.add(closure)
         CGEventHandler.contentTweakerDelegates.sort(ClosureManager.CG_CLOSURE_COMPARATOR)

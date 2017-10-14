@@ -1,9 +1,10 @@
 package atm.bloodworkxgaming.craftgroovy.wrappers;
 
+import atm.bloodworkxgaming.craftgroovy.delegate.MCInWorldObjects;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraftforge.event.world.BlockEvent;
 
-public class PBreakEvent extends ICGWrapper<BlockEvent.BreakEvent> {
+public class PBreakEvent extends ICGWrapper<BlockEvent.BreakEvent> implements MCInWorldObjects {
 
     public PBreakEvent(BlockEvent.BreakEvent e) {
         super(e);
@@ -26,6 +27,7 @@ public class PBreakEvent extends ICGWrapper<BlockEvent.BreakEvent> {
     public int getExpToDrop() {
         return internal.getExpToDrop();
     }
+
     /**
      * Set the amount of experience dropped by the block after the event has processed
      *

@@ -9,39 +9,40 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMembe
 
 class ContentTweakerDelegate {
     @GSLWhitelistMember
-    static IMaterial MaterialBuilder(@DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = IMaterialBuilder) Closure closure){
+    static IMaterial MaterialBuilder(
+            @DelegatesTo(strategy = Closure.DELEGATE_ONLY, value = IMaterialBuilder) Closure closure) {
         def builder = CTMaterialSystem.materialBuilder
         builder.with closure
         return builder.build()
     }
 
     @GSLWhitelistMember
-    static IMaterialBuilder getMaterialBuilder(){
+    static IMaterialBuilder getMaterialBuilder() {
         return CTMaterialSystem.materialBuilder
     }
 
     @GSLWhitelistMember
-    static IMaterial MaterialBuilder(Map<String, Object> map){
+    static IMaterial MaterialBuilder(Map<String, Object> map) {
         def builder = CTMaterialSystem.materialBuilder
 
         def effect = map.getOrDefault("hasEffect", false)
-        if (effect instanceof Boolean){
+        if (effect instanceof Boolean) {
             builder.hasEffect = effect
-        }else {
+        } else {
             throw new MaterialException("Wrong type of hasEffect given")
         }
 
         def color = map.get("color")
-        if (color instanceof Integer){
-            builder.color = (int)color
-        }else {
+        if (color instanceof Integer) {
+            builder.color = (int) color
+        } else {
             throw new MaterialException("No Color given")
         }
 
         def name = map.get("name")
-        if (name instanceof String){
+        if (name instanceof String) {
             builder.name = name
-        }else {
+        } else {
             throw new MaterialException("No Name given")
         }
 

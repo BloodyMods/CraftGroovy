@@ -5,7 +5,6 @@ import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBlock
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
 import atm.bloodworkxgaming.craftgroovy.wrappers.PParticleTypes
-import net.minecraft.util.EnumParticleTypes
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 println "Hi I am a test script"
@@ -55,12 +54,19 @@ CGEventManager.rightClickBlock {
             world.playRecord(pos, VanillaSounds.ENTITY_GENERIC_EXPLODE.getSoundEvent())
             world.setToAir(pos)
 
+
             world.setBlockState(pos, fire.defaultState)
 
             player.heldMain.count--
             world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2, 0)
         }
     }
+}
+
+CGEventManager.itemPickUp {
+    println item.item.item
+
+    item("potato")
 }
 /*
 CGEventManager.craftTweaker {

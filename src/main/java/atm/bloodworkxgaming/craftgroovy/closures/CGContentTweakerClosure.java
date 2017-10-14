@@ -1,4 +1,4 @@
-package atm.bloodworkxgaming.craftgroovy.delegate;
+package atm.bloodworkxgaming.craftgroovy.closures;
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import groovy.lang.Closure;

@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.Loader;
 import java.util.List;
 
 public class PackModeChecker {
-    public static String getPackMode(){
+    public static String getPackMode() {
         return PackModeAPI.getInstance().getCurrentPackMode();
     }
 

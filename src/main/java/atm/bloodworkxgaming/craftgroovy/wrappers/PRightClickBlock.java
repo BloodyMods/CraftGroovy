@@ -1,7 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.wrappers;
 
+import atm.bloodworkxgaming.craftgroovy.delegate.MCInWorldObjects;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -9,12 +9,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.relauncher.Side;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickBlock> {
+public class PRightClickBlock extends ICGWrapper<PlayerInteractEvent.RightClickBlock> implements MCInWorldObjects {
 
     public PRightClickBlock(PlayerInteractEvent.RightClickBlock internal) {
         super(internal);

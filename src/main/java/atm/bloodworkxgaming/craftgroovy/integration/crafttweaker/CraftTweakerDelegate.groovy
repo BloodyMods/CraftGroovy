@@ -14,7 +14,6 @@ import crafttweaker.api.oredict.IOreDict
 import crafttweaker.api.oredict.IOreDictEntry
 import crafttweaker.api.potions.IPotion
 import crafttweaker.api.recipes.IFurnaceManager
-import crafttweaker.api.recipes.IRecipeManager
 import crafttweaker.api.server.IServer
 import crafttweaker.api.vanilla.IVanilla
 import crafttweaker.mc1120.brackets.*
@@ -78,7 +77,7 @@ class CraftTweakerDelegate {
     }
 
     @GSLWhitelistMember
-    static IData nbt(String string){
+    static IData nbt(String string) {
         NBTConverter.from(JsonToNBT.getTagFromJson(string), true)
     }
 }

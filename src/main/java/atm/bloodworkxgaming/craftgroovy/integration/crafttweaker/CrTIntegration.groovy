@@ -10,7 +10,6 @@ import crafttweaker.api.item.IItemStack
 import crafttweaker.mc1120.brackets.*
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.AnnotationManager
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher
-import groovy.transform.CompileStatic
 import groovy.transform.TypeChecked
 import stanhebben.zenscript.annotations.*
 

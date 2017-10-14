@@ -1,11 +1,9 @@
-package atm.bloodworkxgaming.craftgroovy.delegate;
+package atm.bloodworkxgaming.craftgroovy.closures;
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import groovy.lang.Closure;
 import groovy.transform.CompileStatic;
 import net.minecraftforge.fml.relauncher.Side;
-
-import java.util.Comparator;
 
 @CompileStatic
 public class CGClosure {
@@ -26,24 +24,24 @@ public class CGClosure {
         return priority;
     }
 
-    public Side getSide() {
-        return side;
-    }
-
     @GSLWhitelistMember
     public CGClosure setPriority(int priority) {
         this.priority = priority;
         return this;
     }
 
+    public Side getSide() {
+        return side;
+    }
+
     @GSLWhitelistMember
-    public CGClosure clientOnly(){
+    public CGClosure clientOnly() {
         side = Side.CLIENT;
         return this;
     }
 
     @GSLWhitelistMember
-    public CGClosure serverOnly(){
+    public CGClosure serverOnly() {
         side = Side.SERVER;
         return this;
     }

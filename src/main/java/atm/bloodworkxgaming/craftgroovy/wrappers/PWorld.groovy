@@ -2,12 +2,8 @@ package atm.bloodworkxgaming.craftgroovy.wrappers
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 import groovy.transform.CompileStatic
-import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
-import net.minecraft.init.Blocks
-import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.SoundCategory
-import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 import javax.annotation.Nullable
@@ -92,12 +88,14 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    void playSound(@Nullable PPlayer player = null, PBlockPos pos, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+    void playSound(
+            @Nullable PPlayer player = null, PBlockPos pos, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
         internal.playSound(player?.internal, pos.internal, soundIn.internal, category, volume, pitch)
     }
 
     @GSLWhitelistMember
-    void playSound(@Nullable PPlayer player = null, double x, double y, double z, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
+    void playSound(
+            @Nullable PPlayer player = null, double x, double y, double z, PSoundEvent soundIn, SoundCategory category, float volume, float pitch) {
         internal.playSound(player?.internal, x, y, z, soundIn.internal, category, volume, pitch)
     }
 

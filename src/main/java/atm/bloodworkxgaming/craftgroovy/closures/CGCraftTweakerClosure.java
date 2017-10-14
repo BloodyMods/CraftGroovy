@@ -1,4 +1,4 @@
-package atm.bloodworkxgaming.craftgroovy.delegate;
+package atm.bloodworkxgaming.craftgroovy.closures;
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import groovy.lang.Closure;
@@ -22,14 +22,14 @@ public class CGCraftTweakerClosure extends CGClosure {
         return loaderName;
     }
 
-    public List<String> getPackModes() {
-        return packModes;
-    }
-
     @GSLWhitelistMember
     public CGCraftTweakerClosure setLoaderName(String loaderName) {
         this.loaderName = loaderName;
         return this;
+    }
+
+    public List<String> getPackModes() {
+        return packModes;
     }
 
     @GSLWhitelistMember

@@ -8,7 +8,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameType;
@@ -64,19 +63,25 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
         internal.setHeldItem(EnumHand.OFF_HAND, heldOff.getInternal());
     }
 
-    /** Entity motion X */
+    /**
+     * Entity motion X
+     */
     @GSLWhitelistMember
     public double getMotionX() {
         return internal.motionX;
     }
 
-    /** Entity motion Y */
+    /**
+     * Entity motion Y
+     */
     @GSLWhitelistMember
     public double getMotionY() {
         return internal.motionY;
     }
 
-    /** Entity motion Z */
+    /**
+     * Entity motion Z
+     */
     @GSLWhitelistMember
     public double getMotionZ() {
         return internal.motionZ;
@@ -84,6 +89,7 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
 
     /**
      * Get the currently computed display name, cached for efficiency.
+     *
      * @return the current display name
      */
     @GSLWhitelistMember
@@ -93,6 +99,7 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
 
     /**
      * Sets the player's game mode and sends it to them.
+     *
      * @param type String of the gametype Name
      *             [survival, creative, adventure, spectator]
      */
@@ -118,6 +125,7 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
 
     /**
      * Sets the player's game mode and sends it to them.
+     *
      * @param type EnumValue of the GameType
      */
     @GSLWhitelistMember
@@ -239,7 +247,8 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
 
     /**
      * Sets the Spawn Point of the Player
-     * @param pos position of the Spawnpoint
+     *
+     * @param pos    position of the Spawnpoint
      * @param forced whether to force or not spawning exactly there (I think)
      */
     @GSLWhitelistMember
@@ -324,6 +333,7 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
 
     /**
      * Gets the {@link PItemStack} from the given Armor or equipment slot
+     *
      * @param slotIn Slot to get Item from
      */
     @GSLWhitelistMember
@@ -333,6 +343,7 @@ public class PPlayer extends ICGWrapper<EntityPlayer> {
 
     /**
      * Sets the {@link PItemStack} for the given Armor or equipment slot
+     *
      * @param slotIn Slot to set Item
      */
     @GSLWhitelistMember

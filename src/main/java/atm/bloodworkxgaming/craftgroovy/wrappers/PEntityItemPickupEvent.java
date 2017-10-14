@@ -1,11 +1,12 @@
 package atm.bloodworkxgaming.craftgroovy.wrappers;
 
+import atm.bloodworkxgaming.craftgroovy.delegate.MCInWorldObjects;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistClass;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 
 @GSLWhitelistClass
-public class PEntityItemPickupEvent extends ICGWrapper<EntityItemPickupEvent>{
+public class PEntityItemPickupEvent extends ICGWrapper<EntityItemPickupEvent> implements MCInWorldObjects {
     public PEntityItemPickupEvent(EntityItemPickupEvent e) {
         super(e);
     }

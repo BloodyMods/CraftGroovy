@@ -6,7 +6,6 @@ import crafttweaker.api.recipes.IRecipeAction
 import crafttweaker.api.recipes.IRecipeFunction
 import crafttweaker.api.recipes.IRecipeManager
 import de.bloodworkxgaming.groovysandboxedlauncher.compilercustomizer.IMixinProvider
-import groovy.transform.CompileStatic
 
 class CrTMixinClasses implements IMixinProvider {
     @Override
