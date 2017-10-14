@@ -2,9 +2,12 @@ package atm.bloodworkxgaming.craftgroovy.wrappers
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 import groovy.transform.CompileStatic
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
+import net.minecraft.init.Blocks
 import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.SoundCategory
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 import javax.annotation.Nullable
@@ -82,9 +85,9 @@ class PWorld extends ICGWrapper<World> {
     }
 
     @GSLWhitelistMember
-    void spawnParticle(EnumParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int ... parameters) {
+    void spawnParticle(PParticleTypes particleType, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed, int ... parameters) {
         if (isRemote) {
-            internal.spawnParticle(particleType, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters)
+            internal.spawnParticle(particleType.internal, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed, parameters)
         }
     }
 

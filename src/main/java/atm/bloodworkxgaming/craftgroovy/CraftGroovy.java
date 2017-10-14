@@ -12,6 +12,7 @@ import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
 import io.sommers.packmode.PMConfig;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -54,8 +55,7 @@ public class CraftGroovy {
         GroovySandboxedLauncher.LOG_MANAGER.registerLogger(fileLogger);
         GroovySandboxedLauncher.LOG_MANAGER.registerLogger(consoleLogger);
 
-        // Registering hte CopyMessage to the Network
-
+        // Registering the CopyMessage to the Network
         NETWORK.registerMessage(MessageCopyClipboard.class, MessageCopyClipboard.class, ++ID, Side.CLIENT);
     }
 

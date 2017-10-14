@@ -175,16 +175,21 @@ public class PBlock extends ICGWrapper<Block> {
         return internal.getUnlocalizedName();
     }
 
-    @GSLWhitelistMember
-    public BlockStateContainer getBlockState() {
-        return internal.getBlockState();
-    }
-
     /**
      * Sets how many hits it takes to break a block.
      */
     @GSLWhitelistMember
     public Block setHardness(float hardness) {
         return internal.setHardness(hardness);
+    }
+
+    @GSLWhitelistMember
+    public PBlockState getStateFromMeta(int meta) {
+        return new PBlockState(internal.getStateFromMeta(meta));
+    }
+
+    @GSLWhitelistMember
+    public int getMetaFromState(PBlockState state) {
+        return internal.getMetaFromState(state.getInternal());
     }
 }

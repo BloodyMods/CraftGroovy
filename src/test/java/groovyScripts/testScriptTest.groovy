@@ -2,7 +2,9 @@ package groovyScripts
 
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
+import atm.bloodworkxgaming.craftgroovy.wrappers.PBlock
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
+import atm.bloodworkxgaming.craftgroovy.wrappers.PParticleTypes
 import net.minecraft.util.EnumParticleTypes
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
@@ -43,14 +45,20 @@ CGEventManager.rightClickBlock {
                 && world.getBlockAt(pos, 0,0,1).registryName == "minecraft:dirt"
                 && world.getBlockAt(pos, 0,0,-1).registryName == "minecraft:dirt") {
 
+            def fire = PBlock.getBlockFromName("minecraft:fire")
+            println fire
+            println fire.defaultState
 
-            world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x, pos.y, pos.z, 0, 0, 0)
+
+
+            world.spawnParticle(PParticleTypes.EXPLOSION_HUGE, pos.x, pos.y, pos.z, 0, 0, 0)
             world.playRecord(pos, VanillaSounds.ENTITY_GENERIC_EXPLODE.getSoundEvent())
             world.setToAir(pos)
 
+            world.setBlockState(pos, fire.defaultState)
+
             player.heldMain.count--
             world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2, 0)
-
         }
     }
 }
