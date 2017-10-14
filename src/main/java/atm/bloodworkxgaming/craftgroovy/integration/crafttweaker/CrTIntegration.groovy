@@ -35,10 +35,8 @@ class CrTIntegration {
             whitelistRegistry.registerMethod(BracketHandlerPotion.class, "getPotion")
             whitelistRegistry.registerMethod(BracketHandlerLiquid.class, "getLiquid")
             whitelistRegistry.registerMethod(BracketHandlerEntity.class, "getEntity")
-            whitelistRegistry.registerMethod(BlockBracketHandler.class, "getBlock")
-            whitelistRegistry.registerMethod(MaterialBracketHandler.class, "getBlockMaterial")
-            whitelistRegistry.registerMethod(SoundEventBracketHandler.class, "getSoundEvent")
-            whitelistRegistry.registerMethod(SoundTypeBracketHandler.class, "getSoundType")
+
+
             whitelistRegistry.registerMethod(CraftTweakerAPI.class, "getLogger")
             whitelistRegistry.registerField(CraftTweakerAPI.class, "recipes")
 

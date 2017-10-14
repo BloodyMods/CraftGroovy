@@ -2,6 +2,7 @@ package atm.bloodworkxgaming.craftgroovy;
 
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
+import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
@@ -119,6 +120,9 @@ public class CraftGroovy {
         // Different Mod Integrations
         if (Loader.isModLoaded("crafttweaker")) {
             CrTIntegration.registerCrTCompat(sandboxedLauncher);
+        }
+        if (Loader.isModLoaded("contenttweaker")) {
+            ContentTweakerIntegration.whitelistClasses(sandboxedLauncher);
         }
 
         sandboxedLauncher.initSandbox();
