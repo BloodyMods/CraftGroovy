@@ -1,6 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.wrapper
 
-import atm.bloodworkxgaming.craftgroovy.wrappers.ICGWrapper
+import atm.bloodworkxgaming.craftgroovy.wrappers.AbstractICGWrapper
 import crafttweaker.api.item.IIngredient
 import crafttweaker.api.item.IItemStack
 import crafttweaker.api.recipes.ICraftingRecipe
@@ -11,7 +11,7 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistClass
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 
 @GSLWhitelistClass
-class RecipeManagerWrapper extends ICGWrapper<IRecipeManager> {
+class RecipeManagerWrapper extends AbstractICGWrapper<IRecipeManager> {
     RecipeManagerWrapper(IRecipeManager internal) {
         super(internal)
     }

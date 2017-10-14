@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import javax.annotation.Nullable
 
 @CompileStatic
-class PItem extends ICGWrapper<Item> {
+class PItem extends AbstractICGWrapper<Item> {
     PItem(Item internal) {
         super(internal)
     }

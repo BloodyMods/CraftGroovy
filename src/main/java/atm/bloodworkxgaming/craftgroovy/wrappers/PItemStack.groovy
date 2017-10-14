@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 @GSLWhitelistConstructor
 @GSLWhitelistClass
 @CompileStatic
-class PItemStack extends ICGWrapper<ItemStack> {
+class PItemStack extends AbstractICGWrapper<ItemStack> {
     PItemStack(ItemStack internal) {
         super(internal)
     }

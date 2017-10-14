@@ -5,7 +5,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
-public class PEntityItem extends ICGWrapper<EntityItem> {
+public class PEntityItem extends AbstractICGWrapper<EntityItem> {
 
     public PEntityItem(EntityItem item) {
         super(item);

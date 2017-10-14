@@ -4,7 +4,7 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMembe
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.event.world.BlockEvent;
 
-public class PPlaceEvent extends ICGWrapper<BlockEvent.PlaceEvent> {
+public class PPlaceEvent extends AbstractICGWrapper<BlockEvent.PlaceEvent> {
     public PPlaceEvent(BlockEvent.PlaceEvent e) {
         super(e);
     }

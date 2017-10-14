@@ -5,7 +5,7 @@ import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMembe
 import net.minecraft.util.math.BlockPos;
 
 @GSLWhitelistConstructor
-public class PBlockPos extends ICGWrapper<BlockPos> {
+public class PBlockPos extends AbstractICGWrapper<BlockPos> {
 
     public PBlockPos(BlockPos pos) {
         super(pos);

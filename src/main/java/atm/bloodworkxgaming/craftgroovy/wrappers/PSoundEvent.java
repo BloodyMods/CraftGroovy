@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 @GSLWhitelistClass
 @GSLWhitelistConstructor
-public class PSoundEvent extends ICGWrapper<SoundEvent> {
+public class PSoundEvent extends AbstractICGWrapper<SoundEvent> {
     public PSoundEvent(SoundEvent internal) {
         super(internal);
     }

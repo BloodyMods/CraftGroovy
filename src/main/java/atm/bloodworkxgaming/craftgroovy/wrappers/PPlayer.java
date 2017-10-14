@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class PPlayer extends ICGWrapper<EntityPlayer> {
+public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
 
     public PPlayer(EntityPlayer player) {
         super(player);

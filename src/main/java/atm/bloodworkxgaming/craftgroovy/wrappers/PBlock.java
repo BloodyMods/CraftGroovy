@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class PBlock extends ICGWrapper<Block> {
+public class PBlock extends AbstractICGWrapper<Block> {
 
     public PBlock(Block block) {
         super(block);

@@ -12,7 +12,7 @@ trait MCInWorldObjects {
      * Gets the Item from the given name
      */
     @GSLWhitelistMember
-    static PItem item(String name) {
+    PItem item(String name) {
         return new PItem(Item.getByNameOrId(name))
     }
 
@@ -24,7 +24,7 @@ trait MCInWorldObjects {
      * @return the stack
      */
     @GSLWhitelistMember
-    static PItemStack itemStack(String name, int meta = 0, int count = 1) {
+    PItemStack itemStack(String name, int meta = 0, int count = 1) {
         def item = new PItemStack(name, meta)
         item.count = count
         return item
@@ -38,7 +38,7 @@ trait MCInWorldObjects {
      * @return the stack
      */
     @GSLWhitelistMember
-    static PItemStack itemStack(PItem item, int meta = 0, int count = 1) {
+    PItemStack itemStack(PItem item, int meta = 0, int count = 1) {
         def itemStack = new PItemStack(item.internal, meta)
         itemStack.count = count
         return itemStack
@@ -50,7 +50,7 @@ trait MCInWorldObjects {
      * @return the Block
      */
     @GSLWhitelistMember
-    static PBlock block(String name) {
+    PBlock block(String name) {
         return PBlock.getBlockFromName(name)
     }
 
@@ -61,7 +61,7 @@ trait MCInWorldObjects {
      * @return the BlockState
      */
     @GSLWhitelistMember
-    static PBlockState blockState(String name, int meta = 0) {
+    PBlockState blockState(String name, int meta = 0) {
         return PBlock.getBlockFromName(name).getStateFromMeta(meta)
     }
 
@@ -72,7 +72,7 @@ trait MCInWorldObjects {
      * @return the BlockState
      */
     @GSLWhitelistMember
-    static PBlockState blockState(PBlock block, int meta = 0) {
+    PBlockState blockState(PBlock block, int meta = 0) {
         return block.getStateFromMeta(meta)
     }
 }

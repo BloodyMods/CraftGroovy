@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 
 
-public class PBlockState extends ICGWrapper<IBlockState> {
+public class PBlockState extends AbstractICGWrapper<IBlockState> {
 
     protected PBlockState(IBlockState state) {
         super(state);

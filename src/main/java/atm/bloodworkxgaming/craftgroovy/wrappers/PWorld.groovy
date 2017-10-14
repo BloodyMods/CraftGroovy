@@ -9,7 +9,7 @@ import net.minecraft.world.World
 import javax.annotation.Nullable
 
 @CompileStatic
-class PWorld extends ICGWrapper<World> {
+class PWorld extends AbstractICGWrapper<World> {
 
     PWorld(World world) {
         super(world)
