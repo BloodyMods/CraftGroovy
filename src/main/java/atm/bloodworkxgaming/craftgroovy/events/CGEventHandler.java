@@ -33,8 +33,6 @@ public class CGEventHandler {
 
     public void clearAllClosureLists() {
         ClosureManager.clearMap();
-        craftTweakerDelegates.clear();
-        contentTweakerDelegates.clear();
     }
 
     @SubscribeEvent

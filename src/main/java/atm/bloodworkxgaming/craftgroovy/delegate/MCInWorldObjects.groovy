@@ -12,7 +12,7 @@ trait MCInWorldObjects {
      * Gets the Item from the given name
      */
     @GSLWhitelistMember
-    PItem item(String name) {
+    PItem createItem(String name) {
         return new PItem(Item.getByNameOrId(name))
     }
 
@@ -38,7 +38,7 @@ trait MCInWorldObjects {
      * @return the stack
      */
     @GSLWhitelistMember
-    PItemStack itemStack(PItem item, int meta = 0, int count = 1) {
+    PItemStack createItemStack(PItem item, int meta = 0, int count = 1) {
         def itemStack = new PItemStack(item.internal, meta)
         itemStack.count = count
         return itemStack
@@ -50,7 +50,7 @@ trait MCInWorldObjects {
      * @return the Block
      */
     @GSLWhitelistMember
-    PBlock block(String name) {
+    PBlock createBlock(String name) {
         return PBlock.getBlockFromName(name)
     }
 
@@ -61,7 +61,7 @@ trait MCInWorldObjects {
      * @return the BlockState
      */
     @GSLWhitelistMember
-    PBlockState blockState(String name, int meta = 0) {
+    PBlockState createBlockState(String name, int meta = 0) {
         return PBlock.getBlockFromName(name).getStateFromMeta(meta)
     }
 
@@ -72,7 +72,7 @@ trait MCInWorldObjects {
      * @return the BlockState
      */
     @GSLWhitelistMember
-    PBlockState blockState(PBlock block, int meta = 0) {
+    PBlockState createBlockState(PBlock block, int meta = 0) {
         return block.getStateFromMeta(meta)
     }
 }

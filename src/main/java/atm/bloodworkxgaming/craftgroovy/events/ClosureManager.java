@@ -32,6 +32,8 @@ public class ClosureManager {
 
     public static void runClosuresWithDelegate(Object delegate, List<? extends CGClosure> cgClosures) {
         if (cgClosures != null) {
+            cgClosures.sort(CG_CLOSURE_COMPARATOR); //TODO: Maybe remove again
+
             for (CGClosure cgClosure : cgClosures) {
                 Closure closure = cgClosure.getClosure();
                 Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());

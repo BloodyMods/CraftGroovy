@@ -1,7 +1,9 @@
 package atm.bloodworkxgaming.craftgroovy.events
 
+import atm.bloodworkxgaming.craftgroovy.closures.CGClosure
 import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure
 import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure
+import atm.bloodworkxgaming.craftgroovy.delegate.InitDelegate
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent
@@ -62,5 +64,10 @@ class CGEventManager {
         CGEventHandler.contentTweakerDelegates.sort(ClosureManager.CG_CLOSURE_COMPARATOR)
 
         return closure
+    }
+
+    @GSLWhitelistMember
+    static CGClosure initEvent(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = InitDelegate) Closure cl){
+        return ClosureManager.addClosureToMap(CGEventNames.CG_INIT_EVENT.name(), cl)
     }
 }

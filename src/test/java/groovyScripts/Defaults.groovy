@@ -7,6 +7,7 @@ class Defaults {
     static def coal
 
     Defaults() {
+        println "defaults is getting run"
         CGEventManager.craftTweaker {
             iron = ore("ingotIron")
             coal = item("minecraft:coal")

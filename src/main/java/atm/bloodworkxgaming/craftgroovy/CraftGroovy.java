@@ -1,17 +1,24 @@
 package atm.bloodworkxgaming.craftgroovy;
 
 import atm.bloodworkxgaming.craftgroovy.commands.CGChatCommand;
+import atm.bloodworkxgaming.craftgroovy.delegate.InitDelegate;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
+import atm.bloodworkxgaming.craftgroovy.events.CGEventNames;
+import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
 import atm.bloodworkxgaming.craftgroovy.network.MessageCopyClipboard;
+import atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGen;
+import atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGenManager;
+import atm.bloodworkxgaming.craftgroovy.worldgen.worldgenTypes.FlowerWorldGenType;
 import atm.bloodworkxgaming.craftgroovy.wrappers.WrapperWhitelister;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
 import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,6 +31,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
@@ -137,6 +145,9 @@ public class CraftGroovy {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        GameRegistry.registerWorldGenerator(new CGWorldGen(), 10);
+
+        ClosureManager.runClosuresWithDelegate(new InitDelegate(), CGEventNames.CG_INIT_EVENT.name());
     }
 
     @EventHandler

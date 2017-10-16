@@ -2,8 +2,10 @@ package groovyScripts
 
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
+import atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGenManager
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBlock
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
+import atm.bloodworkxgaming.craftgroovy.wrappers.PParticleTypes
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
@@ -52,13 +54,12 @@ CGEventManager.rightClickBlock {
                 && world.getBlockAt(pos, 0,0,-1).registryName == "minecraft:dirt") {
 
 
-            world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, pos.x, pos.y, pos.z, 0, 0, 0)
+            world.spawnParticle(PParticleTypes.EXPLOSION_HUGE, pos.x, pos.y, pos.z, 0, 0, 0)
             world.playRecord(pos, VanillaSounds.ENTITY_GENERIC_EXPLODE.getSoundEvent())
             world.setToAir(pos)
 
             player.heldMain.count--
             world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2, 0)
-
         }
     }
 }
@@ -105,7 +106,6 @@ CGEventManager.craftTweaker (["bla", "boob", "normal"]) {
 
 CGEventManager.craftTweaker {
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
-
 
     recipes.addShapedMirrored(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
     recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone")]])
@@ -156,5 +156,19 @@ CGEventManager.contentTweaker {
 
     for (i in ingots){
         i.registerParts("gear", "ingot")
+    }
+}
+
+CGEventManager.initEvent {
+    println "Running init"
+    CGWorldGenManager.WORLGEN_DEBUG = true
+
+    def blockFlower = createBlockState("minecraft:red_flower", 2)
+
+    CGWorldGenManager.registerFlowerWorldGen {
+        maxFlowers = 30
+        minFlowers = 20
+        blockState = blockFlower
+        whitelistDimensions.add(0)
     }
 }
