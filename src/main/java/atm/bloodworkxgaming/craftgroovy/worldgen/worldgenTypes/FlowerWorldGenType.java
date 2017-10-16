@@ -22,4 +22,8 @@ public class FlowerWorldGenType extends BaseWorldgenType{
     public FlowerWorldGenType(IBlockState blockState) {
         this.blockState = blockState;
     }
+
+    public FlowerWorldGenType() {
+        this.blockState = null;
+    }
 }

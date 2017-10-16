@@ -3,6 +3,7 @@ package groovyScripts
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGenManager
+import atm.bloodworkxgaming.craftgroovy.worldgen.worldgenTypes.FlowerWorldGenType
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBlock
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
 import atm.bloodworkxgaming.craftgroovy.wrappers.PParticleTypes
@@ -164,11 +165,20 @@ CGEventManager.initEvent {
     CGWorldGenManager.WORLGEN_DEBUG = true
 
     def blockFlower = createBlockState("minecraft:red_flower", 2)
+    println "blockFlower: $blockFlower"
 
+    def flower = new FlowerWorldGenType(null)
+    flower.blockState = blockFlower
+    flower.maxFlowers = 30
+    flower.minFlowers = 20
+    flower.whitelistDimensions.add(0)
+
+    // println "BlockState of flower: ${flower.blockState}"
     CGWorldGenManager.registerFlowerWorldGen {
+        blockState = createBlockState("minecraft:red_flower", 3)
         maxFlowers = 30
         minFlowers = 20
-        blockState = blockFlower
         whitelistDimensions.add(0)
     }
+    // CGWorldGenManager.registerFlowerWorldGen (flower)
 }

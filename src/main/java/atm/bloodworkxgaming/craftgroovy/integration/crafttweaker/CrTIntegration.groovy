@@ -1,9 +1,5 @@
 package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
-import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.BlockBracketHandler
-import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler
-import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundEventBracketHandler
-import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundTypeBracketHandler
 import crafttweaker.CraftTweakerAPI
 import crafttweaker.api.item.IIngredient
 import crafttweaker.api.item.IItemStack

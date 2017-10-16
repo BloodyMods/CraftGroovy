@@ -19,7 +19,7 @@ public class CGWorldGen implements IWorldGenerator
     {
         int dimID = world.provider.getDimension();
         for (FlowerWorldGenType flowerWorldGenType : CGWorldGenManager.FLOWER_WORLD_GEN_LIST) {
-            if (flowerWorldGenType.blockState == null){
+            if (flowerWorldGenType.blockState != null){
                 if ((flowerWorldGenType.whitelistDimensions.isEmpty() || flowerWorldGenType.whitelistDimensions.contains(dimID)) && !flowerWorldGenType.blacklistDimensions.contains(dimID)){
                     WorldGenerator genFlower = new FlowerGenerator(flowerWorldGenType);
 
