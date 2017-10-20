@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.GameType;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -483,4 +485,15 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
         return internal.inventory.add(-1, itemStackIn.getInternal());
     }
 
+    public void sendStatusMessage(String message, boolean actionBar) {
+        internal.sendStatusMessage(new TextComponentString(message), actionBar);
+    }
+
+    /**
+     * Send a chat message to the CommandSender
+     * @param message
+     */
+    public void sendMessage(String message) {
+        internal.sendMessage(new TextComponentString(message));
+    }
 }

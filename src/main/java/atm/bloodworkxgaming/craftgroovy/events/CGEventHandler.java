@@ -1,15 +1,20 @@
 package atm.bloodworkxgaming.craftgroovy.events;
 
+import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
+import atm.bloodworkxgaming.craftgroovy.closures.CGClosure;
 import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure;
-import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent;
-import atm.bloodworkxgaming.craftgroovy.wrappers.PEntityItemPickupEvent;
-import atm.bloodworkxgaming.craftgroovy.wrappers.PPlaceEvent;
-import atm.bloodworkxgaming.craftgroovy.wrappers.PRightClickBlock;
+import atm.bloodworkxgaming.craftgroovy.closures.CGInitInventoryClosure;
+import atm.bloodworkxgaming.craftgroovy.delegate.InitialInventoryDelegate;
+import atm.bloodworkxgaming.craftgroovy.wrappers.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
@@ -60,6 +65,75 @@ public class CGEventHandler {
             ClosureManager.runClosuresWithDelegate(new PRightClickBlock(event), CGEventNames.CG_RIGHTCLICK_BLOCK_OFFHAND.name());
         }
     }
+
+    @SubscribeEvent
+    public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
+        if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntity();
+            NBTTagCompound tag = this.getPersistedTag(player, CraftGroovy.MODID);
+
+            // Gives starting items to player
+            boolean hasTag = tag.getBoolean("HasStartingItems");
+
+            ClosureManager.runClosuresWithDelegate(new InitialInventoryDelegate(new PPlayer(player), hasTag), CGEventNames.CG_INITIAL_INVENTORY.name(), cgClosure -> {
+                if (cgClosure instanceof CGInitInventoryClosure){
+                    CGInitInventoryClosure cgi = (CGInitInventoryClosure) cgClosure;
+                    return !hasTag || cgi.shouldRunAnyways;
+                }else {
+                    return true;
+                }
+            });
+
+            player.inventoryContainer.detectAndSendChanges();
+            tag.setBoolean("HasStartingItems", true);
+
+            /*
+            if (!tag.getBoolean("HasStartingItems")) {
+
+                player.inventory.addItemStackToInventory(StackReferences.guideBook);
+
+                for (String startingItem : ModConfig.STARTING_ITEMS) {
+                    String[] split = startingItem.split(":");
+                    if (split.length == 4){
+                        try {
+                            ItemStack stack = new ItemStack(Item.getByNameOrId(split[0] + ":" + split[1]), Integer.valueOf(split[3]), Integer.valueOf(split[2]));
+                            player.inventory.addItemStackToInventory(stack);
+                        }catch (Exception e){
+                            CraftGroovy.warn("Could not add starting item " + startingItem);
+                        }
+                    }
+
+
+                }
+
+
+            }*/
+
+            // greets player
+            /*if (!ModConfig.WELCOME_MESSSAGE.equals("_"))
+                player.sendStatusMessage(new TextComponentString(ModConfig.WELCOME_MESSSAGE));*/
+        }
+    }
+
+    public NBTTagCompound getPersistedTag(EntityPlayer player, String modName) {
+        NBTTagCompound persistTag;
+        NBTTagCompound modTag;
+        NBTTagCompound tag = player.getEntityData();
+        if (tag.hasKey("PlayerPersisted")) {
+            persistTag = tag.getCompoundTag("PlayerPersisted");
+        } else {
+            persistTag = new NBTTagCompound();
+            tag.setTag("PlayerPersisted", persistTag);
+        }
+        if (persistTag.hasKey(modName)) {
+            modTag = persistTag.getCompoundTag(modName);
+        } else {
+            modTag = new NBTTagCompound();
+            persistTag.setTag(modName, modTag);
+        }
+        return modTag;
+    }
+
 
     /*
     @SubscribeEvent

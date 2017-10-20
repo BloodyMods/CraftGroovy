@@ -182,3 +182,16 @@ CGEventManager.initEvent {
     }
     // CGWorldGenManager.registerFlowerWorldGen (flower)
 }
+
+CGEventManager.initialItems {
+    player.addItemStackToInventory(createItemStack(createItem("minecraft:coal"), 0, 10))
+}
+
+CGEventManager.initialItems (true) {
+    player.addItemStackToInventory(createItemStack(createItem("minecraft:redstone"), 0, 10))
+    player.addItemStackToInventory(createItemStack("minecraft:potion").setNBT('{Potion:"minecraft:strong_strength"}'))
+
+    player.sendStatusMessage "Thanks for playing", true
+    player.sendMessage "Welcome to All The Mods whatever."
+}
+

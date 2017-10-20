@@ -41,6 +41,6 @@ public class CraftTweakerLauncher {
                 .filter(cgCraftTweakerClosure -> Objects.equals(cgCraftTweakerClosure.getLoaderName(), loaderName) && PackModeChecker.shouldLoad(cgCraftTweakerClosure.getPackModes()))
                 .collect(Collectors.toList());
 
-        ClosureManager.runClosuresWithDelegate(new CraftTweakerDelegate(), closures);
+        ClosureManager.runClosuresWithDelegate(new CraftTweakerDelegate(), closures, null);
     }
 }

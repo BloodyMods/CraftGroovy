@@ -8,6 +8,7 @@ import net.minecraft.item.EnumAction
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.JsonToNBT
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.fml.relauncher.Side
@@ -232,5 +233,11 @@ class PItemStack extends AbstractICGWrapper<ItemStack> {
     @GSLWhitelistMember
     void previous() {
         internal.shrink(1)
+    }
+
+    @GSLWhitelistMember
+    PItemStack setNBT(String nbtString){
+        internal.setTagCompound(JsonToNBT.getTagFromJson(nbtString))
+        return this
     }
 }

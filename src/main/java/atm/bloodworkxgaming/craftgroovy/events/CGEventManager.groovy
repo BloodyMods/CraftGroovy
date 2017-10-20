@@ -3,7 +3,9 @@ package atm.bloodworkxgaming.craftgroovy.events
 import atm.bloodworkxgaming.craftgroovy.closures.CGClosure
 import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure
 import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure
+import atm.bloodworkxgaming.craftgroovy.closures.CGInitInventoryClosure
 import atm.bloodworkxgaming.craftgroovy.delegate.InitDelegate
+import atm.bloodworkxgaming.craftgroovy.delegate.InitialInventoryDelegate
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CraftTweakerDelegate
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBreakEvent
@@ -69,5 +71,13 @@ class CGEventManager {
     @GSLWhitelistMember
     static CGClosure initEvent(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = InitDelegate) Closure cl){
         return ClosureManager.addClosureToMap(CGEventNames.CG_INIT_EVENT.name(), cl)
+    }
+
+    @GSLWhitelistMember
+    static CGInitInventoryClosure initialItems(boolean runAnyways = false, @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = InitialInventoryDelegate) Closure cl){
+        def closure = new CGInitInventoryClosure(cl)
+        closure.setShouldRunAnyways(runAnyways)
+        ClosureManager.addClosureToMap(CGEventNames.CG_INITIAL_INVENTORY.name(), closure)
+        return closure
     }
 }

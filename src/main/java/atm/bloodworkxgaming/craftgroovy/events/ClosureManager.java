@@ -5,6 +5,7 @@ import atm.bloodworkxgaming.craftgroovy.closures.CGClosure;
 import groovy.lang.Closure;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class ClosureManager {
     public static final Comparator<CGClosure> CG_CLOSURE_COMPARATOR = (o1, o2) -> Integer.compare(o2.getPriority(), o1.getPriority());
@@ -26,21 +27,27 @@ public class ClosureManager {
     }
 
     public static void runClosuresWithDelegate(Object delegate, String closureName) {
-        List<CGClosure> closures = closuresMap.get(closureName);
-        runClosuresWithDelegate(delegate, closures);
+        runClosuresWithDelegate(delegate, closureName, null);
     }
 
-    public static void runClosuresWithDelegate(Object delegate, List<? extends CGClosure> cgClosures) {
+    public static void runClosuresWithDelegate(Object delegate, String closureName, Predicate<CGClosure> shouldRun) {
+        List<CGClosure> closures = closuresMap.get(closureName);
+        runClosuresWithDelegate(delegate, closures, shouldRun);
+    }
+
+    public static void runClosuresWithDelegate(Object delegate, List<? extends CGClosure> cgClosures, Predicate<CGClosure> shouldRun) {
         if (cgClosures != null) {
-            cgClosures.sort(CG_CLOSURE_COMPARATOR); //TODO: Maybe remove again
+            cgClosures.sort(CG_CLOSURE_COMPARATOR);
 
             for (CGClosure cgClosure : cgClosures) {
-                Closure closure = cgClosure.getClosure();
-                Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
-                code.setResolveStrategy(Closure.DELEGATE_FIRST);
+                if (shouldRun == null || shouldRun.test(cgClosure)){
+                    Closure closure = cgClosure.getClosure();
+                    Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
+                    code.setResolveStrategy(Closure.DELEGATE_FIRST);
 
-                CraftGroovy.info("Running closure [" + closure.getClass() + " > " + delegate.getClass().getSimpleName() + "]");
-                CraftGroovy.sandboxedLauncher.runClosure(code);
+                    CraftGroovy.info("Running closure [" + closure.getClass() + " > " + delegate.getClass().getSimpleName() + "]");
+                    CraftGroovy.sandboxedLauncher.runClosure(code);
+                }
             }
         }
     }

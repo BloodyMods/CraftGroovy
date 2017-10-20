@@ -5,6 +5,6 @@ import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
 
 public class ContentTweakerLauncher {
     public static void handleLoading() {
-        ClosureManager.runClosuresWithDelegate(new ContentTweakerDelegate(), CGEventHandler.contentTweakerDelegates);
+        ClosureManager.runClosuresWithDelegate(new ContentTweakerDelegate(), CGEventHandler.contentTweakerDelegates, null);
     }
 }

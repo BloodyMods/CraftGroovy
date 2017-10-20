@@ -28,8 +28,8 @@ compileJava {
 
 sourceSets {
     main {
-        java { srcDirs = [] }    // no source dirs for the java compiler
         groovy { srcDirs = ["src/main/java"] }  // compile   everything in src/ with groovy
+        java { srcDirs = [] }    // no source dirs for the java compiler
     }
 }
 

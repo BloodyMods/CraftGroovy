@@ -11,6 +11,8 @@ class Defaults {
         CGEventManager.craftTweaker {
             iron = ore("ingotIron")
             coal = item("minecraft:coal")
+
+            println "iron $iron coal $coal"
         }.setPriority(100)
     }
 }
