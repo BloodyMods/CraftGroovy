@@ -12,7 +12,7 @@ class Defaults {
             iron = ore("ingotIron")
             coal = item("minecraft:coal")
 
-            println "iron $iron coal $coal"
+            println "iron ${this.iron} coal ${this.coal}"
         }.setPriority(100)
     }
 }

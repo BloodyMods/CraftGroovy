@@ -107,4 +107,7 @@ contributor(ctxILiquidStack) {
 contributor(ctxIOreDictEntry) {
     method(name: "multiply", type: "crafttweaker.api.item.IOreDictEntry",
             params: [amount: "int"])
+
+    method(name: "addItems", type: "void",
+            params: [amount: "java.util.List<crafttweaker.api.item.IItemStack>"])
 }

@@ -2,6 +2,7 @@ package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.wrapper.RecipeManagerWrapper
 import crafttweaker.CraftTweakerAPI
+import crafttweaker.annotations.BracketHandler
 import crafttweaker.api.client.IClient
 import crafttweaker.api.data.IData
 import crafttweaker.api.entity.IEntityDefinition
@@ -19,9 +20,11 @@ import crafttweaker.api.vanilla.IVanilla
 import crafttweaker.mc1120.brackets.*
 import crafttweaker.mc1120.data.NBTConverter
 import crafttweaker.runtime.ILogger
+import crafttweaker.zenscript.GlobalRegistry
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 import groovy.transform.CompileStatic
 import net.minecraft.nbt.JsonToNBT
+import stanhebben.zenscript.parser.Token
 
 @CompileStatic
 class CraftTweakerDelegate {
@@ -74,6 +77,19 @@ class CraftTweakerDelegate {
     @GSLWhitelistMember
     static IPotion potion(String name) {
         BracketHandlerPotion.getPotion(name)
+    }
+
+    @GSLWhitelistMember
+    static Object bracket(String name) {
+        for (br in GlobalRegistry.bracketHandlers){
+            def tokens = new ArrayList<Token>()
+            def zen = br.resolve(GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>()), tokens)
+            println "tokens = $tokens"
+            println "zen = $zen"
+
+        }
+
+        return null
     }
 
     @GSLWhitelistMember

@@ -2,10 +2,12 @@ package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
 import crafttweaker.api.item.IIngredient
 import crafttweaker.api.item.IItemStack
+import crafttweaker.api.oredict.IOreDictEntry
 import crafttweaker.api.recipes.IRecipeAction
 import crafttweaker.api.recipes.IRecipeFunction
 import crafttweaker.api.recipes.IRecipeManager
 import de.bloodworkxgaming.groovysandboxedlauncher.compilercustomizer.IMixinProvider
+import stanhebben.zenscript.annotations.ZenMethod
 
 class CrTMixinClasses implements IMixinProvider {
     @Override
@@ -34,6 +36,11 @@ class CrTMixinClasses implements IMixinProvider {
         IIngredient.metaClass.multiply { int amount ->
             def iIngredient = delegate as IIngredient
             return iIngredient.amount(amount)
+        }
+
+        IOreDictEntry.metaClass.addItems { List<IItemStack> items ->
+            def oredictEntry = delegate as IOreDictEntry
+            oredictEntry.addItems(items as IItemStack[])
         }
     }
 }

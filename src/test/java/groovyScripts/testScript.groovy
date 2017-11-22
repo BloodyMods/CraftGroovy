@@ -11,18 +11,11 @@ import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
-import net.minecraft.util.EnumParticleTypes
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler.getBlockMaterial
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundTypeBracketHandler.getSoundType
 
 println "Hi I am a test script"
-
-
-void preinit(FMLPreInitializationEvent event){
-    println " This should be in preinit"
-}
 
 CGEventManager.blockBreak {
     println "Player ${player.displayName} is breaking ${state.block} block at ${pos}"
@@ -163,6 +156,8 @@ CGEventManager.contentTweaker {
 CGEventManager.initEvent {
     println "Running init"
     CGWorldGenManager.WORLGEN_DEBUG = true
+
+    println("2to2 test" + (20 .. 1))
 
     def blockFlower = createBlockState("minecraft:red_flower", 2)
     println "blockFlower: $blockFlower"
