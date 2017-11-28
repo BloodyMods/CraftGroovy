@@ -5,8 +5,10 @@ import atm.bloodworkxgaming.craftgroovy.wrappers.PBlockState
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItem
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItemStack
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
+import groovy.transform.CompileStatic
 import net.minecraft.item.Item
 
+@CompileStatic
 trait MCInWorldObjects {
     /**
      * Gets the Item from the given name

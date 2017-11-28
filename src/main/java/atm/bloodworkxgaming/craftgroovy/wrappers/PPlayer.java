@@ -4,13 +4,20 @@ import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
 import atm.bloodworkxgaming.craftgroovy.util.PlayerUtil;
 import com.mojang.authlib.GameProfile;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementManager;
+import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.advancements.AdvancementState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.FoodStats;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.GameType;
@@ -503,5 +510,21 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
     @GSLWhitelistMember
     public PNBTTagCompound getPersistentNBT(){
         return new PNBTTagCompound(PlayerUtil.getPersistedTag(internal, CraftGroovy.MODID));
+    }
+
+    public boolean hasUnlockedAdvancement(String name){
+        Advancement adv = internal.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(name));
+        if (adv == null) return false;
+
+        AdvancementProgress progress = internal.getServer().getPlayerList().getPlayerByUUID(internal.getUniqueID()).getAdvancements().getProgress(adv);
+        return progress.isDone();
+    }
+
+    public void addProgressToAdvancement(String name){
+        Advancement adv = internal.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(name));
+        if (adv == null) return;
+
+        AdvancementProgress progress = internal.getServer().getPlayerList().getPlayerByUUID(internal.getUniqueID()).getAdvancements().getProgress(adv);
+        progress.grantCriterion("maaaaaaaaaaaaaaaaaaagic");
     }
 }
