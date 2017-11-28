@@ -6,6 +6,7 @@ import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.closures.CGInitInventoryClosure;
 import atm.bloodworkxgaming.craftgroovy.delegate.InitialInventoryDelegate;
+import atm.bloodworkxgaming.craftgroovy.util.PlayerUtil;
 import atm.bloodworkxgaming.craftgroovy.wrappers.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -70,7 +71,7 @@ public class CGEventHandler {
     public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
         if (!event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
-            NBTTagCompound tag = this.getPersistedTag(player, CraftGroovy.MODID);
+            NBTTagCompound tag = PlayerUtil.getPersistedTag(player, CraftGroovy.MODID);
 
             // Gives starting items to player
             boolean hasTag = tag.getBoolean("HasStartingItems");
@@ -113,25 +114,6 @@ public class CGEventHandler {
             /*if (!ModConfig.WELCOME_MESSSAGE.equals("_"))
                 player.sendStatusMessage(new TextComponentString(ModConfig.WELCOME_MESSSAGE));*/
         }
-    }
-
-    public NBTTagCompound getPersistedTag(EntityPlayer player, String modName) {
-        NBTTagCompound persistTag;
-        NBTTagCompound modTag;
-        NBTTagCompound tag = player.getEntityData();
-        if (tag.hasKey("PlayerPersisted")) {
-            persistTag = tag.getCompoundTag("PlayerPersisted");
-        } else {
-            persistTag = new NBTTagCompound();
-            tag.setTag("PlayerPersisted", persistTag);
-        }
-        if (persistTag.hasKey(modName)) {
-            modTag = persistTag.getCompoundTag(modName);
-        } else {
-            modTag = new NBTTagCompound();
-            persistTag.setTag(modName, modTag);
-        }
-        return modTag;
     }
 
 

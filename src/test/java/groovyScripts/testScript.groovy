@@ -36,6 +36,19 @@ CGEventManager.blockPlace {
     println "Block $state being placed by $player"
 }
 
+CGEventManager.blockBreak {
+    if (world.getBlockStateAt(pos).identifier == "minecraft:dirt:0" ){
+        def tag = player.getPersistentNBT().getBoolean("TrustFallBlockBroken")
+        if (!tag){
+            world.setBlockState(pos.down(5), createBlockState("minecraft:dirt"))
+            player.getPersistentNBT().setBoolean("TrustFallBlockBroken", true)
+            player.sendMessage("FEEL THE DROP!!!")
+        }
+    }
+}
+
+
+
 CGEventManager.rightClickBlock {
     println "ItemStack: $itemStack"
     println "Block at $pos clicked with ${itemStack?.displayName}"
@@ -155,7 +168,7 @@ CGEventManager.contentTweaker {
 
 CGEventManager.initEvent {
     println "Running init"
-    CGWorldGenManager.WORLGEN_DEBUG = true
+    CGWorldGenManager.WORLGEN_DEBUG = false
 
     println("2to2 test" + (20 .. 1))
 

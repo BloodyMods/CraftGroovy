@@ -1,5 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.wrappers;
 
+import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
+import atm.bloodworkxgaming.craftgroovy.util.PlayerUtil;
 import com.mojang.authlib.GameProfile;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraft.entity.item.EntityItem;
@@ -10,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.GameType;
 import net.minecraftforge.fml.relauncher.Side;
@@ -485,6 +486,7 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
         return internal.inventory.add(-1, itemStackIn.getInternal());
     }
 
+    @GSLWhitelistMember
     public void sendStatusMessage(String message, boolean actionBar) {
         internal.sendStatusMessage(new TextComponentString(message), actionBar);
     }
@@ -493,7 +495,13 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
      * Send a chat message to the CommandSender
      * @param message
      */
+    @GSLWhitelistMember
     public void sendMessage(String message) {
         internal.sendMessage(new TextComponentString(message));
+    }
+
+    @GSLWhitelistMember
+    public PNBTTagCompound getPersistentNBT(){
+        return new PNBTTagCompound(PlayerUtil.getPersistedTag(internal, CraftGroovy.MODID));
     }
 }

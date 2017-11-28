@@ -46,4 +46,38 @@ public class PBlockPos extends AbstractICGWrapper<BlockPos> {
     public PBlockPos add(int x, int y, int z) {
         return new PBlockPos(internal.add(x, y, z));
     }
+
+    /**
+     * Offset this BlockPos 1 block up
+     */
+    @GSLWhitelistMember
+    public PBlockPos up() {
+        return new PBlockPos(internal.up());
+    }
+
+    /**
+     * Offset this BlockPos n blocks up
+     * @param n
+     */
+    @GSLWhitelistMember
+    public PBlockPos up(int n) {
+        return new PBlockPos(internal.up(n));
+    }
+
+    /**
+     * Offset this BlockPos 1 block down
+     */
+    @GSLWhitelistMember
+    public PBlockPos down() {
+        return new PBlockPos(internal.down());
+    }
+
+    /**
+     * Offset this BlockPos n blocks down
+     * @param n
+     */
+    @GSLWhitelistMember
+    public PBlockPos down(int n) {
+        return new PBlockPos(internal.down(n));
+    }
 }
