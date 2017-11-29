@@ -1,10 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.events;
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
-import atm.bloodworkxgaming.craftgroovy.closures.CGClosure;
-import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure;
-import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure;
-import atm.bloodworkxgaming.craftgroovy.closures.CGInitInventoryClosure;
+import atm.bloodworkxgaming.craftgroovy.closures.*;
 import atm.bloodworkxgaming.craftgroovy.delegate.InitialInventoryDelegate;
 import atm.bloodworkxgaming.craftgroovy.util.PlayerUtil;
 import atm.bloodworkxgaming.craftgroovy.wrappers.*;
@@ -20,6 +17,7 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
@@ -27,8 +25,8 @@ import java.util.List;
 
 @Mod.EventBusSubscriber
 public class CGEventHandler {
-    public static final List<CGCraftTweakerClosure> craftTweakerDelegates = new ArrayList<>();
-    public static final List<CGContentTweakerClosure> contentTweakerDelegates = new ArrayList<>();
+    public static final CGClosureList<CGCraftTweakerClosure> craftTweakerDelegates = new CGClosureList<>();
+    public static final CGClosureList<CGContentTweakerClosure> contentTweakerDelegates = new CGClosureList<>();
 
     public static void printDebugToAll(World world, String message) {
         if (message.length() > 0) {
@@ -48,7 +46,8 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void placeEvent(BlockEvent.PlaceEvent e) {
-        ClosureManager.runClosuresWithDelegate(new PPlaceEvent(e), CGEventNames.CG_BLOCK_PLACE.name());
+        PPlaceEvent pe = new PPlaceEvent(e);
+        ClosureManager.runClosuresWithDelegate(pe, CGEventNames.CG_BLOCK_PLACE.name());
     }
 
     @SubscribeEvent
@@ -58,12 +57,14 @@ public class CGEventHandler {
 
     @SubscribeEvent
     public void onPlayerInteractEvent(RightClickBlock event) {
+        PRightClickBlock pe = new PRightClickBlock(event);
+
         if (event.getHand() == EnumHand.MAIN_HAND) {
-            ClosureManager.runClosuresWithDelegate(new PRightClickBlock(event), CGEventNames.CG_RIGHTCLICK_BLOCK_MAINHAND.name());
+            ClosureManager.runClosuresWithDelegate(pe, CGEventNames.CG_RIGHTCLICK_BLOCK_MAINHAND.name());
         }
 
         if (event.getHand() == EnumHand.OFF_HAND) {
-            ClosureManager.runClosuresWithDelegate(new PRightClickBlock(event), CGEventNames.CG_RIGHTCLICK_BLOCK_OFFHAND.name());
+            ClosureManager.runClosuresWithDelegate(pe, CGEventNames.CG_RIGHTCLICK_BLOCK_OFFHAND.name());
         }
     }
 

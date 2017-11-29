@@ -98,4 +98,9 @@ class PRightClickBlock extends AbstractICGWrapper<PlayerInteractEvent.RightClick
     void cancelEvent() {
         internal.setCanceled(true)
     }
+
+    @GSLWhitelistMember
+    void setSuccessful(){
+        internal.setResult(Event.Result.ALLOW)
+    }
 }

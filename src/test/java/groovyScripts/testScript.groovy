@@ -1,5 +1,6 @@
 package groovyScripts
 
+import atm.bloodworkxgaming.craftgroovy.closures.CGClosure
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGenManager

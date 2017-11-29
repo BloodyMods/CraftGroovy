@@ -2,20 +2,21 @@ package atm.bloodworkxgaming.craftgroovy.events;
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
 import atm.bloodworkxgaming.craftgroovy.closures.CGClosure;
+import atm.bloodworkxgaming.craftgroovy.closures.CGClosureList;
 import groovy.lang.Closure;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Predicate;
 
 public class ClosureManager {
     public static final Comparator<CGClosure> CG_CLOSURE_COMPARATOR = (o1, o2) -> Integer.compare(o2.getPriority(), o1.getPriority());
 
-    private static Map<String, List<CGClosure>> closuresMap = new HashMap<>();
+    private static Map<String, CGClosureList<CGClosure>> closuresMap = new HashMap<>();
 
     public static void addClosureToMap(String eventName, CGClosure closure) {
-        List<CGClosure> list = closuresMap.getOrDefault(eventName, new ArrayList<>());
+        CGClosureList<CGClosure> list = closuresMap.getOrDefault(eventName, new CGClosureList<>(new ArrayList<>(), CG_CLOSURE_COMPARATOR));
         list.add(closure);
-        list.sort(CG_CLOSURE_COMPARATOR);
 
         closuresMap.put(eventName, list);
     }
@@ -31,15 +32,15 @@ public class ClosureManager {
     }
 
     public static void runClosuresWithDelegate(Object delegate, String closureName, Predicate<CGClosure> shouldRun) {
-        List<CGClosure> closures = closuresMap.get(closureName);
+        CGClosureList<CGClosure> closures = closuresMap.get(closureName);
         runClosuresWithDelegate(delegate, closures, shouldRun);
     }
 
-    public static void runClosuresWithDelegate(Object delegate, List<? extends CGClosure> cgClosures, Predicate<CGClosure> shouldRun) {
-        if (cgClosures != null) {
-            cgClosures.sort(CG_CLOSURE_COMPARATOR);
+    public static void runClosuresWithDelegate(Object delegate, CGClosureList<? extends CGClosure> closureList, Predicate<CGClosure> shouldRun) {
+        if (closureList != null && closureList.getList() != null) {
+            if (!closureList.isSorted()) closureList.sort();
 
-            for (CGClosure cgClosure : cgClosures) {
+            for (CGClosure cgClosure : closureList.getList()) {
                 if (shouldRun == null || shouldRun.test(cgClosure)){
                     Closure closure = cgClosure.getClosure();
                     Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
@@ -52,12 +53,13 @@ public class ClosureManager {
         }
     }
 
-    public static Map<String, List<CGClosure>> getClosuresMap() {
+    public static Map<String, CGClosureList<CGClosure>> getClosuresMap() {
         return closuresMap;
     }
 
-    public static List<CGClosure> getClosuresList(String name) {
-        return closuresMap.getOrDefault(name, Collections.emptyList());
+    @Nullable
+    public static CGClosureList<CGClosure> getClosuresList(String name) {
+        return closuresMap.get(name);
     }
 
     public static void clearMap() {

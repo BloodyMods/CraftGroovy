@@ -53,7 +53,6 @@ class CGEventManager {
                                               @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = CraftTweakerDelegate) Closure cl) {
         CGCraftTweakerClosure closure = new CGCraftTweakerClosure(cl, loderName, packMode)
         CGEventHandler.craftTweakerDelegates.add(closure)
-        CGEventHandler.craftTweakerDelegates.sort(ClosureManager.CG_CLOSURE_COMPARATOR)
 
         return closure
     }
@@ -63,7 +62,6 @@ class CGEventManager {
                                                   @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = ContentTweakerDelegate) Closure cl) {
         CGContentTweakerClosure closure = new CGContentTweakerClosure(cl, packMode)
         CGEventHandler.contentTweakerDelegates.add(closure)
-        CGEventHandler.contentTweakerDelegates.sort(ClosureManager.CG_CLOSURE_COMPARATOR)
 
         return closure
     }

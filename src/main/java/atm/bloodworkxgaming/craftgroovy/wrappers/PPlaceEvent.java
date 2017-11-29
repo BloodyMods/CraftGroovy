@@ -10,6 +10,9 @@ public class PPlaceEvent extends AbstractICGWrapper<BlockEvent.PlaceEvent> {
     }
 
     @GSLWhitelistMember
+    boolean SUCCESS = false;
+
+    @GSLWhitelistMember
     public PPlayer getPlayer() {
         return new PPlayer(internal.getPlayer());
     }
@@ -52,5 +55,10 @@ public class PPlaceEvent extends AbstractICGWrapper<BlockEvent.PlaceEvent> {
     @GSLWhitelistMember
     public void cancelEvent() {
         internal.setCanceled(true);
+    }
+
+    @GSLWhitelistMember
+    public void setSuccessful() {
+        this.SUCCESS = true;
     }
 }

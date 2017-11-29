@@ -1,6 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker;
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
+import atm.bloodworkxgaming.craftgroovy.closures.CGClosureList;
 import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
 import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
@@ -36,11 +37,11 @@ public class CraftTweakerLauncher {
 
     private static void loadClosures(String loaderName) {
         // gets all scripts with the correct loader name
-        List<CGCraftTweakerClosure> closures = CGEventHandler.craftTweakerDelegates
+        List<CGCraftTweakerClosure> closures = CGEventHandler.craftTweakerDelegates.getList()
                 .stream()
                 .filter(cgCraftTweakerClosure -> Objects.equals(cgCraftTweakerClosure.getLoaderName(), loaderName) && PackModeChecker.shouldLoad(cgCraftTweakerClosure.getPackModes()))
                 .collect(Collectors.toList());
 
-        ClosureManager.runClosuresWithDelegate(new CraftTweakerDelegate(), closures, null);
+        ClosureManager.runClosuresWithDelegate(new CraftTweakerDelegate(), new CGClosureList<>(closures), null);
     }
 }
