@@ -2,7 +2,6 @@ package atm.bloodworkxgaming.craftgroovy.util;
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CGRandom {

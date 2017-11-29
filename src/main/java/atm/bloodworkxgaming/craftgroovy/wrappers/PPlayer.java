@@ -527,4 +527,15 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
         AdvancementProgress progress = internal.getServer().getPlayerList().getPlayerByUUID(internal.getUniqueID()).getAdvancements().getProgress(adv);
         progress.grantCriterion("maaaaaaaaaaaaaaaaaaagic");
     }
+
+    @GSLWhitelistMember
+    public void swingArmMain() {
+        internal.swingArm(EnumHand.MAIN_HAND);
+    }
+
+    @GSLWhitelistMember
+    public void swingArmOffhand() {
+        internal.swingArm(EnumHand.OFF_HAND);
+    }
+
 }
