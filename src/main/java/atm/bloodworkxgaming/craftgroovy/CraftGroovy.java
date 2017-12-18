@@ -111,11 +111,11 @@ public class CraftGroovy {
     @EventHandler
     public void construction(FMLConstructionEvent event) {
         MinecraftForge.EVENT_BUS.register(cgEventHandler);
+        CGConfig.init(new File("config/craftgroovy/craftgroovy.cfg"));
 
         OperatorMixins.manageOperators(event.getASMHarvestedData());
         sandboxedLauncher.registerResetEvent(eventObject -> cgEventHandler.clearAllClosureLists());
 
-        CGConfig.init(new File("config/craftgroovy/craftgroovy.cfg"));
         for (String s : CGConfig.getCustomScriptPaths()) {
             sandboxedLauncher.scriptPathConfig.registerScriptPathRoots(s);
         }

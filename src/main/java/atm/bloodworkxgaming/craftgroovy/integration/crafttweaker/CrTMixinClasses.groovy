@@ -22,7 +22,6 @@ class CrTMixinClasses implements IMixinProvider {
             recipeManager.addShaped(name, out, ingred as IIngredient[][], recipeFunction, recipeAction)
         }
 
-
         IRecipeManager.metaClass.addShapeless { String name, IItemStack out, List<IIngredient> ingred, IRecipeFunction recipeFunction = null, IRecipeAction recipeAction = null ->
             def recipeManager = delegate as IRecipeManager
             recipeManager.addShapeless(name, out, ingred as IIngredient[], recipeFunction, recipeAction)
@@ -32,6 +31,7 @@ class CrTMixinClasses implements IMixinProvider {
             def recipeManager = delegate as IRecipeManager
             recipeManager.addShapeless(out, ingred as IIngredient[], recipeFunction, recipeAction)
         }
+
 
         IOreDictEntry.metaClass.addItems { List<IItemStack> items ->
             def oredictEntry = delegate as IOreDictEntry

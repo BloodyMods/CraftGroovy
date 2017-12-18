@@ -1,6 +1,5 @@
 package groovyScripts
 
-import atm.bloodworkxgaming.craftgroovy.closures.CGClosure
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import atm.bloodworkxgaming.craftgroovy.util.VanillaSounds
 import atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGenManager
@@ -113,7 +112,7 @@ CGEventManager.craftTweaker {
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
 
     recipes.addShapedMirrored(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
-    recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone")]])
+    recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone") * 20]])
 }
 
 CGEventManager.contentTweaker {
