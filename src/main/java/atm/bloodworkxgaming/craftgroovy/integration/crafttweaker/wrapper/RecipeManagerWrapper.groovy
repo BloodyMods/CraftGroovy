@@ -41,26 +41,19 @@ class RecipeManagerWrapper extends AbstractICGWrapper<IRecipeManager> {
     /**
      * Adds a shaped recipe.
      *
-     * @param recipeName optional recipe name
+     * @param recipeName (Optional) recipe name
      * @param output recipe output
-     * @param ingredients recipe ingredients
-     * @param function recipe function (optional)
+     * @param ingredients (Optional) recipe ingredients
+     * @param function (Optional) recipe function
+     * @param action (Optional) recipe action
      */
     @GSLWhitelistMember
-    void addShaped(String recipeName, IItemStack outputs, List<List<IIngredient>> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
-        internal.addShaped(recipeName, outputs, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)
-    }
-
-    /**
-     * Adds a shaped recipe.
-     *
-     * @param output recipe output
-     * @param ingredients recipe ingredients
-     * @param function recipe function (optional)
-     */
-    @GSLWhitelistMember
-    void addShaped(IItemStack outputs, List<List<IIngredient>> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
-        internal.addShaped(outputs, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)
+    void addShaped(String recipeName = null, IItemStack output, List<List<IIngredient>> ingredients, IRecipeFunction function = null, IRecipeAction action = null) {
+        if (recipeName == null) {
+            internal.addShaped(output, ingredients as IIngredient[][], function, action)
+        } else {
+            internal.addShaped(recipeName, output, ingredients as IIngredient[][], function, action)
+        }
     }
 
     /**
@@ -68,23 +61,15 @@ class RecipeManagerWrapper extends AbstractICGWrapper<IRecipeManager> {
      *
      * @param output recipe output
      * @param ingredients recipe ingredients
-     * @param function recipe function (optional)
+     * @param function (optional)  recipe function
      */
     @GSLWhitelistMember
-    void addShapedMirrored(String recipeName, IItemStack output, List<List<IIngredient>> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
-        internal.addShapedMirrored(recipeName, output, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)
-    }
-
-    /**
-     * Adds a mirrored shaped recipe.
-     *
-     * @param output recipe output
-     * @param ingredients recipe ingredients
-     * @param function recipe function (optional)
-     */
-    @GSLWhitelistMember
-    void addShapedMirrored(IItemStack output, List<List<IIngredient>> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
-        internal.addShapedMirrored(output, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)
+    void addShapedMirrored(String recipeName = null, IItemStack output, List<List<IIngredient>> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
+        if (recipeName == null){
+            internal.addShapedMirrored(output, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)
+        } else {
+            internal.addShapedMirrored(recipeName, output, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)
+        }
     }
 
     /**
@@ -95,20 +80,12 @@ class RecipeManagerWrapper extends AbstractICGWrapper<IRecipeManager> {
      * @param function recipe function (optional)
      */
     @GSLWhitelistMember
-    void addShapeless(IItemStack output, List<IIngredient> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
-        internal.addShapeless(output, inputs as IIngredient[], iRecipeFunction, iRecipeAction)
-    }
-
-    /**
-     * Adds a shapeless recipe.
-     *
-     * @param output recipe output
-     * @param ingredients recipe ingredients
-     * @param function recipe function (optional)
-     */
-    @GSLWhitelistMember
-    void addShapeless(String recipeName, IItemStack output, List<IIngredient> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
-        internal.addShapeless(recipeName, output, inputs as IIngredient[], iRecipeFunction, iRecipeAction)
+    void addShapeless(String recipeName = null, IItemStack output, List<IIngredient> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
+        if (recipeName == null) {
+            internal.addShapeless(output, inputs as IIngredient[], iRecipeFunction, iRecipeAction)
+        } else {
+            internal.addShapeless(recipeName, output, inputs as IIngredient[], iRecipeFunction, iRecipeAction)
+        }
     }
 
     /**

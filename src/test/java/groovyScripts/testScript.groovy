@@ -111,7 +111,7 @@ CGEventManager.craftTweaker {
 
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
 
-    recipes.addShapedMirrored(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
+    recipes.addShaped(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
     recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone") * 20]])
 }
 
