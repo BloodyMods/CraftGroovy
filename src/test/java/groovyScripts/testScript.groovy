@@ -12,6 +12,7 @@ import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
+import groovy.transform.Field
 
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler.getBlockMaterial
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.SoundTypeBracketHandler.getSoundType
@@ -102,6 +103,13 @@ CGEventManager.craftTweaker (["bla", "boob", "normal"]) {
 }
 
 CGEventManager.craftTweaker {
+    def i = item("minecraft:coal")
+
+    println i
+    i = i * 20
+    println i
+
+
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
 
     recipes.addShapedMirrored(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
@@ -193,3 +201,5 @@ CGEventManager.initialItems (true) {
     player.sendMessage "Welcome to All The Mods whatever."
 }
 
+@Field
+static def iron = "bla"

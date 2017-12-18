@@ -84,7 +84,7 @@ public class CGChatCommand extends CommandBase {
                 craftGroovyCommands.get(args[0]).executeCommand(server, sender, ArrayUtils.subarray(args, 1, args.length));
             }
         } else {
-            sender.sendMessage(SpecialMessagesChat.getClickableCommandMessage("\u00A7cNo such command! \u00A76[Click to show help]", "/bt help", true));
+            sender.sendMessage(SpecialMessagesChat.getClickableCommandMessage("\u00A7cNo such command! \u00A76[Click to show help]", "/cg help", true));
         }
     }
 

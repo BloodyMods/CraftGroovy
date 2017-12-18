@@ -35,7 +35,7 @@ public class Commands {
 
             @Override
             protected void init() {
-                setDescription(getClickableCommandMessage("\u00A72/ct help", "/ct help", true), getNormalMessage(" \u00A73Prints out the this help page"));
+                setDescription(getClickableCommandMessage("\u00A72/cg help", "/cg help", true), getNormalMessage(" \u00A73Prints out the this help page"));
             }
         });
 
@@ -48,7 +48,7 @@ public class Commands {
 
             @Override
             protected void init() {
-                setDescription(getClickableCommandMessage("\u00A72/ct run", "/ct run", true), getNormalMessage(" \u00A73Reruns the scripts"));
+                setDescription(getClickableCommandMessage("\u00A72/cg run", "/cg run", true), getNormalMessage(" \u00A73Reruns the scripts"));
             }
         });
 
@@ -81,7 +81,7 @@ public class Commands {
 
             @Override
             protected void init() {
-                setDescription(getClickableCommandMessage("\u00A72/ct hand", "/ct hand", true), getNormalMessage(" \u00A73Copies the item in your hand"));
+                setDescription(getClickableCommandMessage("\u00A72/cg hand", "/cg hand", true), getNormalMessage(" \u00A73Copies the item in your hand"));
             }
         });
 
@@ -89,7 +89,7 @@ public class Commands {
 
             @Override
             protected void init() {
-                setDescription(getClickableCommandMessage("\u00A72/ct copy", "/ct copy", false), getNormalMessage(" \u00A73Copies the provided string behind it"));
+                setDescription(getClickableCommandMessage("\u00A72/cg copy", "/cg copy", false), getNormalMessage(" \u00A73Copies the provided string behind it"));
             }
 
             @Override

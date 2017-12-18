@@ -80,7 +80,7 @@ class CraftTweakerDelegate {
     }
 
     @GSLWhitelistMember
-    static Object bracket(String name) {
+    static Object bracket(String... args) {
         for (br in GlobalRegistry.bracketHandlers){
             def tokens = new ArrayList<Token>()
             def zen = br.resolve(GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>()), tokens)
