@@ -11,6 +11,7 @@ import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
+import crafttweaker.api.item.IItemStack
 import groovy.transform.Field
 
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler.getBlockMaterial
@@ -56,7 +57,7 @@ CGEventManager.rightClickBlock {
             world.setToAir(pos)
 
             player.heldMain.count--
-            world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2, 0)
+            world.spawnItemInWorld(new PItemStack("minecraft:redstone") * 20, pos.add(0,1,0), 0, 0.2d, 0)
         }
     }
 }
@@ -108,10 +109,15 @@ CGEventManager.craftTweaker {
     i = i * 20
     println i
 
+    println bracket("ore:coal")
+    def sap = bracket("minecraft:sapling:3") as IItemStack
+    println sap
+
 
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
 
     recipes.addShaped(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
+    recipes.addShaped(sap, [[item("minecraft:coal", 2), item("minecraft:coal")]])
     recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone") * 20]])
 }
 

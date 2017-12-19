@@ -1,8 +1,8 @@
 package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.wrapper.RecipeManagerWrapper
+import atm.bloodworkxgaming.craftgroovy.integration.zenScript.FakeZenTokener
 import crafttweaker.CraftTweakerAPI
-import crafttweaker.annotations.BracketHandler
 import crafttweaker.api.client.IClient
 import crafttweaker.api.data.IData
 import crafttweaker.api.entity.IEntityDefinition
@@ -24,7 +24,17 @@ import crafttweaker.zenscript.GlobalRegistry
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 import groovy.transform.CompileStatic
 import net.minecraft.nbt.JsonToNBT
+import org.apache.commons.lang3.reflect.FieldUtils
+import stanhebben.zenscript.ZenParsedFile
+import stanhebben.zenscript.ZenTokener
+import stanhebben.zenscript.compiler.IEnvironmentGlobal
+import stanhebben.zenscript.expression.Expression
+import stanhebben.zenscript.expression.ExpressionCallStatic
 import stanhebben.zenscript.parser.Token
+import stanhebben.zenscript.type.ZenType
+import stanhebben.zenscript.type.natives.IJavaMethod
+import stanhebben.zenscript.type.natives.JavaMethod
+import stanhebben.zenscript.util.ZenPosition
 
 @CompileStatic
 class CraftTweakerDelegate {
@@ -79,15 +89,99 @@ class CraftTweakerDelegate {
         BracketHandlerPotion.getPotion(name)
     }
 
-    @GSLWhitelistMember
-    static Object bracket(String... args) {
-        for (br in GlobalRegistry.bracketHandlers){
-            def tokens = new ArrayList<Token>()
-            def zen = br.resolve(GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>()), tokens)
-            println "tokens = $tokens"
-            println "zen = $zen"
+    static IEnvironmentGlobal globalEnv
+    static ZenTokener zenTokener
+    static {
+        globalEnv = GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>())
+        zenTokener = new FakeZenTokener()
+    }
 
+
+    @GSLWhitelistMember
+    static Object bracket(String arg) {
+        def tokens = new ArrayList<Token>()
+
+        def split = arg.split(":")
+        split.eachWithIndex { String entry, int i ->
+            int typeNum = ZenTokener.T_STRING
+
+            if (typeNum == ZenTokener.T_STRING){
+                try {
+                    Integer.parseInt(entry)
+                    typeNum = ZenTokener.T_INTVALUE
+                } catch (NumberFormatException ignored){}
+            }
+            if (typeNum == ZenTokener.T_STRING){
+                try {
+                    Double.parseDouble(entry)
+                    typeNum = ZenTokener.T_DOUBLE
+                } catch (NumberFormatException ignored){}
+            }
+
+            tokens.add(new Token(entry, typeNum, new ZenPosition(new ZenParsedFile("bracketHelberFile.zs", "BracketHelberFile", zenTokener, globalEnv), 1, 2 * i, "bracketHelberFile.zs")))
+            if (i != split.length - 1) tokens.add(new Token(":", ZenTokener.T_COLON, new ZenPosition(new ZenParsedFile("bracketHelberFile.zs", "BracketHelberFile", zenTokener, globalEnv), 1, 2 * i + 1, "bracketHelberFile.zs")))
         }
+
+        def zen = GlobalRegistry.resolveBracket(globalEnv, tokens)
+
+        println "tokens = $tokens"
+        println "zen = ${zen?.getClass()}"
+
+        def pos = new ZenPosition(new ZenParsedFile("bracketHelperFile.zs", "BracketHelberFile", zenTokener, globalEnv), 1, 1, "bracketHelberFile.zs")
+        def exp = zen?.instance(pos)
+
+        if (exp instanceof ExpressionCallStatic) {
+            def zenMethod = FieldUtils.readField(exp, "method", true) as IJavaMethod
+            def arguments = FieldUtils.readField(exp, "arguments", true) as Expression[]
+
+            List<Object> argList = []
+            arguments.eachWithIndex { Expression entry, int i ->
+
+                println "entry: " + entry.properties
+
+                try {
+                    def val = FieldUtils.readField(entry, "value", true)
+
+                    switch (entry.getType()){
+                        case ZenType.INT:
+                            val = val as int
+                            break
+                        case ZenType.LONG:
+                            val = val as long
+                            break
+                        case ZenType.BOOL:
+                            val = val as boolean
+                            break
+                        case ZenType.BYTE:
+                            val = val as byte
+                            break
+                        case ZenType.FLOAT:
+                            val = val as float
+                            break
+                    }
+
+                    println "val.getClass() = ${val.getClass()}"
+                    argList.add(val)
+                } catch (NoSuchFieldException e){
+                    println "No such field: value in $entry"
+                    e.printStackTrace()
+                }
+            }
+
+            if (zenMethod instanceof JavaMethod){
+                def method = zenMethod.getMethod()
+
+                println "argList = $argList"
+                println "method.parameterTypes = $method.parameterTypes"
+
+                def ret = method.invoke(null, argList as Object[])
+
+                println ret
+                return ret
+            }
+        }
+
+
 
         return null
     }
