@@ -23,9 +23,10 @@ CGEventManager.initialItems {
 }
 
 CGEventManager.rightClickBlock {
-    player.swingArmMain()
-    if (CGRandom.nextInt(5) == 0 && player.sneaking && world.getBlockStateAt(pos).identifier == "minecraft:dirt:0" && player.getHeldMain().isEmpty()){
-        world.spawnItemInWorld(createItemStack("minecraft:diamond"), pos, 0.1f, 0.1f, 0.1f)
-        world.spawnItemInWorld(createItemStack("minecraft:diamond"), pos.up(1), CGRandom.nextDouble(-0.1f, 0.1f), 0.1f, CGRandom.nextDouble(-0.1f, 0.1f))
+    if (player.sneaking && world.getBlockStateAt(pos).identifier == "minecraft:dirt:0" && player.getHeldMain().isEmpty()){
+        player.swingArmMain()
+        if (CGRandom.percentageChance(20)){
+            world.spawnItemInWorld(createItemStack("minecraft:diamond"), pos.up(1), CGRandom.nextDouble(-0.1f, 0.1f), 0.1f, CGRandom.nextDouble(-0.1f, 0.1f))
+        }
     }
 }

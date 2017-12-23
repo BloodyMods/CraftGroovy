@@ -23,9 +23,16 @@ class CrTIntegration {
         AnnotationManager.registerMemberWhitelistingAnnotation(ZenMethod.class)
         AnnotationManager.registerMemberWhitelistingAnnotation(ZenMethodStatic.class)
 
+        AnnotationManager.registerMemberWhitelistingAnnotation(ZenMemberGetter.class)
+        AnnotationManager.registerMemberWhitelistingAnnotation(ZenMemberSetter.class)
+        AnnotationManager.registerMemberWhitelistingAnnotation(ZenCaster.class)
+        AnnotationManager.registerMemberWhitelistingAnnotation(ZenOperator.class)
+
         AnnotationManager.registerOptionalParameterAnnotation(Optional.class)
         sandboxedLauncher.with {
             whitelistRegistry.registerObjectExistence(IItemStack.class)
+            whitelistRegistry.registerMethod(IItemStack.class, "getInternal")
+
             whitelistRegistry.registerMethod(BracketHandlerItem.class, "getItem")
             whitelistRegistry.registerMethod(BracketHandlerOre.class, "getOre")
             whitelistRegistry.registerMethod(BracketHandlerPotion.class, "getPotion")

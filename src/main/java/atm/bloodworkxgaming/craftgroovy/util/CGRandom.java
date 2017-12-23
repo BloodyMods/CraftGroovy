@@ -140,6 +140,17 @@ public class CGRandom {
     }
 
     /**
+     * Returns a boolean randomly depending on whether the given chance was met.
+     *
+     * @param chance Chance is expected to be given in 100.00% for 100%
+     * @return whether or not the chance was hit
+     */
+    @GSLWhitelistMember
+    public static boolean percentageChance(double chance) {
+        return nextDouble() < chance / 100;
+    }
+
+    /**
      * Returns a pseudorandom {@code float} value between zero
      * (inclusive) and one (exclusive).
      *

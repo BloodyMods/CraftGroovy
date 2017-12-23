@@ -89,13 +89,8 @@ class CraftTweakerDelegate {
         BracketHandlerPotion.getPotion(name)
     }
 
-    static IEnvironmentGlobal globalEnv
-    static ZenTokener zenTokener
-    static {
-        globalEnv = GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>())
-        zenTokener = new FakeZenTokener()
-    }
-
+    static IEnvironmentGlobal globalEnv = GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>())
+    static ZenTokener zenTokener = new FakeZenTokener()
 
     @GSLWhitelistMember
     static Object bracket(String arg) {
@@ -124,9 +119,6 @@ class CraftTweakerDelegate {
 
         def zen = GlobalRegistry.resolveBracket(globalEnv, tokens)
 
-        println "tokens = $tokens"
-        println "zen = ${zen?.getClass()}"
-
         def pos = new ZenPosition(new ZenParsedFile("bracketHelperFile.zs", "BracketHelberFile", zenTokener, globalEnv), 1, 1, "bracketHelberFile.zs")
         def exp = zen?.instance(pos)
 
@@ -136,8 +128,6 @@ class CraftTweakerDelegate {
 
             List<Object> argList = []
             arguments.eachWithIndex { Expression entry, int i ->
-
-                println "entry: " + entry.properties
 
                 try {
                     def val = FieldUtils.readField(entry, "value", true)
@@ -160,7 +150,6 @@ class CraftTweakerDelegate {
                             break
                     }
 
-                    println "val.getClass() = ${val.getClass()}"
                     argList.add(val)
                 } catch (NoSuchFieldException e){
                     println "No such field: value in $entry"
@@ -170,17 +159,12 @@ class CraftTweakerDelegate {
 
             if (zenMethod instanceof JavaMethod){
                 def method = zenMethod.getMethod()
-
-                println "argList = $argList"
-                println "method.parameterTypes = $method.parameterTypes"
-
                 def ret = method.invoke(null, argList as Object[])
 
                 println ret
                 return ret
             }
         }
-
 
 
         return null

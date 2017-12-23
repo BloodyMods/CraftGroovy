@@ -110,9 +110,13 @@ CGEventManager.craftTweaker {
     println i
 
     println bracket("ore:coal")
-    def sap = bracket("minecraft:sapling:3") as IItemStack
-    println sap
+    def sap  = bracket("minecraft:sapling:3")
 
+    println sap.toString()
+
+    println sap.getClass()
+    sap = sap as IItemStack
+    println sap.getClass()
 
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
 
