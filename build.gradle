@@ -34,7 +34,7 @@ sourceSets {
 }
 
 minecraft {
-    version = "1.12.2-14.23.0.2512"
+    version = "1.12.2-14.23.1.2581"
     runDir = "run"
 
     mappings = "snapshot_20170823"
@@ -52,7 +52,7 @@ repositories {
 }
 
 dependencies {
-    deobfCompile ('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.+') {
+    deobfCompile ('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.10.306') {
         exclude group: 'org.ow2.asm'
     }
     deobfCompile 'com.teamacronymcoders:ContentTweaker:1.12-4.1.0-Snapshot.+'
@@ -90,7 +90,7 @@ shadowJar {
 
     dependencies {
         include(project(':groovysandboxedlauncher'))
-        include(dependency('org.kohsuke:groovy-sandbox:1.15'))
+        // include(dependency('org.kohsuke:groovy-sandbox:1.15'))
     }
 }
 

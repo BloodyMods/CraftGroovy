@@ -89,37 +89,13 @@ class CraftTweakerDelegate {
         BracketHandlerPotion.getPotion(name)
     }
 
-    static IEnvironmentGlobal globalEnv = GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>())
-    static ZenTokener zenTokener = new FakeZenTokener()
 
     @GSLWhitelistMember
     static Object bracket(String arg) {
-        def tokens = new ArrayList<Token>()
+        def tokens = FakeZenTokener.getTokensFromString(arg)
+        def zen = GlobalRegistry.resolveBracket(FakeZenTokener.globalEnv, tokens)
 
-        def split = arg.split(":")
-        split.eachWithIndex { String entry, int i ->
-            int typeNum = ZenTokener.T_STRING
-
-            if (typeNum == ZenTokener.T_STRING){
-                try {
-                    Integer.parseInt(entry)
-                    typeNum = ZenTokener.T_INTVALUE
-                } catch (NumberFormatException ignored){}
-            }
-            if (typeNum == ZenTokener.T_STRING){
-                try {
-                    Double.parseDouble(entry)
-                    typeNum = ZenTokener.T_DOUBLE
-                } catch (NumberFormatException ignored){}
-            }
-
-            tokens.add(new Token(entry, typeNum, new ZenPosition(new ZenParsedFile("bracketHelberFile.zs", "BracketHelberFile", zenTokener, globalEnv), 1, 2 * i, "bracketHelberFile.zs")))
-            if (i != split.length - 1) tokens.add(new Token(":", ZenTokener.T_COLON, new ZenPosition(new ZenParsedFile("bracketHelberFile.zs", "BracketHelberFile", zenTokener, globalEnv), 1, 2 * i + 1, "bracketHelberFile.zs")))
-        }
-
-        def zen = GlobalRegistry.resolveBracket(globalEnv, tokens)
-
-        def pos = new ZenPosition(new ZenParsedFile("bracketHelperFile.zs", "BracketHelberFile", zenTokener, globalEnv), 1, 1, "bracketHelberFile.zs")
+        def pos = new ZenPosition(new ZenParsedFile("bracketHelperFile.zs", "BracketHelberFile", FakeZenTokener.fakeZenTokener, FakeZenTokener.globalEnv), 1, 1, "bracketHelberFile.zs")
         def exp = zen?.instance(pos)
 
         if (exp instanceof ExpressionCallStatic) {
@@ -147,6 +123,9 @@ class CraftTweakerDelegate {
                             break
                         case ZenType.FLOAT:
                             val = val as float
+                            break
+                        case ZenType.DOUBLE:
+                            val = val as double
                             break
                     }
 
