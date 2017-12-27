@@ -7,6 +7,7 @@ import atm.bloodworkxgaming.craftgroovy.events.CGEventNames;
 import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
 import atm.bloodworkxgaming.craftgroovy.gdsl.item.CGItemProp;
 import atm.bloodworkxgaming.craftgroovy.gdsl.item.CGdslItemPropModName;
+import atm.bloodworkxgaming.craftgroovy.gdsl.item.ItemGDSLDumper;
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.zenScript.OperatorMixins;
@@ -155,6 +156,7 @@ public class CraftGroovy {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         GameRegistry.registerWorldGenerator(new CGWorldGen(), 10);
+        ItemGDSLDumper.dumpItems(new File(CGConfig.getCustomScriptPaths()[0], "itemnames.gdsl"));
 
         ClosureManager.runClosuresWithDelegate(new InitDelegate(), CGEventNames.CG_INIT_EVENT.name());
     }

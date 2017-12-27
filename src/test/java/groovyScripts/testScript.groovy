@@ -176,6 +176,8 @@ CGEventManager.contentTweaker {
 CGEventManager.initEvent {
     println "Running init"
     CGWorldGenManager.WORLGEN_DEBUG = false
+    
+
 
     println("2to2 test" + (20 .. 1))
 

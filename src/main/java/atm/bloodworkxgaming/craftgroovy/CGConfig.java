@@ -9,6 +9,7 @@ import java.io.File;
 @Config(modid = CraftGroovy.MODID)
 public class CGConfig {
     private static Property customScriptPaths;
+    private static boolean dumpGDSL;
     // private static Property acceptedModes;
 
     private static Configuration configuration;
@@ -24,6 +25,7 @@ public class CGConfig {
 
         // customScriptPath = configuration.get("general", "customScriptPath", "");
         customScriptPaths = configuration.get("general", "customScriptPaths", new String[]{"scripts/"});
+        dumpGDSL = configuration.getBoolean("dumpGDSL","general", false, "Whether to dump the gdsl files for easier editiing.");
         configuration.save();
     }
 
