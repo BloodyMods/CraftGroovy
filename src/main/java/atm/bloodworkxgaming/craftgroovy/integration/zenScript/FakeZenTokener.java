@@ -13,7 +13,7 @@ import java.util.List;
 
 public class FakeZenTokener extends ZenTokener {
     public FakeZenTokener() throws IOException {
-        super("TEST_CONTENT", new CrTCompileEnvironment(), "file_fallback.zs", true);
+        super("TEST_CONTENT", crtCompileEnv, fileName, true);
     }
 
     @Override
@@ -21,9 +21,10 @@ public class FakeZenTokener extends ZenTokener {
         return false;
     }
 
-    public static IEnvironmentGlobal globalEnv = GlobalRegistry.makeGlobalEnvironment(new HashMap<String, byte[]>());
+    public static IEnvironmentGlobal globalEnv = GlobalRegistry.makeGlobalEnvironment(new HashMap<>());
     public static ZenTokener fakeZenTokener;
     public static CrTCompileEnvironment crtCompileEnv = new CrTCompileEnvironment();
+    public static final String fileName = "CG_bracket_resolver.nonzs";
 
     static {
         try {
@@ -36,7 +37,7 @@ public class FakeZenTokener extends ZenTokener {
     public static List<Token> getTokensFromString(String content) {
         List<Token> tokens = new ArrayList<>();
         try {
-            ZenTokener fTokener = new ZenTokener(content, crtCompileEnv, "testttt.nonzs", false);
+            ZenTokener fTokener = new ZenTokener(content, crtCompileEnv, fileName, false);
             while (fTokener.hasNext()) {
                 tokens.add(fTokener.next());
             }
