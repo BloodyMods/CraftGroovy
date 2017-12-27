@@ -1,5 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.delegate
 
+import atm.bloodworkxgaming.craftgroovy.gdsl.item.CGItemProp
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBlock
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBlockState
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItem
@@ -16,20 +17,6 @@ trait MCInWorldObjects {
     @GSLWhitelistMember
     PItem createItem(String name) {
         return new PItem(Item.getByNameOrId(name))
-    }
-
-    /**
-     * Makes a ItemStack from the given name
-     * @param name item to used
-     * @param meta meta of item
-     * @param count amount of the stack
-     * @return the stack
-     */
-    @GSLWhitelistMember
-    PItemStack itemStack(String name, int meta = 0, int count = 1) {
-        def item = new PItemStack(name, meta)
-        item.count = count
-        return item
     }
 
     /**
@@ -91,4 +78,7 @@ trait MCInWorldObjects {
     PBlockState createBlockState(PBlock block, int meta = 0) {
         return block.getStateFromMeta(meta)
     }
+
+    @GSLWhitelistMember
+    CGItemProp getCreateItem() {return new CGItemProp()}
 }

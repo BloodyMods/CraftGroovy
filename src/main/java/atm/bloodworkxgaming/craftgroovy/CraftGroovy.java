@@ -5,6 +5,8 @@ import atm.bloodworkxgaming.craftgroovy.delegate.InitDelegate;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventNames;
 import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
+import atm.bloodworkxgaming.craftgroovy.gdsl.item.CGItemProp;
+import atm.bloodworkxgaming.craftgroovy.gdsl.item.CGdslItemPropModName;
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.zenScript.OperatorMixins;
@@ -124,6 +126,8 @@ public class CraftGroovy {
         WrapperWhitelister.registerWrappers(sandboxedLauncher.whitelistRegistry);
 
         sandboxedLauncher.whitelistRegistry.registerField(EnumParticleTypes.class, "*");
+        sandboxedLauncher.whitelistRegistry.registerField(CGItemProp.class, "*");
+        sandboxedLauncher.whitelistRegistry.registerField(CGdslItemPropModName.class, "*");
 
         sandboxedLauncher.whitelistRegistry.invertObjectWhitelist();
         sandboxedLauncher.importModifier.addStaticStars("java.lang.Math");
