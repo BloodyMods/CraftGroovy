@@ -176,8 +176,8 @@ CGEventManager.contentTweaker {
 CGEventManager.initEvent {
     println "Running init"
     CGWorldGenManager.WORLGEN_DEBUG = false
-    
 
+    println "wierd coal: " + (createItem.minecraft.sapling ** 4 * 2).getMetadata()
 
     println("2to2 test" + (20 .. 1))
 

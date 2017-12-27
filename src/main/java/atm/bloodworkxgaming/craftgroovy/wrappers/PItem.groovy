@@ -92,4 +92,14 @@ class PItem extends AbstractICGWrapper<Item> {
     String getRegistryName() {
         return internal.getRegistryName() == null ? "" : internal.getRegistryName().toString()
     }
+
+    @GSLWhitelistMember
+    PItemStack asStack(int value = 0){
+        return new PItemStack(this.internal, value)
+    }
+
+    @GSLWhitelistMember
+    PItemStack power(int value) {
+        return asStack(value)
+    }
 }

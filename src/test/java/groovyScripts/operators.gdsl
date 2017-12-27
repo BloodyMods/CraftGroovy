@@ -1,5 +1,17 @@
 contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "multiply", type: "crafttweaker.api.data.IData",
+   method(name: "xor", type: "crafttweaker.api.data.IData",
+          params: [obj: "crafttweaker.api.data.IData"])
+}
+contributor(context(ctype: "crafttweaker.api.chat.IChatMessage")) {
+   method(name: "plus", type: "crafttweaker.api.chat.IChatMessage",
+          params: [obj: "crafttweaker.api.chat.IChatMessage"])
+}
+contributor(context(ctype: "crafttweaker.api.data.IData")) {
+   method(name: "putAt", type: "void",
+          params: [index: "int", value: "interface crafttweaker.api.data.IData"])
+}
+contributor(context(ctype: "crafttweaker.api.data.IData")) {
+   method(name: "mod", type: "crafttweaker.api.data.IData",
           params: [obj: "crafttweaker.api.data.IData"])
 }
 contributor(context(ctype: "crafttweaker.api.data.IData")) {
@@ -7,19 +19,43 @@ contributor(context(ctype: "crafttweaker.api.data.IData")) {
           params: [obj: "int"])
 }
 contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "putAt", type: "void",
-          params: [index: "int", value: "interface crafttweaker.api.data.IData"])
-}
-contributor(context(ctype: "crafttweaker.api.liquid.ILiquidDefinition")) {
-   method(name: "multiply", type: "crafttweaker.api.liquid.ILiquidStack",
-          params: [obj: "int"])
+   method(name: "or", type: "crafttweaker.api.data.IData",
+          params: [obj: "crafttweaker.api.data.IData"])
 }
 contributor(context(ctype: "crafttweaker.api.item.IIngredient")) {
    method(name: "or", type: "crafttweaker.api.item.IIngredient",
           params: [obj: "crafttweaker.api.item.IIngredient"])
 }
+contributor(context(ctype: "crafttweaker.api.mods.ILoadedMods")) {
+   method(name: "getAt", type: "crafttweaker.api.mods.IMod",
+          params: [obj: "java.lang.String"])
+}
+contributor(context(ctype: "crafttweaker.api.data.IData")) {
+   method(name: "bitwiseNegate", type: "crafttweaker.api.data.IData",
+          )
+}
+contributor(context(ctype: "crafttweaker.zenscript.expand.ExpandString")) {
+   method(name: "leftShift", type: "crafttweaker.api.formatting.IFormattedText",
+          params: [obj: "java.lang.String"])
+}
 contributor(context(ctype: "crafttweaker.api.item.IItemStack")) {
-   method(name: "multiply", type: "crafttweaker.api.item.IItemStack",
+   method(name: "mod", type: "crafttweaker.api.item.WeightedItemStack",
+          params: [obj: "float"])
+}
+contributor(context(ctype: "crafttweaker.api.data.IData")) {
+   method(name: "multiply", type: "crafttweaker.api.data.IData",
+          params: [obj: "crafttweaker.api.data.IData"])
+}
+contributor(context(ctype: "crafttweaker.api.data.IData")) {
+   method(name: "plus", type: "crafttweaker.api.data.IData",
+          params: [obj: "crafttweaker.api.data.IData"])
+}
+contributor(context(ctype: "crafttweaker.api.data.IData")) {
+   method(name: "minus", type: "crafttweaker.api.data.IData",
+          params: [obj: "crafttweaker.api.data.IData"])
+}
+contributor(context(ctype: "crafttweaker.api.liquid.ILiquidDefinition")) {
+   method(name: "multiply", type: "crafttweaker.api.liquid.ILiquidStack",
           params: [obj: "int"])
 }
 contributor(context(ctype: "crafttweaker.api.block.IBlockPattern")) {
@@ -27,74 +63,38 @@ contributor(context(ctype: "crafttweaker.api.block.IBlockPattern")) {
           params: [obj: "crafttweaker.api.block.IBlockPattern"])
 }
 contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "plus", type: "crafttweaker.api.data.IData",
+   method(name: "div", type: "crafttweaker.api.data.IData",
           params: [obj: "crafttweaker.api.data.IData"])
 }
-contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "or", type: "crafttweaker.api.data.IData",
-          params: [obj: "crafttweaker.api.data.IData"])
-}
-contributor(context(ctype: "crafttweaker.zenscript.expand.ExpandString")) {
-   method(name: "leftShift", type: "crafttweaker.api.formatting.IFormattedText",
-          params: [obj: "java.lang.String"])
-}
-contributor(context(ctype: "crafttweaker.api.formatting.IFormattedText")) {
-   method(name: "leftShift", type: "crafttweaker.api.formatting.IFormattedText",
-          params: [obj: "crafttweaker.api.formatting.IFormattedText"])
-}
-contributor(context(ctype: "crafttweaker.api.chat.IChatMessage")) {
-   method(name: "plus", type: "crafttweaker.api.chat.IChatMessage",
-          params: [obj: "crafttweaker.api.chat.IChatMessage"])
-}
-contributor(context(ctype: "crafttweaker.api.item.IItemStack")) {
-   method(name: "mod", type: "crafttweaker.api.item.WeightedItemStack",
-          params: [obj: "float"])
-}
-contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "mod", type: "crafttweaker.api.data.IData",
-          params: [obj: "crafttweaker.api.data.IData"])
-}
-contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "minus", type: "crafttweaker.api.data.IData",
-          params: [obj: "crafttweaker.api.data.IData"])
-}
-contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "bitwiseNegate", type: "crafttweaker.api.data.IData",
-          )
-}
-contributor(context(ctype: "crafttweaker.api.oredict.IOreDict")) {
-   method(name: "getAt", type: "crafttweaker.api.oredict.IOreDictEntry",
-          params: [obj: "java.lang.String"])
+contributor(context(ctype: "crafttweaker.api.item.IIngredient")) {
+   method(name: "multiply", type: "crafttweaker.api.item.IIngredient",
+          params: [obj: "int"])
 }
 contributor(context(ctype: "crafttweaker.api.formatting.IFormattedText")) {
    method(name: "plus", type: "crafttweaker.api.formatting.IFormattedText",
           params: [obj: "crafttweaker.api.formatting.IFormattedText"])
 }
-contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "xor", type: "crafttweaker.api.data.IData",
-          params: [obj: "crafttweaker.api.data.IData"])
+contributor(context(ctype: "crafttweaker.api.formatting.IFormattedText")) {
+   method(name: "leftShift", type: "crafttweaker.api.formatting.IFormattedText",
+          params: [obj: "crafttweaker.api.formatting.IFormattedText"])
+}
+contributor(context(ctype: "crafttweaker.api.oredict.IOreDict")) {
+   method(name: "getAt", type: "crafttweaker.api.oredict.IOreDictEntry",
+          params: [obj: "java.lang.String"])
 }
 contributor(context(ctype: "crafttweaker.api.liquid.ILiquidStack")) {
    method(name: "multiply", type: "crafttweaker.api.liquid.ILiquidStack",
           params: [obj: "int"])
 }
 contributor(context(ctype: "crafttweaker.api.data.IData")) {
-   method(name: "div", type: "crafttweaker.api.data.IData",
-          params: [obj: "crafttweaker.api.data.IData"])
-}
-contributor(context(ctype: "crafttweaker.api.data.IData")) {
    method(name: "and", type: "crafttweaker.api.data.IData",
           params: [obj: "crafttweaker.api.data.IData"])
+}
+contributor(context(ctype: "crafttweaker.api.item.IItemStack")) {
+   method(name: "multiply", type: "crafttweaker.api.item.IItemStack",
+          params: [obj: "int"])
 }
 contributor(context(ctype: "crafttweaker.zenscript.expand.ExpandString")) {
    method(name: "plus", type: "crafttweaker.api.formatting.IFormattedText",
           params: [obj: "java.lang.String"])
-}
-contributor(context(ctype: "crafttweaker.api.mods.ILoadedMods")) {
-   method(name: "getAt", type: "crafttweaker.api.mods.IMod",
-          params: [obj: "java.lang.String"])
-}
-contributor(context(ctype: "crafttweaker.api.item.IIngredient")) {
-   method(name: "multiply", type: "crafttweaker.api.item.IIngredient",
-          params: [obj: "int"])
 }

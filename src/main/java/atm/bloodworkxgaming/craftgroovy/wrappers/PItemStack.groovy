@@ -27,7 +27,7 @@ class PItemStack extends AbstractICGWrapper<ItemStack> {
     }
 
     PItemStack(Item item, int meta = 0) {
-        super(new ItemStack(item, meta))
+        super(new ItemStack(item, 1, meta))
     }
 
     @GSLWhitelistMember
