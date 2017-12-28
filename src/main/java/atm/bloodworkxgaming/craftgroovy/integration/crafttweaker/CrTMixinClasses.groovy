@@ -6,7 +6,9 @@ import crafttweaker.api.oredict.IOreDictEntry
 import crafttweaker.api.recipes.IRecipeAction
 import crafttweaker.api.recipes.IRecipeFunction
 import crafttweaker.api.recipes.IRecipeManager
+import crafttweaker.mc1120.brackets.BracketHandlerItem
 import de.bloodworkxgaming.groovysandboxedlauncher.compilercustomizer.IMixinProvider
+import net.minecraft.item.ItemStack
 
 class CrTMixinClasses implements IMixinProvider {
     @Override
@@ -31,10 +33,15 @@ class CrTMixinClasses implements IMixinProvider {
             recipeManager.addShapeless(out, ingred as IIngredient[], recipeFunction, recipeAction)
         }
 
-
         IOreDictEntry.metaClass.addItems { List<IItemStack> items ->
             def oredictEntry = delegate as IOreDictEntry
             oredictEntry.addItems(items as IItemStack[])
+        }
+
+        IItemStack.metaClass.power { int p ->
+            def item = delegate as IItemStack
+
+            return BracketHandlerItem.getItem(item.definition.name, p)
         }
     }
 }

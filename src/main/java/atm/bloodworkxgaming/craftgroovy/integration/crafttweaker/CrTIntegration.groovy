@@ -1,5 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
+import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.dsl.CrTItemProp
+import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.dsl.CrTdslItemPropModName
 import crafttweaker.CraftTweakerAPI
 import crafttweaker.api.item.IIngredient
 import crafttweaker.api.item.IItemStack
@@ -45,6 +47,12 @@ class CrTIntegration {
 
             // mixins
             whitelistRegistry.registerMethod(IIngredient.class, "multiply")
+            whitelistRegistry.registerMethod(IItemStack.class, "power")
+
+            // items
+            sandboxedLauncher.whitelistRegistry.registerField(CrTItemProp.class, "*")
+            sandboxedLauncher.whitelistRegistry.registerField(CrTdslItemPropModName.class, "*")
+
         }
     }
 

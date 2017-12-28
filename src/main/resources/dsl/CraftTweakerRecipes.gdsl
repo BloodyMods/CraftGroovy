@@ -90,3 +90,9 @@ contributor(ctxIOreDictEntry) {
     method(name: "addItems", type: "void",
             params: [amount: "java.util.List<crafttweaker.api.item.IItemStack>"])
 }
+
+
+contributor(context(ctype: "crafttweaker.api.item.IItemStack")) {
+    method(name: "power", type: "crafttweaker.api.item.IItemStack",
+            params: [meta: "int"])
+}

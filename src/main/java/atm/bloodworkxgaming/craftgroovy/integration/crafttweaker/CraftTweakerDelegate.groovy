@@ -1,5 +1,6 @@
 package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
+import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.dsl.CrTItemProp
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.wrapper.RecipeManagerWrapper
 import atm.bloodworkxgaming.craftgroovy.integration.zenScript.FakeZenTokener
 import crafttweaker.CraftTweakerAPI
@@ -63,11 +64,14 @@ class CraftTweakerDelegate {
     static IItemStack item(String name, int meta = 0) {
         return BracketHandlerItem.getItem(name, meta)
     }
+    @GSLWhitelistMember
+    static CrTItemProp item = new CrTItemProp()
 
     @GSLWhitelistMember
     static IOreDictEntry ore(String name) {
         return BracketHandlerOre.getOre(name)
     }
+
 
     @GSLWhitelistMember
     static ILiquidStack liquid(String name) {

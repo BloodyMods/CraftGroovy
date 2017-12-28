@@ -109,6 +109,8 @@ CGEventManager.craftTweaker {
     i = i * 20
     println i
 
+    println item.minecraft.coal ** 12 * 10
+
     println bracket("ore:coal")
     def sap  = bracket("minecraft:sapling:3")
 
