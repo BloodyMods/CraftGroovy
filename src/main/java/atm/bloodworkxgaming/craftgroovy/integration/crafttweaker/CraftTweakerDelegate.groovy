@@ -65,7 +65,9 @@ class CraftTweakerDelegate {
         return BracketHandlerItem.getItem(name, meta)
     }
     @GSLWhitelistMember
-    static CrTItemProp item = new CrTItemProp()
+    static CrTItemProp getItem() {
+        new CrTItemProp()
+    }
 
     @GSLWhitelistMember
     static IOreDictEntry ore(String name) {

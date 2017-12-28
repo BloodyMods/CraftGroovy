@@ -10,7 +10,7 @@ class CrTdslItemPropModName {
     }
 
     def propertyMissing(String name) {
-        return BracketHandlerItem.getItem(modname, 0)
+        return BracketHandlerItem.getItem("$modname:$name", 0)
     }
 
     def propertyMissing(String name, def arg) {

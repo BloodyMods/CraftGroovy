@@ -109,7 +109,7 @@ CGEventManager.craftTweaker {
     i = i * 20
     println i
 
-    println item.minecraft.coal ** 12 * 10
+    println item.minecraft.wrench ** 12 * 10
 
     println bracket("ore:coal")
     def sap  = bracket("minecraft:sapling:3")
@@ -179,7 +179,7 @@ CGEventManager.initEvent {
     println "Running init"
     CGWorldGenManager.WORLGEN_DEBUG = false
 
-    println "wierd coal: " + (createItem.minecraft.sapling ** 4 * 2).getMetadata()
+    println "wierd coal: " + (createItem ** 4 * 2).getMetadata()
 
     println("2to2 test" + (20 .. 1))
 
