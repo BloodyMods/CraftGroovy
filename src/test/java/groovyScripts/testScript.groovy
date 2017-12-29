@@ -108,6 +108,7 @@ CGEventManager.craftTweaker {
     println i
     i = i * 20
     println i
+    Globals.coal
 
     println item.minecraft.wrench ** 12 * 10
 

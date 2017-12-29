@@ -1,10 +1,11 @@
 package groovyScripts
 
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
+import crafttweaker.api.item.IItemStack
 
 class Defaults {
-    static def iron
-    static def coal
+    static IItemStack iron
+    static IItemStack coal
 
     Defaults() {
         println "defaults is getting run"
