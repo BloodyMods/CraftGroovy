@@ -2,9 +2,10 @@ package groovyScripts
 
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import crafttweaker.api.item.IItemStack
+import crafttweaker.api.oredict.IOreDictEntry
 
 class Defaults {
-    static IItemStack iron
+    static IOreDictEntry iron
     static IItemStack coal
 
     Defaults() {
