@@ -10,7 +10,7 @@ import java.util.List;
 
 @GSLWhitelistClass
 @GSLWhitelistConstructor
-public class FlowerWorldGenType extends BaseWorldgenType{
+public class FlowerWorldGenType extends BaseWorldgenType {
     @GSLWhitelistMember
     public List<IBlockState> whitelistedSoil = new ArrayList<>();
 

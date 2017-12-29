@@ -3,7 +3,7 @@ package atm.bloodworkxgaming.craftgroovy.delegate
 import atm.bloodworkxgaming.craftgroovy.wrappers.PPlayer
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 
-class InitialInventoryDelegate implements MCInWorldObjects{
+class InitialInventoryDelegate implements MCInWorldObjects {
     @GSLWhitelistMember
     public PPlayer player
     @GSLWhitelistMember

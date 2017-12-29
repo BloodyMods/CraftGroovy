@@ -6,13 +6,13 @@ import java.util.regex.Pattern
 class ZsCrossCompiler {
     private static String importPattern = "import\\s+((\\w+\\.?)+);"
     private static Map<String, String> importReplaces = [
-        "crafttweaker.item.IIngredient": "crafttweaker.api.item.IIngredient",
-        "crafttweaker.item.IItemStack": "crafttweaker.api.item.IItemStack",
-        "crafttweaker.oredict.IOreDict": "crafttweaker.api.oredict.IOreDict",
-        "crafttweaker.oredict.IOreDictEntry": "crafttweaker.api.oredict.IOreDictEntry",
+            "crafttweaker.item.IIngredient"     : "crafttweaker.api.item.IIngredient",
+            "crafttweaker.item.IItemStack"      : "crafttweaker.api.item.IItemStack",
+            "crafttweaker.oredict.IOreDict"     : "crafttweaker.api.oredict.IOreDict",
+            "crafttweaker.oredict.IOreDictEntry": "crafttweaker.api.oredict.IOreDictEntry",
     ]
 
-    static String transform(String script){
+    static String transform(String script) {
         StringBuilder sb = new StringBuilder()
         sb.append("package groovyScripts\n")
 
@@ -23,7 +23,7 @@ class ZsCrossCompiler {
             String loc = matcher.group(1)
             def newImp = importReplaces.get(loc)
 
-            if (newImp == null){
+            if (newImp == null) {
                 newImp = loc
             }
 

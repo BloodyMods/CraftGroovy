@@ -27,11 +27,8 @@ import groovy.transform.CompileStatic
 import net.minecraft.nbt.JsonToNBT
 import org.apache.commons.lang3.reflect.FieldUtils
 import stanhebben.zenscript.ZenParsedFile
-import stanhebben.zenscript.ZenTokener
-import stanhebben.zenscript.compiler.IEnvironmentGlobal
 import stanhebben.zenscript.expression.Expression
 import stanhebben.zenscript.expression.ExpressionCallStatic
-import stanhebben.zenscript.parser.Token
 import stanhebben.zenscript.type.ZenType
 import stanhebben.zenscript.type.natives.IJavaMethod
 import stanhebben.zenscript.type.natives.JavaMethod
@@ -64,6 +61,7 @@ class CraftTweakerDelegate {
     static IItemStack item(String name, int meta = 0) {
         return BracketHandlerItem.getItem(name, meta)
     }
+
     @GSLWhitelistMember
     static CrTItemProp getItem() {
         new CrTItemProp()
@@ -114,7 +112,7 @@ class CraftTweakerDelegate {
                 try {
                     def val = FieldUtils.readField(entry, "value", true)
 
-                    switch (entry.getType()){
+                    switch (entry.getType()) {
                         case ZenType.INT:
                             val = val as int
                             break
@@ -136,13 +134,13 @@ class CraftTweakerDelegate {
                     }
 
                     argList.add(val)
-                } catch (NoSuchFieldException e){
+                } catch (NoSuchFieldException e) {
                     println "No such field: value in $entry"
                     e.printStackTrace()
                 }
             }
 
-            if (zenMethod instanceof JavaMethod){
+            if (zenMethod instanceof JavaMethod) {
                 def method = zenMethod.getMethod()
                 def ret = method.invoke(null, argList as Object[])
 

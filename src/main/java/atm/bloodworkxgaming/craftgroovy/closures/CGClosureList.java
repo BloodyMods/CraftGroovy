@@ -2,7 +2,6 @@ package atm.bloodworkxgaming.craftgroovy.closures;
 
 import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -55,7 +54,7 @@ public class CGClosureList<T extends CGClosure> {
         this.sorted = sorted;
     }
 
-    public void sort(){
+    public void sort() {
         list.sort(comparator);
         sorted = true;
     }

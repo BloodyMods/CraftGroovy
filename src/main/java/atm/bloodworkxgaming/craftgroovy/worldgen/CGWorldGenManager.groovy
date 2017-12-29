@@ -9,12 +9,13 @@ class CGWorldGenManager {
     public static final List<FlowerWorldGenType> FLOWER_WORLD_GEN_LIST = new ArrayList<>()
 
     @GSLWhitelistMember
-    static void registerFlowerWorldGen(FlowerWorldGenType flowerWorldGenType){
+    static void registerFlowerWorldGen(FlowerWorldGenType flowerWorldGenType) {
         FLOWER_WORLD_GEN_LIST.add(flowerWorldGenType)
     }
 
     @GSLWhitelistMember
-    static void registerFlowerWorldGen(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = FlowerWorldGenType) Closure closure){
+    static void registerFlowerWorldGen(
+            @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = FlowerWorldGenType) Closure closure) {
         FlowerWorldGenType flower = new FlowerWorldGenType(null)
         flower.with(closure)
 

@@ -65,7 +65,7 @@ class RecipeManagerWrapper extends AbstractICGWrapper<IRecipeManager> {
      */
     @GSLWhitelistMember
     void addShapedMirrored(String recipeName = null, IItemStack output, List<List<IIngredient>> inputs, IRecipeFunction iRecipeFunction = null, IRecipeAction iRecipeAction = null) {
-        if (recipeName == null){
+        if (recipeName == null) {
             internal.addShapedMirrored(output, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)
         } else {
             internal.addShapedMirrored(recipeName, output, inputs as IIngredient[][], iRecipeFunction, iRecipeAction)

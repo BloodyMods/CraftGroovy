@@ -94,7 +94,7 @@ class PItem extends AbstractICGWrapper<Item> {
     }
 
     @GSLWhitelistMember
-    PItemStack asStack(int value = 0){
+    PItemStack asStack(int value = 0) {
         return new PItemStack(this.internal, value)
     }
 

@@ -12,19 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class FakeZenTokener extends ZenTokener {
-    public FakeZenTokener() throws IOException {
-        super("TEST_CONTENT", crtCompileEnv, fileName, true);
-    }
-
-    @Override
-    public boolean hasNext() {
-        return false;
-    }
-
+    public static final String fileName = "CG_bracket_resolver.nonzs";
     public static IEnvironmentGlobal globalEnv = GlobalRegistry.makeGlobalEnvironment(new HashMap<>());
     public static ZenTokener fakeZenTokener;
     public static CrTCompileEnvironment crtCompileEnv = new CrTCompileEnvironment();
-    public static final String fileName = "CG_bracket_resolver.nonzs";
 
     static {
         try {
@@ -32,6 +23,9 @@ public class FakeZenTokener extends ZenTokener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public FakeZenTokener() throws IOException {
+        super("TEST_CONTENT", crtCompileEnv, fileName, true);
     }
 
     public static List<Token> getTokensFromString(String content) {
@@ -45,5 +39,10 @@ public class FakeZenTokener extends ZenTokener {
             e.printStackTrace();
         }
         return tokens;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return false;
     }
 }

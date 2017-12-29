@@ -25,7 +25,7 @@ public class CGConfig {
 
         // customScriptPath = configuration.get("general", "customScriptPath", "");
         customScriptPaths = configuration.get("general", "customScriptPaths", new String[]{"scripts/"});
-        dumpGDSL = configuration.getBoolean("dumpGDSL","general", false, "Whether to dump the gdsl files for easier editiing.");
+        dumpGDSL = configuration.getBoolean("dumpGDSL", "general", false, "Whether to dump the gdsl files for easier editiing.");
         configuration.save();
     }
 

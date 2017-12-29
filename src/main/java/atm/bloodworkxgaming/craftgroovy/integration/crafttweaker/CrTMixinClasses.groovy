@@ -8,7 +8,6 @@ import crafttweaker.api.recipes.IRecipeFunction
 import crafttweaker.api.recipes.IRecipeManager
 import crafttweaker.mc1120.brackets.BracketHandlerItem
 import de.bloodworkxgaming.groovysandboxedlauncher.compilercustomizer.IMixinProvider
-import net.minecraft.item.ItemStack
 
 class CrTMixinClasses implements IMixinProvider {
     @Override

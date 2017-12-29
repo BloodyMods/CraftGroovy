@@ -2,7 +2,7 @@ package atm.bloodworkxgaming.craftgroovy.wrappers;
 
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 
-public abstract class AbstractICGWrapper<R> implements ICGWrapper<R>{
+public abstract class AbstractICGWrapper<R> implements ICGWrapper<R> {
     protected R internal;
 
     public AbstractICGWrapper(R internal) {

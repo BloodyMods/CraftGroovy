@@ -57,6 +57,7 @@ public class PBlockPos extends AbstractICGWrapper<BlockPos> {
 
     /**
      * Offset this BlockPos n blocks up
+     *
      * @param n
      */
     @GSLWhitelistMember
@@ -74,6 +75,7 @@ public class PBlockPos extends AbstractICGWrapper<BlockPos> {
 
     /**
      * Offset this BlockPos n blocks down
+     *
      * @param n
      */
     @GSLWhitelistMember

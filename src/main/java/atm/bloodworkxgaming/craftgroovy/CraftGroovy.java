@@ -16,7 +16,6 @@ import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
 import atm.bloodworkxgaming.craftgroovy.network.MessageCopyClipboard;
 import atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGen;
 import atm.bloodworkxgaming.craftgroovy.wrappers.WrapperWhitelister;
-import crafttweaker.zenscript.GlobalRegistry;
 import de.bloodworkxgaming.groovysandboxedlauncher.defaults.WhitelistDefaults;
 import de.bloodworkxgaming.groovysandboxedlauncher.logger.ILogger;
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
@@ -27,7 +26,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -36,12 +34,10 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import stanhebben.zenscript.annotations.ZenOperator;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Mod(modid = CraftGroovy.MODID, name = "Craft Groovy", version = CraftGroovy.VERSION, dependencies = "after:crafttweaker; after:contenttweaker", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class CraftGroovy {
@@ -140,7 +136,6 @@ public class CraftGroovy {
         if (Loader.isModLoaded("contenttweaker")) {
             ContentTweakerIntegration.whitelistClasses(sandboxedLauncher);
         }
-
 
 
         sandboxedLauncher.initSandbox();

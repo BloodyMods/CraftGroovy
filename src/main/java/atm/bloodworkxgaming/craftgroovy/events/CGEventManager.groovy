@@ -67,12 +67,13 @@ class CGEventManager {
     }
 
     @GSLWhitelistMember
-    static CGClosure initEvent(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = InitDelegate) Closure cl){
+    static CGClosure initEvent(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = InitDelegate) Closure cl) {
         return ClosureManager.addClosureToMap(CGEventNames.CG_INIT_EVENT.name(), cl)
     }
 
     @GSLWhitelistMember
-    static CGInitInventoryClosure initialItems(boolean runAnyways = false, @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = InitialInventoryDelegate) Closure cl){
+    static CGInitInventoryClosure initialItems(boolean runAnyways = false,
+                                               @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = InitialInventoryDelegate) Closure cl) {
         def closure = new CGInitInventoryClosure(cl)
         closure.setShouldRunAnyways(runAnyways)
         ClosureManager.addClosureToMap(CGEventNames.CG_INITIAL_INVENTORY.name(), closure)

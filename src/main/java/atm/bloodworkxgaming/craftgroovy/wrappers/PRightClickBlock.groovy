@@ -100,7 +100,7 @@ class PRightClickBlock extends AbstractICGWrapper<PlayerInteractEvent.RightClick
     }
 
     @GSLWhitelistMember
-    void setSuccessful(){
+    void setSuccessful() {
         internal.setResult(Event.Result.ALLOW)
     }
 }

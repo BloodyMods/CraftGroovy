@@ -1,13 +1,14 @@
 package atm.bloodworkxgaming.craftgroovy.events;
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy;
-import atm.bloodworkxgaming.craftgroovy.closures.*;
+import atm.bloodworkxgaming.craftgroovy.closures.CGClosureList;
+import atm.bloodworkxgaming.craftgroovy.closures.CGContentTweakerClosure;
+import atm.bloodworkxgaming.craftgroovy.closures.CGCraftTweakerClosure;
+import atm.bloodworkxgaming.craftgroovy.closures.CGInitInventoryClosure;
 import atm.bloodworkxgaming.craftgroovy.delegate.InitialInventoryDelegate;
 import atm.bloodworkxgaming.craftgroovy.util.PlayerUtil;
 import atm.bloodworkxgaming.craftgroovy.wrappers.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
@@ -17,11 +18,7 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mod.EventBusSubscriber
 public class CGEventHandler {
@@ -78,10 +75,10 @@ public class CGEventHandler {
             boolean hasTag = tag.getBoolean("HasStartingItems");
 
             ClosureManager.runClosuresWithDelegate(new InitialInventoryDelegate(new PPlayer(player), hasTag), CGEventNames.CG_INITIAL_INVENTORY.name(), cgClosure -> {
-                if (cgClosure instanceof CGInitInventoryClosure){
+                if (cgClosure instanceof CGInitInventoryClosure) {
                     CGInitInventoryClosure cgi = (CGInitInventoryClosure) cgClosure;
                     return !hasTag || cgi.shouldRunAnyways;
-                }else {
+                } else {
                     return true;
                 }
             });

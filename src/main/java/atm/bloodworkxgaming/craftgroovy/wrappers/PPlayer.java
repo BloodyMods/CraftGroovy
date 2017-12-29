@@ -5,16 +5,12 @@ import atm.bloodworkxgaming.craftgroovy.util.PlayerUtil;
 import com.mojang.authlib.GameProfile;
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.advancements.AdvancementState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.ResourceLocation;
@@ -500,6 +496,7 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
 
     /**
      * Send a chat message to the CommandSender
+     *
      * @param message
      */
     @GSLWhitelistMember
@@ -508,11 +505,11 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
     }
 
     @GSLWhitelistMember
-    public PNBTTagCompound getPersistentNBT(){
+    public PNBTTagCompound getPersistentNBT() {
         return new PNBTTagCompound(PlayerUtil.getPersistedTag(internal, CraftGroovy.MODID));
     }
 
-    public boolean hasUnlockedAdvancement(String name){
+    public boolean hasUnlockedAdvancement(String name) {
         Advancement adv = internal.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(name));
         if (adv == null) return false;
 
@@ -520,7 +517,7 @@ public class PPlayer extends AbstractICGWrapper<EntityPlayer> {
         return progress.isDone();
     }
 
-    public void addProgressToAdvancement(String name){
+    public void addProgressToAdvancement(String name) {
         Advancement adv = internal.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(name));
         if (adv == null) return;
 

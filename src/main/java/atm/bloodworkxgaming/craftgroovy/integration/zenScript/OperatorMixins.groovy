@@ -11,19 +11,19 @@ import java.lang.reflect.Method
 class OperatorMixins {
     private static PrintWriter writer = null
 
-    static void manageOperators(ASMDataTable dataTable){
+    static void manageOperators(ASMDataTable dataTable) {
         Set<ASMDataTable.ASMData> zenOperators = dataTable.getAll(ZenOperator.class.getCanonicalName())
 
         try {
             File file
-            if (CGConfig.getCustomScriptPaths().length > 0){
+            if (CGConfig.getCustomScriptPaths().length > 0) {
                 file = new File(CGConfig.getCustomScriptPaths()[0], "operators.gdsl")
             } else {
                 file = new File("operators.gdsl")
             }
 
             writer = new PrintWriter(file)
-        } catch (Exception e){
+        } catch (Exception e) {
             CraftGroovy.error("Error while writing to operators.gdsl", e)
 
             writer?.flush()
@@ -38,13 +38,13 @@ class OperatorMixins {
                 def clazz = Thread.currentThread().getContextClassLoader().loadClass(zenOperator.className)
                 def funName = zenOperator.objectName.substring(0, zenOperator.objectName.indexOf('('))
 
-                for (def m : clazz.getDeclaredMethods()){
-                    if (m.getName() == funName && m.isAnnotationPresent(ZenOperator.class)){
+                for (def m : clazz.getDeclaredMethods()) {
+                    if (m.getName() == funName && m.isAnnotationPresent(ZenOperator.class)) {
                         registerMethod(clazz, m, type)
                         break
                     }
                 }
-            } catch (ClassNotFoundException e){
+            } catch (ClassNotFoundException e) {
                 println "error finding class which should have a annotation"
                 e.printStackTrace()
             }
@@ -60,20 +60,20 @@ class OperatorMixins {
      * @param method
      * @param type
      */
-    static void registerMethod(Class clazz, Method method, String type){
+    static void registerMethod(Class clazz, Method method, String type) {
         def gType = TYPES[type]
 
         if (gType != null) {
 
             def params = ""
 
-            if (gType == "putAt"){
+            if (gType == "putAt") {
                 clazz.getMetaClass()."$gType" { a1, a2 ->
                     method.invoke(delegate, a1, a2)
                 }
 
                 def p = method.getParameterTypes()
-                if (p.length > 1){
+                if (p.length > 1) {
                     params = "params: [index: \"${p[0].name}\", value: \"${p[1]}\"]"
                 }
 
@@ -87,7 +87,7 @@ class OperatorMixins {
                 }
 
                 def p = method.getParameterTypes()
-                if (p.length > 0){
+                if (p.length > 0) {
                     params = "params: [obj: \"${p[0].name}\"]"
                 }
             }
@@ -105,24 +105,24 @@ class OperatorMixins {
 
 
     static def TYPES = [
-            "ADD": "plus",
-            "SUB": "minus",
-            "MUL": "multiply",
-            "DIV": "div",
-            "MOD": "mod",
-            "CAT": "leftShift",
-            "OR": "or",
-            "AND": "and",
-            "XOR": "xor",
-            "NEG": "bitwiseNegate",
-            "NOT": null,
-            "INDEXSET": "putAt",
-            "INDEXGET": "getAt",
-            "RANGE": null,
-            "CONTAINS": null,
-            "COMPARE": null,
+            "ADD"         : "plus",
+            "SUB"         : "minus",
+            "MUL"         : "multiply",
+            "DIV"         : "div",
+            "MOD"         : "mod",
+            "CAT"         : "leftShift",
+            "OR"          : "or",
+            "AND"         : "and",
+            "XOR"         : "xor",
+            "NEG"         : "bitwiseNegate",
+            "NOT"         : null,
+            "INDEXSET"    : "putAt",
+            "INDEXGET"    : "getAt",
+            "RANGE"       : null,
+            "CONTAINS"    : null,
+            "COMPARE"     : null,
             "MEMBERGETTER": "getAt",
             "MEMBERSETTER": "putAt",
-            "EQUALS": null
+            "EQUALS"      : null
     ]
 }

@@ -236,7 +236,7 @@ class PItemStack extends AbstractICGWrapper<ItemStack> {
     }
 
     @GSLWhitelistMember
-    PItemStack setNBT(String nbtString){
+    PItemStack setNBT(String nbtString) {
         internal.setTagCompound(JsonToNBT.getTagFromJson(nbtString))
         return this
     }

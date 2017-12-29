@@ -80,5 +80,5 @@ trait MCInWorldObjects {
     }
 
     @GSLWhitelistMember
-    CGItemProp getCreateItem() {return new CGItemProp()}
+    CGItemProp getCreateItem() { return new CGItemProp() }
 }

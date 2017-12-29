@@ -6,7 +6,10 @@ import atm.bloodworkxgaming.craftgroovy.closures.CGClosureList;
 import groovy.lang.Closure;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class ClosureManager {
@@ -41,7 +44,7 @@ public class ClosureManager {
             if (!closureList.isSorted()) closureList.sort();
 
             for (CGClosure cgClosure : closureList.getList()) {
-                if (shouldRun == null || shouldRun.test(cgClosure)){
+                if (shouldRun == null || shouldRun.test(cgClosure)) {
                     Closure closure = cgClosure.getClosure();
                     Closure code = closure.rehydrate(delegate, closure.getOwner(), closure.getThisObject());
                     code.setResolveStrategy(Closure.DELEGATE_FIRST);

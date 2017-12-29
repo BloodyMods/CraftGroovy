@@ -13,23 +13,21 @@ import java.util.Random;
 
 import static atm.bloodworkxgaming.craftgroovy.worldgen.CGWorldGenManager.WORLGEN_DEBUG;
 
-public class CGWorldGen implements IWorldGenerator
-{
-    private void generateWorld(World world, Random rand, int blockX, int blockZ)
-    {
+public class CGWorldGen implements IWorldGenerator {
+    private void generateWorld(World world, Random rand, int blockX, int blockZ) {
         int dimID = world.provider.getDimension();
         for (FlowerWorldGenType flowerWorldGenType : CGWorldGenManager.FLOWER_WORLD_GEN_LIST) {
-            if (flowerWorldGenType.blockState != null){
-                if ((flowerWorldGenType.whitelistDimensions.isEmpty() || flowerWorldGenType.whitelistDimensions.contains(dimID)) && !flowerWorldGenType.blacklistDimensions.contains(dimID)){
+            if (flowerWorldGenType.blockState != null) {
+                if ((flowerWorldGenType.whitelistDimensions.isEmpty() || flowerWorldGenType.whitelistDimensions.contains(dimID)) && !flowerWorldGenType.blacklistDimensions.contains(dimID)) {
                     WorldGenerator genFlower = new FlowerGenerator(flowerWorldGenType);
 
                     int MIN = flowerWorldGenType.minFlowers;
                     int MAX = flowerWorldGenType.maxFlowers;
                     int numBushes = MIN + rand.nextInt(MAX - MIN);
 
-                    if (WORLGEN_DEBUG) CraftGroovy.info("We are in the chunk at X: " + blockX + " Y: " + blockZ + " of the dimension " + dimID + " and we are trying to spawn " + numBushes + " bushes");
-                    for(int i = 0; i < numBushes; i++)
-                    {
+                    if (WORLGEN_DEBUG)
+                        CraftGroovy.info("We are in the chunk at X: " + blockX + " Y: " + blockZ + " of the dimension " + dimID + " and we are trying to spawn " + numBushes + " bushes");
+                    for (int i = 0; i < numBushes; i++) {
                         // get a random position in the chunk
                         int randX = blockX + rand.nextInt(16);
                         int randZ = blockZ + rand.nextInt(16);
@@ -37,10 +35,11 @@ public class CGWorldGen implements IWorldGenerator
                         // the y-value we pass here will do nothing
                         genFlower.generate(world, rand, new BlockPos(randX, 0, randZ));
                     }
-                }else {
-                    if (WORLGEN_DEBUG) CraftGroovy.info("Skipping as we are in the chunk at X: " + blockX + " Y: " + blockZ + " of the dimension " + dimID);
+                } else {
+                    if (WORLGEN_DEBUG)
+                        CraftGroovy.info("Skipping as we are in the chunk at X: " + blockX + " Y: " + blockZ + " of the dimension " + dimID);
                 }
-            }else {
+            } else {
                 if (WORLGEN_DEBUG) CraftGroovy.info("Skipping due to null BlockState");
             }
         }

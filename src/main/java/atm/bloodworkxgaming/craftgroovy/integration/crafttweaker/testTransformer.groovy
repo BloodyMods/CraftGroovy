@@ -2,7 +2,7 @@ package atm.bloodworkxgaming.craftgroovy.integration.crafttweaker
 
 
 String script =
-"""
+        """
 import crafttweaker.item.IIngredient;
 import crafttweaker.item.IItemStack;
 import crafttweaker.oredict.IOreDict;

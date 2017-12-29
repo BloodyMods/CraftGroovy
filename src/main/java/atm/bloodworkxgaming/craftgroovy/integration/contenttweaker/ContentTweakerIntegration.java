@@ -7,7 +7,7 @@ import com.teamacronymcoders.contenttweaker.modules.vanilla.resources.sounds.Sou
 import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
 
 public class ContentTweakerIntegration {
-    public static void whitelistClasses(GroovySandboxedLauncher sandboxedLauncher){
+    public static void whitelistClasses(GroovySandboxedLauncher sandboxedLauncher) {
         sandboxedLauncher.whitelistRegistry.registerMethod(BlockBracketHandler.class, "getBlock");
         sandboxedLauncher.whitelistRegistry.registerMethod(MaterialBracketHandler.class, "getBlockMaterial");
         sandboxedLauncher.whitelistRegistry.registerMethod(SoundEventBracketHandler.class, "getSoundEvent");

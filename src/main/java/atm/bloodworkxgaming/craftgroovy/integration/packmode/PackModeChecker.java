@@ -9,9 +9,9 @@ import java.util.List;
 public class PackModeChecker {
     @GSLWhitelistMember
     public static String getPackMode() {
-        if (Loader.isModLoaded("packmode")){
+        if (Loader.isModLoaded("packmode")) {
             return PackModeAPI.getInstance().getCurrentPackMode();
-        }else {
+        } else {
             return "PACKMODE_NOT_INSTALLED";
         }
     }

@@ -18,6 +18,11 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
         super(internal);
     }
 
+    @GSLWhitelistMember
+    public static String getTagTypeName(int p_193581_0_) {
+        return NBTBase.getTagTypeName(p_193581_0_);
+    }
+
     /**
      * Gets a set with the names of the keys in the tag compound.
      */
@@ -41,6 +46,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores the given tag into the map with the given string key. This is mostly used to store tag lists.
+     *
      * @param key
      * @param value
      */
@@ -51,6 +57,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagByte with the given byte value into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -61,6 +68,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagShort with the given short value into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -71,6 +79,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagInt with the given integer value into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -81,6 +90,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagLong with the given long value into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -107,6 +117,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagFloat with the given float value into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -117,6 +128,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagDouble with the given double value into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -127,6 +139,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagString with the given string value into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -137,6 +150,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagByteArray with the given array as data into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -147,6 +161,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores a new NBTTagIntArray with the given array as data into the map with the given string key.
+     *
      * @param key
      * @param value
      */
@@ -157,6 +172,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Stores the given boolean value as a NBTTagByte, storing 1 for true and 0 for false, using the given string key.
+     *
      * @param key
      * @param value
      */
@@ -167,6 +183,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * gets a generic tag with the specified name
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -176,6 +193,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Gets the ID byte for the given tag key
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -185,6 +203,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Returns whether the given string has been previously stored as a key in the map.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -196,6 +215,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
      * Returns whether the given string has been previously stored as a key in this tag compound as a particular type,
      * denoted by a parameter in the form of an ordinal. If the provided ordinal is 99, this method will match tag types
      * representing numbers.
+     *
      * @param key
      * @param type
      */
@@ -206,6 +226,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves a byte value using the specified key, or 0 if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -215,6 +236,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves a short value using the specified key, or 0 if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -224,6 +246,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves an integer value using the specified key, or 0 if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -233,6 +256,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves a long value using the specified key, or 0 if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -242,6 +266,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves a float value using the specified key, or 0 if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -251,6 +276,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves a double value using the specified key, or 0 if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -260,6 +286,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves a string value using the specified key, or an empty string if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -269,6 +296,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves a byte array using the specified key, or a zero-length array if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -278,6 +306,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Retrieves an int array using the specified key, or a zero-length array if no such key was stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -288,6 +317,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
     /**
      * Retrieves a NBTTagCompound subtag matching the specified key, or a new empty NBTTagCompound if no such key was
      * stored.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -297,6 +327,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Gets the NBTTagList object with the given name.
+     *
      * @param key
      * @param type
      */
@@ -308,6 +339,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
     /**
      * Retrieves a boolean value using the specified key, or false if no such key was stored. This uses the getByte
      * method.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -317,6 +349,7 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Remove the specified tag.
+     *
      * @param key
      */
     @GSLWhitelistMember
@@ -342,15 +375,11 @@ public class PNBTTagCompound extends AbstractICGWrapper<NBTTagCompound> {
 
     /**
      * Merges copies of data contained in {@code other} into this compound tag.
+     *
      * @param other
      */
     @GSLWhitelistMember
     public void merge(NBTTagCompound other) {
         internal.merge(other);
-    }
-
-    @GSLWhitelistMember
-    public static String getTagTypeName(int p_193581_0_) {
-        return NBTBase.getTagTypeName(p_193581_0_);
     }
 }
