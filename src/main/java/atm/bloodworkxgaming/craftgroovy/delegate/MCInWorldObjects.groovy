@@ -1,6 +1,5 @@
 package atm.bloodworkxgaming.craftgroovy.delegate
 
-import atm.bloodworkxgaming.craftgroovy.gdsl.item.CGItemProp
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBlock
 import atm.bloodworkxgaming.craftgroovy.wrappers.PBlockState
 import atm.bloodworkxgaming.craftgroovy.wrappers.PItem
@@ -78,7 +77,4 @@ trait MCInWorldObjects {
     PBlockState createBlockState(PBlock block, int meta = 0) {
         return block.getStateFromMeta(meta)
     }
-
-    @GSLWhitelistMember
-    CGItemProp getCreateItem() { return new CGItemProp() }
 }

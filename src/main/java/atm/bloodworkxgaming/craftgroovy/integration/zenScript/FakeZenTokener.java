@@ -24,6 +24,7 @@ public class FakeZenTokener extends ZenTokener {
             e.printStackTrace();
         }
     }
+
     public FakeZenTokener() throws IOException {
         super("TEST_CONTENT", crtCompileEnv, fileName, true);
     }
