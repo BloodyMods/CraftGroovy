@@ -1,9 +1,11 @@
 package atm.bloodworkxgaming.craftgroovy.gdsl.item
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy
+import groovy.transform.CompileStatic
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
 
+@CompileStatic
 class ItemGDSLDumper {
     static void dumpItems(File f) {
         PrintWriter writer = null
@@ -22,7 +24,7 @@ class ItemGDSLDumper {
             writer.append "def m = ["
             for (def items : itemNames) {
                 writer.append "$items.key: ["
-                items.value.each { writer.append "\"$it\"," }
+                items.value.each { writer.append "\"${it.capitalize()}\"," }
                 writer.append "],\n"
             }
             writer.append "]\n"
@@ -41,17 +43,43 @@ class ItemGDSLDumper {
                             |
                             |def n2 = "atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.dsl.CrTdslItemPropModName"
                             |def o2 = "crafttweaker.api.item.IItemStack"
-                            """.stripMargin()
+                            |""".stripMargin()
 
             for (int i : 1..2) {
+/*
+                writer.append """
+                                |m.each { e ->
+                                |    e.value.each { v ->
+                                |        contributor(context(ctype: "\${n$i}_\${e.value}")){
+                                |            method(name: "get" + v.capitalize(), type: o$i)
+                                |        }
+                                |    }
+                                |}
+                                """.stripMargin()
+*/
+
+
                 itemNames.keySet().each {
-                    writer.append """
-                                    |contributor(context(ctype: "\${n${i}}_$it")){
-                                    |    m["$it"].each { c ->
+                    /*for (c in m["minecraft"]) {
+        property(name: c, type: o1)
+
+                                        |    m["$it"].each { c ->
                                     |        property(name: c, type: o$i)
                                     |    }
-                                    |}
+
+                                    method(name: "and", type: "crafttweaker.api.data.IData",
+          params: [obj: "crafttweaker.api.data.IData"])
+    }*/
+                    writer.append """
+                                    |contributor(context(ctype: "\${n${i}}_$it")){
+                                    |   
                                     """.stripMargin()
+
+                    itemNames.get(it).each {
+                        writer.append("\tmethod(name: \"get${it.capitalize()}\", type: o$i)\n")
+                    }
+
+                    writer.append("}\n")
                 }
             }
 

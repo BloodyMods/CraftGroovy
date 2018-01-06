@@ -15,34 +15,30 @@ import atm.bloodworkxgaming.craftgroovy.wrappers.PRightClickBlock
 import de.bloodworkxgaming.groovysandboxedlauncher.annotations.GSLWhitelistMember
 import groovy.transform.CompileStatic
 
+@CompileStatic
 class CGEventManager {
 
-    @CompileStatic
     @GSLWhitelistMember
     static def blockBreak(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = PBreakEvent) Closure cl) {
         return ClosureManager.addClosureToMap(CGEventNames.CG_BLOCK_BREAK.name(), cl)
     }
 
-    @CompileStatic
     @GSLWhitelistMember
     static def blockPlace(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = PPlaceEvent) Closure cl) {
         return ClosureManager.addClosureToMap(CGEventNames.CG_BLOCK_PLACE.name(), cl)
     }
 
-    @CompileStatic
     @GSLWhitelistMember
     static def rightClickBlock(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = PRightClickBlock) Closure cl) {
         return ClosureManager.addClosureToMap(CGEventNames.CG_RIGHTCLICK_BLOCK_MAINHAND.name(), cl)
     }
 
-    @CompileStatic
     @GSLWhitelistMember
     static def rightClickBlockOffHand(
             @DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = PRightClickBlock) Closure cl) {
         return ClosureManager.addClosureToMap(CGEventNames.CG_RIGHTCLICK_BLOCK_OFFHAND.name(), cl)
     }
 
-    @CompileStatic
     @GSLWhitelistMember
     static def itemPickUp(@DelegatesTo(strategy = Closure.DELEGATE_FIRST, value = PEntityItemPickupEvent) Closure cl) {
         return ClosureManager.addClosureToMap(CGEventNames.CG_ITEM_PICKUP.name(), cl)

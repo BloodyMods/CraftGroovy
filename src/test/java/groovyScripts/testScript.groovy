@@ -110,7 +110,7 @@ CGEventManager.craftTweaker {
     println i
     Globals.coal
 
-    println item.minecraft.wrench ** 12 * 10
+    item.
 
     println bracket("ore:coal")
     def sap  = bracket("minecraft:sapling:3")
@@ -124,6 +124,12 @@ CGEventManager.craftTweaker {
     PBlock.getBlockFromName("minecraft:bedrock").setHardness(4)
 
     recipes.addShaped(item("minecraft:coal"), [[item("minecraft:coal", 2), item("minecraft:coal")]])
+
+    recipes.addShaped(item("minecraft:coal"),
+            [[item("minecraft:coal", 2), item("minecraft:coal")],
+            [item("minecraft:coal"), null, ore("ingotIron")]])
+
+
     recipes.addShaped(sap, [[item("minecraft:coal", 2), item("minecraft:coal")]])
     recipes.addShapedMirrored(item("minecraft:coal") * 20, [[item("minecraft:coal"), item("minecraft:coal")], [ore("dustRedstone") * 20]])
 }
@@ -180,7 +186,7 @@ CGEventManager.initEvent {
     println "Running init"
     CGWorldGenManager.WORLGEN_DEBUG = false
 
-    println "wierd coal: " + (createItem ** 4 * 2).getMetadata()
+    // println "wierd coal: " + (createItem ** 4 * 2).getMetadata()
 
     println("2to2 test" + (20 .. 1))
 
