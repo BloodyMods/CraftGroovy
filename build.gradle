@@ -7,7 +7,10 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
-plugins { id "com.github.johnrengelman.shadow" version "2.0.1" }
+plugins {
+    id "com.gradle.build-scan" version "1.9"
+    id "com.github.johnrengelman.shadow" version "2.0.1"
+}
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'groovy'
@@ -15,11 +18,9 @@ apply plugin: 'groovy'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "0.1.1"
+// version = "0.1.1"
 group = "atm.bloodworkxgaming.craftgroovy" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "craftgroovy"
-
-def mod_version = version
+archivesBaseName = "${archivebase}"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -37,12 +38,16 @@ sourceSets {
 minecraft {
     version = "1.12.2-14.23.1.2581"
     runDir = "run"
-    replace "@VERSION@", mod_version
-
+    replace "@MAJOR@", version_major
+    replace "@MINOR@", version_minor
+    replace "@REVIS@", version_revis
+    replace "@BUILD@", project.getBuildNumber()
 
     mappings = "snapshot_20170823"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
+
+apply from: "gradle/scripts/version.gradle"
 
 repositories {
     maven { // crt
@@ -55,7 +60,7 @@ repositories {
 }
 
 dependencies {
-    deobfCompile ('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.10.306') {
+    deobfCompile ('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.+') {
         exclude group: 'org.ow2.asm'
     }
     deobfCompile 'com.teamacronymcoders:ContentTweaker:1.12-4.1.0-Snapshot.+'

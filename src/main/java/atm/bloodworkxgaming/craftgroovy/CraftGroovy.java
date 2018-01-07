@@ -38,7 +38,7 @@ import java.util.List;
 @Mod(modid = CraftGroovy.MODID, name = "Craft Groovy", version = CraftGroovy.VERSION, dependencies = "after:crafttweaker; before:contenttweaker", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class CraftGroovy {
     public static final String MODID = "craftgroovy";
-    public static final String VERSION = "@VERSION@";
+    public static final String VERSION = "@MAJOR@.@MINOR@.@REVIS@.@BUILD@";
 
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
     public static final List<ILogger> loggers = new ArrayList<>();
