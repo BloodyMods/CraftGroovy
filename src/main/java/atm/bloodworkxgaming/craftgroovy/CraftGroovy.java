@@ -7,7 +7,6 @@ import atm.bloodworkxgaming.craftgroovy.events.CGEventNames;
 import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
-import atm.bloodworkxgaming.craftgroovy.integration.zenScript.ListMixin;
 import atm.bloodworkxgaming.craftgroovy.integration.zenScript.OperatorMixins;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
@@ -24,7 +23,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -40,7 +38,7 @@ import java.util.List;
 @Mod(modid = CraftGroovy.MODID, name = "Craft Groovy", version = CraftGroovy.VERSION, dependencies = "after:crafttweaker; before:contenttweaker", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class CraftGroovy {
     public static final String MODID = "craftgroovy";
-    public static final String VERSION = "0.1";
+    public static final String VERSION = "@VERSION@";
 
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
     public static final List<ILogger> loggers = new ArrayList<>();

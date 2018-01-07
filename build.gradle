@@ -15,10 +15,11 @@ apply plugin: 'groovy'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "0.1"
+version = "0.1.1"
 group = "atm.bloodworkxgaming.craftgroovy" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "craftgroovy"
 
+def mod_version = version
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -36,6 +37,8 @@ sourceSets {
 minecraft {
     version = "1.12.2-14.23.1.2581"
     runDir = "run"
+    replace "@VERSION@", mod_version
+
 
     mappings = "snapshot_20170823"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
