@@ -142,7 +142,6 @@ public class CraftGroovy {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         GameRegistry.registerWorldGenerator(new CGWorldGen(), 10);
-
         ClosureManager.runClosuresWithDelegate(new InitDelegate(), CGEventNames.CG_INIT_EVENT.name());
     }
 
