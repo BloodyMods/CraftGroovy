@@ -86,13 +86,27 @@ processResources {
 
 
 shadowJar {
-    // classifier = ""
+    classifier = ""
+    // include "de.bloodworkxgaming.groovysandboxedlauncher.*"
+    // include "org.kohsuke.groovy.sandbox.*"
 
     dependencies {
         include(project(':groovysandboxedlauncher'))
+        //exclude(dependency('org.codehaus.groovy:.*'))
+
+        /*exclude("groovy/**")
+        exclude("groovyjarjarantlr/**")
+        exclude("groovyjarjarasm/**")
+        exclude("groovyjarjarcommonscli/**")
+        exclude("org/codehaus/**")*/
+
+
+        // include "de/bloodworkxgaming//groovysandboxedlauncher//**"
+        // include "org.kohsuke.groovy.sandbox.*"
     }
 }
 
 reobf { shadowJar { mappingType = "SEARGE" } }
 tasks.reobfShadowJar.mustRunAfter shadowJar
 tasks.reobfShadowJar.group = 'shadow'
+tasks.build.dependsOn shadowJar

@@ -1,6 +1,5 @@
 package atm.bloodworkxgaming.craftgroovy.integration.zenScript
 
-import atm.bloodworkxgaming.craftgroovy.CGConfig
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy
 import net.minecraftforge.fml.common.discovery.ASMDataTable
 import net.minecraftforge.fml.common.discovery.asm.ModAnnotation
@@ -8,30 +7,14 @@ import stanhebben.zenscript.annotations.ZenOperator
 
 import java.lang.reflect.Method
 
-class OperatorMixins {
-    private static PrintWriter writer = null
+class OperatorMixins extends AnnotatedElementMixiner {
+    OperatorMixins() {
+        super(ZenOperator.class, "operators")
+    }
 
-    static void manageOperators(ASMDataTable dataTable) {
-        Set<ASMDataTable.ASMData> zenOperators = dataTable.getAll(ZenOperator.class.getCanonicalName())
-
-        try {
-            File file
-            if (CGConfig.getCustomScriptPaths().length > 0) {
-                file = new File(CGConfig.getCustomScriptPaths()[0], "operators.gdsl")
-            } else {
-                file = new File("operators.gdsl")
-            }
-
-            writer = new PrintWriter(file)
-        } catch (Exception e) {
-            CraftGroovy.error("Error while writing to operators.gdsl", e)
-
-            writer?.flush()
-            writer?.close()
-        }
-
-
-        for (ASMDataTable.ASMData zenOperator : zenOperators) {
+    @Override
+    protected void doMixin(Set<ASMDataTable.ASMData> dataSet, PrintWriter writer) {
+        for (ASMDataTable.ASMData zenOperator : dataSet) {
             def type = (zenOperator.annotationInfo["value"] as ModAnnotation.EnumHolder).value
 
             try {
@@ -40,7 +23,7 @@ class OperatorMixins {
 
                 for (def m : clazz.getDeclaredMethods()) {
                     if (m.getName() == funName && m.isAnnotationPresent(ZenOperator.class)) {
-                        registerMethod(clazz, m, type)
+                        registerMethod(writer, clazz, m, type)
                         break
                     }
                 }
@@ -49,9 +32,6 @@ class OperatorMixins {
                 e.printStackTrace()
             }
         }
-
-        writer?.flush()
-        writer?.close()
     }
 
     /**
@@ -60,7 +40,7 @@ class OperatorMixins {
      * @param method
      * @param type
      */
-    static void registerMethod(Class clazz, Method method, String type) {
+    static void registerMethod(PrintWriter writer, Class clazz, Method method, String type) {
         def gType = TYPES[type]
 
         if (gType != null) {

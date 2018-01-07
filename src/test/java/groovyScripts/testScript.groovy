@@ -11,7 +11,9 @@ import com.teamacronymcoders.contenttweaker.api.ctobjects.blockpos.IBlockPos
 import com.teamacronymcoders.contenttweaker.api.ctobjects.blockstate.ICTBlockState
 import com.teamacronymcoders.contenttweaker.api.ctobjects.world.IWorld
 import com.teamacronymcoders.contenttweaker.modules.vanilla.VanillaFactory
+import crafttweaker.api.item.IIngredient
 import crafttweaker.api.item.IItemStack
+import crafttweaker.mc1120.recipes.MCRecipeManager
 import groovy.transform.Field
 
 import static com.teamacronymcoders.contenttweaker.modules.vanilla.resources.materials.MaterialBracketHandler.getBlockMaterial
@@ -110,7 +112,8 @@ CGEventManager.craftTweaker {
     println i
     Globals.coal
 
-    item.
+    def a = new MCRecipeManager()
+    a.addShaped(item("blib"), [[item("bla", 2)]] as IIngredient[][], null, null)
 
     println bracket("ore:coal")
     def sap  = bracket("minecraft:sapling:3")

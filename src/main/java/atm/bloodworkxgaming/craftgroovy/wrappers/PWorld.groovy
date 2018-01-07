@@ -111,7 +111,7 @@ class PWorld extends AbstractICGWrapper<World> {
 
     @GSLWhitelistMember
     void spawnItemInWorld(PItemStack itemStack, PBlockPos pos, double velX = 0, double velY = 0, double velZ = 0) {
-        spawnItemInWorld(itemStack, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, velX, velY, velZ)
+        spawnItemInWorld(itemStack, pos.x + 0.5f, pos.y + 0.5f, pos.z + 0.5f, velX, velY, velZ)
     }
 
     @GSLWhitelistMember

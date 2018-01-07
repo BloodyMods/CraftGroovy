@@ -5,9 +5,9 @@ import atm.bloodworkxgaming.craftgroovy.delegate.InitDelegate;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventHandler;
 import atm.bloodworkxgaming.craftgroovy.events.CGEventNames;
 import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
-import atm.bloodworkxgaming.craftgroovy.gdsl.item.ItemGDSLDumper;
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
+import atm.bloodworkxgaming.craftgroovy.integration.zenScript.ListMixin;
 import atm.bloodworkxgaming.craftgroovy.integration.zenScript.OperatorMixins;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
@@ -37,7 +37,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod(modid = CraftGroovy.MODID, name = "Craft Groovy", version = CraftGroovy.VERSION, dependencies = "after:crafttweaker; after:contenttweaker", acceptedMinecraftVersions = "[1.12, 1.13)")
+@Mod(modid = CraftGroovy.MODID, name = "Craft Groovy", version = CraftGroovy.VERSION, dependencies = "after:crafttweaker; before:contenttweaker", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class CraftGroovy {
     public static final String MODID = "craftgroovy";
     public static final String VERSION = "0.1";
@@ -106,11 +106,13 @@ public class CraftGroovy {
     }
 
     @EventHandler
-    public void construction(FMLConstructionEvent event) {
+    public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(cgEventHandler);
         CGConfig.init(new File("config/craftgroovy/craftgroovy.cfg"));
 
-        OperatorMixins.manageOperators(event.getASMHarvestedData());
+        (new OperatorMixins()).manageMixin(event.getAsmData());
+        // (new ListMixin()).manageMixin(event.getASMHarvestedData());
+
         sandboxedLauncher.registerResetEvent(eventObject -> cgEventHandler.clearAllClosureLists());
 
         for (String s : CGConfig.getCustomScriptPaths()) {
@@ -140,14 +142,8 @@ public class CraftGroovy {
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        // sandboxedLauncher.runFunctionAll("preinit", event);
-    }
-
-    @EventHandler
     public void init(FMLInitializationEvent event) {
         GameRegistry.registerWorldGenerator(new CGWorldGen(), 10);
-        ItemGDSLDumper.dumpItems(new File(CGConfig.getCustomScriptPaths()[0], "itemnames.gdsl"));
 
         ClosureManager.runClosuresWithDelegate(new InitDelegate(), CGEventNames.CG_INIT_EVENT.name());
     }
