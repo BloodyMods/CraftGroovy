@@ -1,3 +1,5 @@
+import se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask
+
 buildscript {
     repositories {
         jcenter()
@@ -9,6 +11,8 @@ buildscript {
 }
 plugins {
     id "com.gradle.build-scan" version "1.9"
+    id "com.matthewprenger.cursegradle" version "1.0.9"
+    id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.53"
     id "com.github.johnrengelman.shadow" version "2.0.1"
 }
 
@@ -27,6 +31,8 @@ sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse t
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
+
+apply from: "gradle/scripts/getbuildnumber.gradle"
 
 sourceSets {
     main {
@@ -92,6 +98,13 @@ processResources {
     }
 }
 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    //if project name is BBM-Dev it makes the deobf jar deobf-dev if not its just deobf
+    classifier = "deobf"
+    //sets where the jars go to.
+    mustRunAfter "jar"
+}
 
 shadowJar {
     classifier = ""
@@ -114,8 +127,53 @@ shadowJar {
     }
 }
 
+curseforge{
+    if (project.hasProperty("thecursedkey")) {
+        apiKey = project.thecursedkey
+    }
+    else {
+        apiKey = ""
+    }
+    project {
+        //CraftGroovy
+        id = "284321"
+        /*relations {
+            requiredLibrary 'libvulpes'
+        }*/
+        changelog = file('changelog.html')
+        changelogType = 'html'
+        releaseType = "alpha"
+        addGameVersion minecraft.version
+        mainArtifact(shadowJar) {
+            displayName = "CraftGroovy ${project.version}-UNSTABLE build " + project.getBuildNumber() +  " for " + minecraft.version
+        }
+        addArtifact (deobfJar){
+            displayName = "CraftGroovy ${project.version}-UNSTABLE-deobf build " + project.getBuildNumber() + " for " + minecraft.version
+        }
+    }
+}
+
+task makeChangelog(type: GitChangelogTask) {
+    file = new File ("changelog.html")
+    untaggedName = "Current release ${project.version}"
+    fromCommit = startGitRev
+    toRef =  "HEAD"
+    gitHubIssuePattern = "nonada123"
+    templateContent = """
+                        |{{#tags}}
+                        |<h1> Highly untested and may break world</h1>
+                        |  <h3>{{name}}</h3>
+                        |  <ul>
+                        |    {{#commits}}
+                        |    <li> <a href="https://github.com/BloodWorkXGaming/CraftGroovy/commit/{{hash}}" target=_blank> {{{message}}}</a>
+                        |</li>
+                        |    {{/commits}}
+                        |  </ul>
+                        |{{/tags}}
+                        |""".stripMargin()
+}
+
+
 reobf { shadowJar { mappingType = "SEARGE" } }
-tasks.reobfShadowJar.mustRunAfter shadowJar
-tasks.reobfShadowJar.group = 'shadow'
-tasks.build.dependsOn shadowJar
+tasks.build.dependsOn makeChangelog, shadowJar
 
