@@ -7,6 +7,7 @@ import atm.bloodworkxgaming.craftgroovy.events.CGEventNames;
 import atm.bloodworkxgaming.craftgroovy.events.ClosureManager;
 import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweakerIntegration;
 import atm.bloodworkxgaming.craftgroovy.integration.crafttweaker.CrTIntegration;
+import atm.bloodworkxgaming.craftgroovy.integration.zenScript.ListMixin;
 import atm.bloodworkxgaming.craftgroovy.integration.zenScript.OperatorMixins;
 import atm.bloodworkxgaming.craftgroovy.logger.ConsoleLogger;
 import atm.bloodworkxgaming.craftgroovy.logger.FileLogger;
@@ -109,7 +110,7 @@ public class CraftGroovy {
         CGConfig.init(new File("config/craftgroovy/craftgroovy.cfg"));
 
         (new OperatorMixins()).manageMixin(event.getAsmData());
-        // (new ListMixin()).manageMixin(event.getASMHarvestedData());
+        (new ListMixin()).manageMixin(event.getAsmData());
 
         sandboxedLauncher.registerResetEvent(eventObject -> cgEventHandler.clearAllClosureLists());
 
