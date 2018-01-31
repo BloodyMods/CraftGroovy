@@ -112,8 +112,8 @@ CGEventManager.craftTweaker {
     println i
     Globals.coal
 
-    def a = new MCRecipeManager()
-    a.addShaped(item("blib"), [[item("bla", 2)]] as IIngredient[][], null, null)
+//    def a = new MCRecipeManager()
+//    a.addShaped(item("blib"), [[item("bla", 2)]] as IIngredient[][], null, null)
 
     println bracket("ore:coal")
     def sap  = bracket("minecraft:sapling:3")

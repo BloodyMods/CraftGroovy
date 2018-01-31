@@ -1,23 +1,26 @@
-    package atm.bloodworkxgaming.craftgroovy.integration.zenScript
+package atm.bloodworkxgaming.craftgroovy.integration.zenScript
 
+import atm.bloodworkxgaming.craftgroovy.CraftGroovy
+import it.unimi.dsi.fastutil.ints.Int2IntMap
+import it.unimi.dsi.fastutil.ints.Int2IntRBTreeMap
 import net.minecraftforge.fml.common.discovery.ASMDataTable
-    import org.apache.commons.lang3.ClassUtils
-    import stanhebben.zenscript.annotations.ZenMethod
+import org.apache.commons.lang3.ClassUtils
+import stanhebben.zenscript.annotations.ZenMethod
 
 import java.lang.reflect.Method
+import java.lang.reflect.Modifier
+import java.lang.reflect.Parameter
 import java.util.regex.Pattern
 
-class ListMixin extends AnnotatedElementMixiner{
+class ListMixin extends AnnotatedElementMixiner {
     ListMixin() {
         super(ZenMethod.class, "lists")
     }
 
-    private static ClassLoader classLoader = Thread.currentThread().getContextClassLoader()
-
     @Override
     protected void doMixin(Set<ASMDataTable.ASMData> dataSet, PrintWriter writer) {
         for (ASMDataTable.ASMData methodData : dataSet) {
-            if (!(methodData.objectName ==~ /.*\(.*\[.*\).*/ )){
+            if (!(methodData.objectName ==~ /.*\(.*\[.*\).*/)) {
                 continue
             }
 
@@ -29,42 +32,32 @@ class ListMixin extends AnnotatedElementMixiner{
                 def funName = methodData.objectName.substring(0, methodData.objectName.indexOf('('))
 
                 def arg_string = methodData.objectName.substring(methodData.objectName.indexOf('('), methodData.objectName.indexOf(')'))
-
-                println "methodData = ${methodData.objectName}"
-
                 def arg_list = contructArgList(arg_string)
 
-
-                println "arg_list = $arg_list"
-
                 def method = clazz.getMethod(funName, arg_list as Class<?>[])
-                println "method = $method"
+                if (method == null)
+                    continue
 
-
-
-                def arg_list_of_list = new ArrayList()
-
-                for (a in arg_list){
-                    if (a.isArray()){
+                // Creates the alternative arguments to check for already implemented alternative
+                def arg_list_of_list = new ArrayList<>()
+                for (a in arg_list) {
+                    if (a.isArray()) {
                         arg_list_of_list.add(List.class)
                     } else {
                         arg_list_of_list.add(a)
                     }
                 }
 
-
+                // registers the alt method if the other one doesn't exist yet
                 try {
                     def altMethod = clazz.getMethod(funName, arg_list_of_list as Class<?>[])
-                    println "altMethod = $altMethod"
-                } catch (NoSuchMethodException e){
-                    println "No alt method is implemented yet for funName"
+                    println "Function already has an alternative method implemented, ignoring = $altMethod"
+                } catch (NoSuchMethodException ignored) {
+                    registerMethod(writer, clazz, funName, method, method.getParameters(), method.getReturnType())
                 }
 
-
-
-
-            } catch (ClassNotFoundException e) {
-                println "error finding class which should have a annotation"
+            } catch (ClassNotFoundException | NoSuchMethodException e) {
+                println "error finding class or function which should have a annotation"
                 e.printStackTrace()
             }
 
@@ -72,7 +65,8 @@ class ListMixin extends AnnotatedElementMixiner{
     }
 
     static Pattern pattern = Pattern.compile(/(\[*((L.*?;)|[ZBCDFIJSV]))/)
-    static List<Class<?>> contructArgList(String argString){
+
+    static List<Class<?>> contructArgList(String argString) {
         def strings = argString.findAll(pattern)
         List<Class<?>> classList = new ArrayList<>()
 
@@ -83,7 +77,7 @@ class ListMixin extends AnnotatedElementMixiner{
                 s = s.substring(1, s.size() - 1)
             }
 
-            switch (s){
+            switch (s) {
                 case "Z": classList.add(boolean); continue outLoop
                 case "B": classList.add(byte); continue outLoop
                 case "C": classList.add(char); continue outLoop
@@ -99,7 +93,7 @@ class ListMixin extends AnnotatedElementMixiner{
                 def clazz = ClassUtils.getClass(s)
                 classList.add(clazz)
 
-            } catch (ClassNotFoundException e ){
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace()
             }
         }
@@ -109,23 +103,60 @@ class ListMixin extends AnnotatedElementMixiner{
 
     }
 
+    private static void registerMethod(PrintWriter writer, final Class mainClass, String methodName, Method method, Parameter[] params, Class<?> returnType) {
+        // Creates the alternative arguments to check for already implemented alternative
+        final def arg_list_of_list = new ArrayList<Class<?>>()
+        final Int2IntMap int2IntMap = new Int2IntRBTreeMap()
+        def sb = new StringBuilder()
 
-    static void registerMethod(PrintWriter writer, Class clazz, Method method) {
+        sb.append("contributor(context(ctype: \"$mainClass.canonicalName\")){method(name:\"$methodName\",type:\"$returnType.canonicalName\",params: [")
+
+        params.eachWithIndex { Parameter entry, int i ->
+            def clazz = entry.getType()
+
+            if (clazz.isArray()) {
+
+                // counts the depth of the array
+                def array = clazz
+                int count = 0
+                while (array.isArray()) {
+                    count++
+                    array = array.getComponentType()
+                }
+
+                arg_list_of_list.add(List.class)
+                int2IntMap.put(i, count)
+                sb.append("$entry.name: \"${"List<" * count}$array.canonicalName${">" * count}\"")
+
+            } else {
+                arg_list_of_list.add(clazz)
+                sb.append("$entry.name: \"$clazz.canonicalName\"")
+            }
+
+            sb.append(", ")
+        }
+        sb.append("])}\n")
+
+        // creates the closure that is the new function
         def cl = { Object... args ->
-            
+            def list = []
+
+            args.eachWithIndex { Object entry, int i ->
+                list.add(entry.asType(params[i].getType()))
+            }
+
+            return method.invoke(delegate, list as Object[])
         }
 
+        // different adding of static methods
+        if (method.getModifiers() & Modifier.STATIC) {
+            mainClass.getMetaClass().static."$methodName" = cl
+        } else {
+            mainClass.getMetaClass()."$methodName" = cl
+        }
 
-/*
-            CraftGroovy.sandboxedLauncher.whitelistRegistry.registerMethod(clazz, method.getName())
-
-            // Creates a gdsl file as otherwise it wouldn't work with highlighting
-            writer?.append """contributor(context(ctype: \"${clazz.getName()}\")) {
-                            |   method(name: "$gType", type: "${method.getReturnType().getName()}",
-                            |          $params)
-                            |}\n""".stripMargin()
-             */
-
+        writer?.append(sb)
+        CraftGroovy.sandboxedLauncher.whitelistRegistry.registerMethod(mainClass, methodName)
     }
 
 }
