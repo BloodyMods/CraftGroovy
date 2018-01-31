@@ -1,7 +1,6 @@
 package groovyScripts
 
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
-import atm.bloodworkxgaming.craftgroovy.integration.zenScript.TestStatic
 import com.teamacronymcoders.contenttweaker.modules.materials.CTMaterialSystem
 import crafttweaker.api.item.IItemUtils
 

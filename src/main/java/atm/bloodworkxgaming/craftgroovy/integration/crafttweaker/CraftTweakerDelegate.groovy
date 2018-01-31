@@ -14,6 +14,7 @@ import crafttweaker.api.liquid.ILiquidStack
 import crafttweaker.api.oredict.IOreDict
 import crafttweaker.api.oredict.IOreDictEntry
 import crafttweaker.api.potions.IPotion
+import crafttweaker.api.recipes.IBrewingManager
 import crafttweaker.api.recipes.IFurnaceManager
 import crafttweaker.api.server.IServer
 import crafttweaker.api.vanilla.IVanilla
@@ -55,6 +56,8 @@ class CraftTweakerDelegate {
     public static IVanilla vanilla = CraftTweakerAPI.vanilla
     @GSLWhitelistMember
     public static ILogger logger = CraftTweakerAPI.getLogger()
+    @GSLWhitelistMember
+    public static IBrewingManager brewing = CraftTweakerAPI.brewingManager
 
     @GSLWhitelistMember
     static IItemStack item(String name, int meta = 0) {
