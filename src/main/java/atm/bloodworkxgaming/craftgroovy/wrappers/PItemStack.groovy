@@ -77,7 +77,7 @@ class PItemStack extends AbstractICGWrapper<ItemStack> {
 
     @GSLWhitelistMember
     float getStrVsBlock(PBlockState blockIn) {
-        return internal.getStrVsBlock(blockIn.getInternal())
+        return internal.getDestroySpeed(blockIn.getInternal())
     }
 
     @GSLWhitelistMember

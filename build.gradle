@@ -42,14 +42,14 @@ sourceSets {
 }
 
 minecraft {
-    version = "1.12.2-14.23.1.2581"
+    version = "1.12.2-14.23.2.2623"
     runDir = "run"
     replace "@MAJOR@", version_major
     replace "@MINOR@", version_minor
     replace "@REVIS@", version_revis
     replace "@BUILD@", project.getBuildNumber()
 
-    mappings = "snapshot_20170823"
+    mappings = "snapshot_20180223"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
