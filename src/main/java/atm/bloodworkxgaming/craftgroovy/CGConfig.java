@@ -1,12 +1,10 @@
 package atm.bloodworkxgaming.craftgroovy;
 
-import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 import java.io.File;
 
-@Config(modid = CraftGroovy.MODID)
 public class CGConfig {
     private static Property customScriptPaths;
     private static boolean dumpGDSL;

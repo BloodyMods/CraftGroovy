@@ -56,7 +56,7 @@ class ListMixin extends AnnotatedElementMixiner {
                     registerMethod(writer, clazz, funName, method, method.getParameters(), method.getReturnType())
                 }
 
-            } catch (ClassNotFoundException | NoSuchMethodException e) {
+            } catch (Exception e) {
                 println "error finding class or function which should have a annotation"
                 e.printStackTrace()
             }

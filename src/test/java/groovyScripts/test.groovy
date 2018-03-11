@@ -3,11 +3,14 @@ package groovyScripts
 import atm.bloodworkxgaming.craftgroovy.events.CGEventManager
 import com.teamacronymcoders.contenttweaker.modules.materials.CTMaterialSystem
 import crafttweaker.api.item.IItemUtils
+import groovy.transform.Field
 
 def bla(double f) {
     println f
 }
 
+@Field
+static String str = "Potato"
 
 bla(23.0d)
 

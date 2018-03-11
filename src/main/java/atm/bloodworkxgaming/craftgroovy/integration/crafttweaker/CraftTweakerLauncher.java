@@ -9,11 +9,16 @@ import atm.bloodworkxgaming.craftgroovy.integration.contenttweaker.ContentTweake
 import atm.bloodworkxgaming.craftgroovy.integration.packmode.PackModeChecker;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.api.network.NetworkSide;
+import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher;
 import net.minecraftforge.fml.common.Loader;
 
+import java.text.Format;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher.*;
 
 public class CraftTweakerLauncher {
     public static void registerToEvent() {
@@ -37,11 +42,15 @@ public class CraftTweakerLauncher {
 
     private static void loadClosures(String loaderName) {
         // gets all scripts with the correct loader name
+        long timeStart = System.nanoTime();
+
         List<CGCraftTweakerClosure> closures = CGEventHandler.craftTweakerDelegates.getList()
                 .stream()
                 .filter(cgCraftTweakerClosure -> Objects.equals(cgCraftTweakerClosure.getLoaderName(), loaderName) && PackModeChecker.shouldLoad(cgCraftTweakerClosure.getPackModes()))
                 .collect(Collectors.toList());
 
         ClosureManager.runClosuresWithDelegate(new CraftTweakerDelegate(), new CGClosureList<>(closures), null);
+
+        CraftGroovy.info("Finished executing CraftTweakerClosures in " + DF.format((System.nanoTime() - timeStart)/1.0e6) + "ms.");
     }
 }
