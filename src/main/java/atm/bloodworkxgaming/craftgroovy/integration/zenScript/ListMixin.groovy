@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.ints.Int2IntMap
 import it.unimi.dsi.fastutil.ints.Int2IntRBTreeMap
 import net.minecraftforge.fml.common.discovery.ASMDataTable
 import org.apache.commons.lang3.ClassUtils
+import scala.reflect.internal.Trees
 import stanhebben.zenscript.annotations.ZenMethod
 
 import java.lang.reflect.Method
@@ -56,7 +57,7 @@ class ListMixin extends AnnotatedElementMixiner {
                     registerMethod(writer, clazz, funName, method, method.getParameters(), method.getReturnType())
                 }
 
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 println "error finding class or function which should have a annotation"
                 e.printStackTrace()
             }
