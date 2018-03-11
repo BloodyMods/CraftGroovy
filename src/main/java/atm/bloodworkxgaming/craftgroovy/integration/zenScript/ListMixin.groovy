@@ -1,6 +1,7 @@
 package atm.bloodworkxgaming.craftgroovy.integration.zenScript
 
 import atm.bloodworkxgaming.craftgroovy.CraftGroovy
+import de.bloodworkxgaming.groovysandboxedlauncher.sandbox.GroovySandboxedLauncher
 import it.unimi.dsi.fastutil.ints.Int2IntMap
 import it.unimi.dsi.fastutil.ints.Int2IntRBTreeMap
 import net.minecraftforge.fml.common.discovery.ASMDataTable
@@ -58,8 +59,10 @@ class ListMixin extends AnnotatedElementMixiner {
                 }
 
             } catch (Throwable e) {
-                println "error finding class or function which should have a annotation"
-                e.printStackTrace()
+                if (GroovySandboxedLauncher.DEBUG)
+                    CraftGroovy.error("error finding class or function which should have a annotation for $methodData.properties", e.printStackTrace())
+                else
+                    CraftGroovy.warn("error finding class or function which should have a annotation for $methodData.properties")
             }
 
         }

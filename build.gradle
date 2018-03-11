@@ -66,13 +66,13 @@ repositories {
 }
 
 dependencies {
-    deobfCompile ('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.+') {
+    deobfCompile ('CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.6.457') {
         exclude group: 'org.ow2.asm'
     }
-    deobfCompile 'com.teamacronymcoders:ContentTweaker:1.12-4.1.0-Snapshot.+'
-    deobfCompile 'com.teamacronymcoders.base:base:1.12-3.4.0-SNAPSHOT.78'
-    deobfCompile "mezz.jei:jei_1.12.1:4.7.+"
-    deobfCompile ('io.sommers:packmode:1.12.1-1.+')
+    deobfCompile 'com.teamacronymcoders:ContentTweaker:1.12.2-4.5.0'
+    deobfCompile 'com.teamacronymcoders.base:base:1.12.2-3.7.0-SNAPSHOT.132'
+    deobfCompile "mezz.jei:jei_1.12.2:4.8.5.159"
+    deobfCompile ('io.sommers:packmode:1.12.1-1.2.0-SNAPSHOT.6')
 
     compile (project(":groovysandboxedlauncher"))/* {
         exclude group: 'org.codehaus.groovy'
