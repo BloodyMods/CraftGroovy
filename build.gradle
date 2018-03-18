@@ -137,9 +137,11 @@ curseforge{
     project {
         //CraftGroovy
         id = "284321"
-        /*relations {
-            requiredLibrary 'libvulpes'
-        }*/
+        relations {
+            optionalLibrary 'contenttweaker'
+            optionalLibrary 'crafttweaker'
+            optionalLibrary 'packmode'
+        }
         changelog = file('changelog.html')
         changelogType = 'html'
         releaseType = "alpha"
